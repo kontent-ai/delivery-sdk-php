@@ -1,4 +1,5 @@
 <?php
+
 namespace KenticoCloud\Tests\Unit;
 
 use KenticoCloud\Delivery\Client;
@@ -14,5 +15,3 @@ class ClientTest extends TestCase
         $this->assertEquals('e9b81664-cbca-4f0e-b1c8-e7d862f4fd89', $i->system->id);
     }
 }
-
-

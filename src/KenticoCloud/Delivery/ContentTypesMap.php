@@ -2,12 +2,11 @@
 
 namespace KenticoCloud\Delivery;
 
-class ContentTypesMap extends TypesMap {
+class ContentTypesMap extends TypesMap
+{
+    public static $types = array(
+        
+    );
 
-	public static $types = array(
-		
-	);
-
-	public static $defaultTypeClass = \KenticoCloud\Delivery\Models\ContentItem::class;
-
+    public static $defaultTypeClass = \KenticoCloud\Delivery\Models\ContentItem::class;
 }
