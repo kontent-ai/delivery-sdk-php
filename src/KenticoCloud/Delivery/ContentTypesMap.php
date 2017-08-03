@@ -8,6 +8,6 @@ class ContentTypesMap extends TypesMap {
 		
 	);
 
-	public static $defaultTypeClass = '\KenticoCloud\Delivery\Models\ContentItem';
+	public static $defaultTypeClass = \KenticoCloud\Delivery\Models\ContentItem::class;
 
 }
