@@ -1,0 +1,28 @@
+{
+    "name": "kentico/delivery-sdk-php",
+    "type": "library",
+    "license": "MIT",
+    "version": "0.0.1",
+    "description": "Kentico Cloud Delivery SDK for PHP",
+    "authors": [
+        {
+            "name": "Kentico",
+            "email": "developerscommunity@kentico.com"
+        },
+        {
+            "name": "Stephen Rushing",
+            "email": "stephen.rushing@esiteful.com"
+        }
+    ],
+    "require": {
+        "nategood/httpful": "^0.2.20"
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "KenticoCloud\\": "src/KenticoCloud"
+        }
+    }
+}
