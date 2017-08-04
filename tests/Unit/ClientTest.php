@@ -7,11 +7,37 @@ use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
 {
-    public function testCompilation()
+    public function getClient()
     {
-        $params['system.codename'] = 'a_chemex_method';
-        $c = new Client('975bf280-fd91-488c-994c-2f04416e5ee3');
-        $i = $c->getItem($params);
-        $this->assertEquals('e9b81664-cbca-4f0e-b1c8-e7d862f4fd89', $i->system->id);
+        return new Client('975bf280-fd91-488c-994c-2f04416e5ee3');
     }
+
+    public function testGetContentItem()
+    {
+        $params['system.codename'] = 'home';
+        $client = $this->getClient();
+        $item = $client->getItem($params);
+        $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
+    }
+
+    
+    public function testGetContentItems()
+    {
+        $params['system.type'] = 'article';
+        $params['depth'] = 2;
+        $client = $this->getClient();
+        $items = $client->getItems($params);
+        $this->assertGreaterThan(1, count($items->items));
+        $this->assertGreaterThan(1, count($items->modularContent));
+    }
+
+    public function testDepth()
+    {
+        $params['system.type'] = 'article';
+        $params['depth'] = 0;
+        $client = $this->getClient();
+        $items = $client->getItems($params);
+        $this->assertEquals(0, count($items->modularContent));
+    }
+    
 }
