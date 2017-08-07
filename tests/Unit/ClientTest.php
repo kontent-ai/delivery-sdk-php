@@ -9,10 +9,11 @@ class ClientTest extends TestCase
 {
     public function getClient($previewApiKey = null)
     {
+        $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
         if (is_null($previewApiKey)) {
-            return new Client('975bf280-fd91-488c-994c-2f04416e5ee3');
+            return new Client($projectId);
         } else {
-            return new Client('975bf280-fd91-488c-994c-2f04416e5ee3', $previewApiKey);
+            return new Client($projectId, $previewApiKey);
         }
     }
 

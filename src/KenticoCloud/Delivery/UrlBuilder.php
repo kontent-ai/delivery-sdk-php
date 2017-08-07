@@ -9,11 +9,11 @@ class UrlBuilder
     public const PREVIEW_ENDPOINT  = 'https://preview-deliver.kenticocloud.com/';
     public const PRODUCTION_ENDPOINT  = 'https://deliver.kenticocloud.com/';
     
-    private const URL_TEMPLATE_ITEM = '/items/{0}';
+    private const URL_TEMPLATE_ITEM = '/items/%s';
     private const URL_TEMPLATE_ITEMS = '/items';
-    private const URL_TEMPLATE_TYPE = '/types/{0}';
+    private const URL_TEMPLATE_TYPE = '/types/%s';
     private const URL_TEMPLATE_TYPES = '/types';
-    private const URL_TEMPLATE_ELEMENT = '/types/{0}/elements/{1}';
+    private const URL_TEMPLATE_ELEMENT = '/types/%s/elements/%s';
 
     public function __construct($projectID, $usePreviewApi = null)
     {
@@ -21,9 +21,29 @@ class UrlBuilder
         $this->usePreviewApi = $usePreviewApi;
     }
 
+    public function getItemUrl($codename, $query)
+    {
+        return $this->buildUrl(sprintf(self::URL_TEMPLATE_ITEM, urlencode($codename)), parameters);
+    }
+
     public function getItemsUrl($query = null)
     {
         return $this->buildUrl(self::URL_TEMPLATE_ITEMS, $query);
+    }
+
+    public function getTypeUrl($codename)
+    {
+        return $this->uildUrl(sprintf(self::URL_TEMPLATE_TYPE, urlencode($codename)));
+    }
+
+    public function getTypesUrl($query)
+    {
+        return $this->buildUrl(self::URL_TEMPLATE_TYPES, parameters);
+    }
+
+    public function getContentElementUrl($contentTypeCodename, $contentElementCodename)
+    {
+        return $this->buildUrl(sprintf(self::URL_TEMPLATE_ELEMENT, urlencode($contentTypeCodename), urlencode($contentElementCodename)));
     }
     
     private function buildUrl($endpoint, $query = null)
