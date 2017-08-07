@@ -31,11 +31,7 @@ class ContentItems extends Model
     {
         $this->$name = array();
         foreach ($value as $item) {
-            if (isset($item->system->type)) {
-                $class = ContentTypesMap::getTypeClass($item->system->type);
-            } else {
-                $class = ContentTypesMap::$defaultTypeClass;
-            }
+            $class = ContentTypesMap::getTypeClass($item->system->type);
             $this->$name[] = $class::create($item);
         }
         return $this;
