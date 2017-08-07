@@ -9,6 +9,6 @@ Check out the [contributing](https://github.com/Kentico/delivery-sdk-php/blob/ma
 ### Wall of Fame
 We would like to express our thanks to the following people who contributed and made the project possible:
 
-- [Stephen Rushing](https://github.com/stephenr85/) - [eSiteful](http://www.esiteful.com/home)
+- [Stephen Rushing](https://github.com/stephenr85/) - [eSiteful](http://www.esiteful.com/home) - [ORIGINAL WORK](https://github.com/stephenr85/KenticoCloud.Deliver.PHP)
 
 Would you like to become a hero too? Pick an [issue](https://github.com/Kentico/delivery-sdk-php/issues) and send us a pull request!
