@@ -11,6 +11,11 @@
             <directory>tests/E2E</directory>
         </testsuite>
     </testsuites>
+    
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
