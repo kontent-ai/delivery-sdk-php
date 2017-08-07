@@ -1,0 +1,8 @@
+language: php
+
+php:
+  - 5.6
+  - 7.0.0
+
+env:
+  CODECLIMATE_REPO_TOKEN: 5ea94f766d1218e7475223aab02d981bbbdd613b1727aa1ab6821048475ddfe1
