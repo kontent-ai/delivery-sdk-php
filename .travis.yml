@@ -7,9 +7,5 @@ install:
   - composer self-update
   - composer install
 
-after_script:
-  - CODECLIMATE_REPO_TOKEN=5ea94f766d1218e7475223aab02d981bbbdd613b1727aa1ab6821048475ddfe1 bin/test-reporter --stdout > codeclimate.json
-  - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
-  
-env:
-  CODECLIMATE_REPO_TOKEN: 5ea94f766d1218e7475223aab02d981bbbdd613b1727aa1ab6821048475ddfe1
+after_success:
+  - vendor/bin/test-reporter
