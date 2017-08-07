@@ -27,7 +27,7 @@ class Client
         return $request;
     }
 
-    public function getRequest($uri, $params = null)
+    public function getRequest($uri)
     {        
         $request = \Httpful\Request::get($uri);
         $request->_debug = $this->_debug;
@@ -52,7 +52,7 @@ class Client
     public function getItems($params)
     {        
         $uri = $this->urlBuilder->getItemsUrl($params);
-        $request = $this->getRequest($uri, $params);
+        $request = $this->getRequest($uri);
         $response = $this->send();
         
         $items = Models\ContentItems::create($response->body);

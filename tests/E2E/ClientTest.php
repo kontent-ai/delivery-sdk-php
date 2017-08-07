@@ -69,8 +69,7 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         $items = $client->getItems($params);
         $this->assertEquals(0, count($items->modularContent));
-    }
-    
+    }    
 
     public function testAssets()
     {
