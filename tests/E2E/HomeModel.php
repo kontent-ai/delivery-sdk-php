@@ -1,6 +1,6 @@
 <?php
 
-namespace KenticoCloud\Tests\Unit;
+namespace KenticoCloud\Tests\E2E;
 
 class HomeModel
 {
