@@ -27,21 +27,13 @@ class Client
         return $request;
     }
 
-    public function prepRequest($request)
-    {
+    public function getRequest($uri, $params = null)
+    {        
+        $request = \Httpful\Request::get($uri);
         $request->_debug = $this->_debug;
         $request->mime('json');
         $request = $this->setRequestAuthorization($request);
-        $this->lastRequest = $request;
-        return $request;
-    }
-
-    public function getRequest($endpoint, $params = null)
-    {
-        $uri = $this->urlBuilder->buildURL($endpoint, $params);
-        
-        $request = \Httpful\Request::get($uri);
-        $request = $this->prepRequest($request);
+        $this->lastRequest = $request;        
         return $request;
     }
 
@@ -58,8 +50,9 @@ class Client
     }
 
     public function getItems($params)
-    {
-        $request = $this->getRequest('items', $params);
+    {        
+        $uri = $this->urlBuilder->getItemsUrl($params);
+        $request = $this->getRequest($uri, $params);
         $response = $this->send();
         
         $items = Models\ContentItems::create($response->body);
@@ -69,7 +62,7 @@ class Client
 
     public function getItem($params)
     {
-        //TODO: use the 'item' endpoint0 (https://deliver.kenticocloud.com/975bf280-fd91-488c-994c-2f04416e5ee3/items/home)
+        //TODO: use the 'item' endpoint (https://deliver.kenticocloud.com/975bf280-fd91-488c-994c-2f04416e5ee3/items/home)
         $params['limit'] = 1;
         $results = $this->getItems($params);
 
