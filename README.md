@@ -1,6 +1,8 @@
 # Kentico Cloud Delivery SDK for PHP
 
-TODO
+**THE PROJECT IS BEING KICKED OFF. LET US KNOW IF YOU WANT TO CONTRIBUTE AT DEVELOPERSCOMMUNITY@KENTICO.COM**
+
+TODO README
 
 ## Developing on Windows
 Have a look at our cool [tutorials](https://github.com/Kentico/delivery-sdk-php/wiki) on developing PHP on Windows with Visual Studio Code!
