@@ -1,4 +1,5 @@
 # Kentico Cloud Delivery SDK for PHP
+[![Build Status](https://travis-ci.org/Kentico/delivery-sdk-php.svg?branch=master)](https://travis-ci.org/Kentico/delivery-sdk-php)
 [![Code Climate](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/delivery-sdk-php)
 [![Forums](https://img.shields.io/badge/chat-on%20forums-orange.svg)](https://forums.kenticocloud.com)
 
