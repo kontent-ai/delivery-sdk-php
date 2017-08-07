@@ -13,10 +13,9 @@ class QueryParams implements \ArrayAccess
         return $this;
     }
 
-    public function type($type)
+    public function type($types)
     {
-        $this->data['system.type'] = $type;
-        return $this;
+        return $this->in('system.type', $types);
     }
 
     public function limit(int $limit)
@@ -39,19 +38,79 @@ class QueryParams implements \ArrayAccess
 
     public function orderAsc($element)
     {
-        $this->data['order'] = $codename . '[asc]';
+        $this->data['order'] = $element . '[asc]';
         return $this;
     }
 
     public function orderDesc($element)
     {
-        $this->data['order'] = $codename . '[desc]';
+        $this->data['order'] = $element . '[desc]';
         return $this;
     }
 
     public function language($language)
     {
         $this->data['language'] = $language;
+        return $this;
+    }
+
+    public function all($element, $values)
+    {
+        $this->data[$element . '[all]'] = implode(',', is_array($values) ? $values : array($values));
+        return $this;
+    }
+
+    public function any($element, $values)
+    {
+        $this->data[$element . '[any]'] = implode(',', is_array($values) ? $values : array($values));
+        return $this;
+    }
+
+    public function in($element, $values)
+    {
+        $this->data[$element . '[in]'] = implode(',', is_array($values) ? $values : array($values));
+        return $this;
+    }
+
+    public function contains($element, $value)
+    {
+        $this->data[$element . '[contains]'] = $value;
+        return $this;
+    }
+
+    public function equals($element, $value)
+    {
+        $this->data[$element] = $value;
+        return $this;
+    }
+
+    public function greaterThan($element, $value)
+    {
+        $this->data[$element . '[gt]'] = $value;
+        return $this;
+    }
+
+    public function greaterThanOrEqual($element, $value)
+    {
+        $this->data[$element . '[gte]'] = $value;
+        return $this;
+    }
+
+    public function lessThan($element, $value)
+    {
+        $this->data[$element . '[lt]'] = $value;
+        return $this;
+    }
+
+    public function lessThanOrEqual($element, $value)
+    {
+        $this->data[$element . '[lte]'] = $value;
+        return $this;
+    }
+
+    public function range($element, $lowerLimit, $upperLimit)
+    {
+        $this->data[$element . '[range]'] = $lowerLimit . ',' . $upperLimit;
         return $this;
     }
 
