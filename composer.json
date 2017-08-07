@@ -18,7 +18,8 @@
         "nategood/httpful": "^0.2.20"
     },
     "require-dev": {
-        "phpdocumentor/phpdocumentor": "2.*"
+        "phpdocumentor/phpdocumentor": "2.*",
+        "phpunit/phpunit": "~6"
     },
     "autoload": {
         "psr-4": {
