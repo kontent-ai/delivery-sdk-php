@@ -2,7 +2,7 @@
 
 namespace KenticoCloud\Delivery\Helpers;
 
-class TextHelper extends Helper
+class TextHelper extends Singleton
 {    
     //http://syframework.alwaysdata.net/decamelize
     function decamelize($input, $separator = '_')

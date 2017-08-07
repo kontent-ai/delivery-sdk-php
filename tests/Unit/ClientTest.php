@@ -24,7 +24,7 @@ class ClientTest extends TestCase
     {
         $params['system.codename'] = 'home';
         $client = $this->getClient();
-        \KenticoCloud\Delivery\TypesMap::setTypeClass('home',\KenticoCloud\Tests\Unit\HomeModel::class);
+        \KenticoCloud\Delivery\TypesMap::setTypeClass('home', \KenticoCloud\Tests\Unit\HomeModel::class);
 
         $item = $client->getItem($params);
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
@@ -56,8 +56,5 @@ class ClientTest extends TestCase
         $params['system.codename'] = 'home_page_hero_unit';
         $client = $this->getClient();
         $item = $client->getItem($params);
-        
-
     }
-
 }
