@@ -54,6 +54,10 @@ class UrlBuilder
             trim($endpoint, '/')
         );
         $url = implode('/', $segments);
+        
+        if (is_a($query, \KenticoCloud\Delivery\QueryParams::class)) {
+            $query = $query->data;
+        }
         if (is_array($query)) {
             $query = http_build_query($query);
         }

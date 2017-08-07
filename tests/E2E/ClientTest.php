@@ -3,6 +3,8 @@
 namespace KenticoCloud\Tests\E2E;
 
 use KenticoCloud\Delivery\Client;
+use KenticoCloud\Delivery\QueryParams;
+
 use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
@@ -19,7 +21,7 @@ class ClientTest extends TestCase
 
     public function testGetContentItem()
     {
-        $params['system.codename'] = 'home';
+        $params = (new QueryParams())->codename('home');
         $client = $this->getClient();
         $item = $client->getItem($params);
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
@@ -27,7 +29,7 @@ class ClientTest extends TestCase
 
     public function testGetPreviewApiEmpty()
     {
-        $params['system.codename'] = 'amsterdam';
+        $params = (new QueryParams())->codename('amsterdam');
         $client = $this->getClient();
         $item = $client->getItem($params);
         $this->assertNull($item);
@@ -54,8 +56,7 @@ class ClientTest extends TestCase
     
     public function testGetContentItems()
     {
-        $params['system.type'] = 'article';
-        $params['depth'] = 2;
+        $params = (new QueryParams())->type('article')->depth(2);
         $client = $this->getClient();
         $items = $client->getItems($params);
         $this->assertGreaterThan(1, count($items->items));
@@ -64,8 +65,7 @@ class ClientTest extends TestCase
 
     public function testDepth()
     {
-        $params['system.type'] = 'article';
-        $params['depth'] = 0;
+        $params = (new QueryParams())->type('article')->depth(0);
         $client = $this->getClient();
         $items = $client->getItems($params);
         $this->assertEquals(0, count($items->modularContent));
