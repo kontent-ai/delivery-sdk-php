@@ -51,10 +51,10 @@ class ClientTest extends TestCase
     }
     
 
-    /* public function testAssets()
+     public function testAssets()
     {
         $params['system.codename'] = 'home_page_hero_unit';
         $client = $this->getClient();
         $item = $client->getItem($params);
-    } */
+    } 
 }
