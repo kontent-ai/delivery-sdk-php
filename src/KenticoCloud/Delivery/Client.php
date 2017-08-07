@@ -7,42 +7,23 @@ class Client
     const MODE_PREVIEW = 1;
     const MODE_PUBLISHED = 2;
 
-    public $projectID = null;
-    public $apiKey = null;
-    public $uri = 'https://deliver.kenticocloud.com/';
+    public $urlBuilder = null;
+    public $previewApiKey = null;
     public $_debug = true;
     public $lastRequest = null;
     public $mode = null;
 
-    public function __construct($projectID, $apiKey = null)
+    public function __construct($projectId, $previewApiKey = null)
     {
-        $this->projectID = $projectID;
-        $this->apiKey = $apiKey;
+        $this->previewApiKey = $previewApiKey;
+        $this->urlBuilder = new UrlBuilder($projectId, !is_null($previewApiKey));
         $self = get_class($this);
         $this->mode = $self::MODE_PUBLISHED;
-    }
-    
-    public function buildURL($endpoint, $query = null)
-    {
-        $segments = array(
-            trim($this->uri, '/'),
-            trim($this->projectID, '/'),
-            trim($endpoint, '/')
-        );
-        $url = implode('/', $segments);
-        if (is_array($query)) {
-            $query = http_build_query($query);
-        }
-        if (is_string($query)) {
-            $url = rtrim($url, '?') . '?' . ltrim($query, '?');
-        }
-
-        return $url;
-    }
+    }    
 
     public function setRequestAuthorization($request)
     {
-        $request->addHeader('Authorization', 'Bearer ' . $this->apiKey);
+        $request->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
         return $request;
     }
 
@@ -57,7 +38,7 @@ class Client
 
     public function getRequest($endpoint, $params = null)
     {
-        $uri = $this->buildURL($endpoint, $params);
+        $uri = $this->urlBuilder->buildURL($endpoint, $params);
         
         $request = \Httpful\Request::get($uri);
         $request = $this->prepRequest($request);
@@ -88,6 +69,7 @@ class Client
 
     public function getItem($params)
     {
+        //TODO: use the 'item' endpoint0 (https://deliver.kenticocloud.com/975bf280-fd91-488c-994c-2f04416e5ee3/items/home)
         $params['limit'] = 1;
         $results = $this->getItems($params);
 
