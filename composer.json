@@ -19,6 +19,7 @@
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*",
+        "codeclimate/php-test-reporter": "dev-master",
         "phpunit/phpunit": "~6"
     },
     "autoload": {
