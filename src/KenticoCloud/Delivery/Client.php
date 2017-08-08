@@ -19,41 +19,33 @@ class Client
         $this->urlBuilder = new UrlBuilder($projectId, !is_null($previewApiKey));
         $self = get_class($this);
         $this->mode = $self::MODE_PUBLISHED;
-    }    
-
-    public function setRequestAuthorization($request)
-    {
-        $request->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
-        return $request;
     }
 
     public function getRequest($uri)
-    {        
+    {
+        //TODO: make use of templates http://phphttpclient.com/#templates
         $request = \Httpful\Request::get($uri);
         $request->_debug = $this->_debug;
         $request->mime('json');
-        $request = $this->setRequestAuthorization($request);
-        $this->lastRequest = $request;        
+        if (!is_null($this->previewApiKey)) {
+            $request->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
+        }
         return $request;
     }
 
-    public function send($request = null)
+    public function send($request)
     {
-        if (!$request) {
-            $request = $this->lastRequest;
-        } else {
-            $this->lastRequest = $request;
-        }
         $response = $request->send();
+        $this->lastRequest = $request;
         $this->lastResponse = $response;
         return $response;
     }
 
     public function getItems($params)
-    {        
+    {
         $uri = $this->urlBuilder->getItemsUrl($params);
         $request = $this->getRequest($uri);
-        $response = $this->send();
+        $response = $this->send($request);
         
         $items = Models\ContentItems::create($response->body);
 
