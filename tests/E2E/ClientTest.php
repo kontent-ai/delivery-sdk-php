@@ -71,18 +71,18 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         $items = $client->getItems($params);
         $this->assertEquals(0, count($items->modularContent));
-    }    
+    }
 
-    public function testAssets()
+    /* public function testAssets()
     {
         $params['system.codename'] = 'home_page_hero_unit';
         $client = $this->getClient();
         $item = $client->getItem($params);
     }
-
+ */
     public function testQueryParams()
     {
-        $params = (new QueryParams())->type('article','home')->depth(0)->language('es-ES')->orderDesc('system.name')->limit(2);
+        $params = (new QueryParams())->type('article', 'home')->depth(0)->language('es-ES')->orderDesc('system.name')->limit(2);
         $client = $this->getClient();
         $items = $client->getItems($params);
         $this->assertGreaterThan(1, count($items->items));

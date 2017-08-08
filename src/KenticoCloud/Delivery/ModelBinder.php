@@ -24,7 +24,17 @@ class ModelBinder
         }
         
         foreach ($modelProperties as $modelProperty => $modelPropertyValue) {
+
             $dataProperty = $dataProperties[TextHelper::getInstance()->decamelize($modelProperty)];
+//TODO: use type binder
+            if($modelProperty === 'system')
+            {
+                $dataProperty = $this->bindModel(\KenticoCloud\Delivery\Models\ContentItemSystem::class,$dataProperty);
+            }
+            else
+            {
+
+            }
             
             $model->$modelProperty = $dataProperty;
         }

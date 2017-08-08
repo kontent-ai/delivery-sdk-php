@@ -86,11 +86,12 @@ class ContentItems
     
     protected function setContentItems($name, $value)
     {
-        $this->$name = array();
+        $arr = array();
         foreach ($value as $item) {
             $class = ContentTypesMap::getTypeClass($item->system->type);
-            $this->$name[] = $this->modelBinder->bindModel($class, $item);
+            $arr[$item->system->codename] = $this->modelBinder->bindModel($class, $item);
         }
+        $this->$name = $arr;
         return $this;
     }
 }
