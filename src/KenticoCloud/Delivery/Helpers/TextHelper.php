@@ -11,8 +11,13 @@ class TextHelper extends Singleton
     }
 
     //http://stackoverflow.com/a/33122760/3363709
-    function camelize($input, $separator = '_')
+    function pascalCase($input, $separator = '_')
     {
         return str_replace($separator, '', ucwords($input, $separator));
+    }
+
+    function camelCase($input, $separator = '_')
+    {
+        return str_replace($separator, '', lcfirst(ucwords($input, $separator)));
     }
 }

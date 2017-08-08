@@ -19,7 +19,7 @@ class Model
         }
         
         foreach ($properties as $property => $value) {
-            $setMethod = 'set'.TextHelper::getInstance()->camelize($property);
+            $setMethod = 'set'.TextHelper::getInstance()->pascalCase($property);
             call_user_func_array(array($this, $setMethod), array($value));
         }
         return $this;

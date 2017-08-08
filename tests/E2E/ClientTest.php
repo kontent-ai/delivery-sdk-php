@@ -25,6 +25,8 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         $item = $client->getItem($params);
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
+        $this->assertInternalType('integer', $item->system->last_modified);
+        $this->assertInternalType('integer', $item->system->getLastModified());
     }
 
     public function testGetPreviewApiEmpty()
@@ -84,7 +86,5 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         $items = $client->getItems($params);
         $this->assertGreaterThan(1, count($items->items));
-
-
     }
 }
