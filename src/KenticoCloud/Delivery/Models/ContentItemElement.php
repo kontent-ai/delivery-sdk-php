@@ -2,7 +2,7 @@
 
 namespace KenticoCloud\Delivery\Models;
 
-class ContentItemElement extends Model
+class ContentItemElement
 {
     public $type = null;
     public $value = null;

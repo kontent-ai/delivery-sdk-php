@@ -3,11 +3,41 @@
 namespace KenticoCloud\Delivery\Models;
 
 use \KenticoCloud\Delivery\ContentTypesMap;
+use \KenticoCloud\Delivery\ModelBinder;
+use \KenticoCloud\Delivery\Helpers\TextHelper;
 
-class ContentItems extends Model
+class ContentItems
 {
     public $items = null;
     public $pagination = null;
+
+    private $modelBinder = null;
+
+    public function __construct($obj)
+    {
+        $this->modelBinder = new ModelBinder();
+        $this->populate($obj);
+        return $this;
+    }
+
+    public function populate($obj)
+    {
+        if (is_string($obj)) {
+            $obj = json_decode($obj);
+        }
+        if (is_object($obj)) {
+            $properties = get_object_vars($obj);
+        } else {
+            $properties = $obj; //assume it's an array
+        }
+        
+        foreach ($properties as $property => $value) {
+            $setMethod = 'set'.TextHelper::getInstance()->pascalCase($property);
+            call_user_func_array(array($this, $setMethod), array($value));
+        }
+        return $this;
+    }
+
 
     public function setItems($value)
     {
@@ -17,7 +47,7 @@ class ContentItems extends Model
 
     public function setPagination($value)
     {
-        $this->pagination = Pagination::create($value);
+        $this->pagination = $this->modelBinder->bindModel(Pagination::class, $value);
         return $this;
     }
 
@@ -59,7 +89,7 @@ class ContentItems extends Model
         $this->$name = array();
         foreach ($value as $item) {
             $class = ContentTypesMap::getTypeClass($item->system->type);
-            $this->$name[] = $class::create($item);
+            $this->$name[] = $this->modelBinder->bindModel($class, $item);
         }
         return $this;
     }

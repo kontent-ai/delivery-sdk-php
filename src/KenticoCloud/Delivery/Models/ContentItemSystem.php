@@ -2,21 +2,21 @@
 
 namespace KenticoCloud\Delivery\Models;
 
-class ContentItemSystem extends Model
+class ContentItemSystem
 {
     public $id = null;
     public $name = null;
     public $codename = null;
     public $type = null;
-    public $sitemap_locations = null;
-    public $last_modified = null;
+    public $sitemapLocations = null;
+    public $lastModified = null;
 
     public function getLastModified($format = null)
     {
         if (!$format) {
-            return $this->last_modified;
+            return $this->lastModified;
         }
-        return date($format, $this->last_modified);
+        return date($format, $this->lastModified);
     }
 
     public function setLastModified($value)
@@ -24,7 +24,7 @@ class ContentItemSystem extends Model
         if (is_string($value)) {
             $value = strtotime($value);
         }
-        $this->last_modified = $value;
+        $this->lastModified = $value;
         return $this;
     }
 }

@@ -47,7 +47,7 @@ class Client
         $request = $this->getRequest($uri);
         $response = $this->send($request);
         
-        $items = Models\ContentItems::create($response->body);
+        $items = new Models\ContentItems($response->body);
 
         return $items;
     }
