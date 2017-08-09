@@ -4,9 +4,7 @@ namespace KenticoCloud\Delivery;
 
 class TypesMap
 {
-    public static $types = array(
-        
-    );
+    public static $types = array();
 
     public static $defaultTypeClass = null;
 

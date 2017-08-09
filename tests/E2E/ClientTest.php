@@ -62,7 +62,7 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         $items = $client->getItems($params);
         $this->assertGreaterThan(1, count($items->items));
-        $this->assertGreaterThan(1, count($items->modularContent));
+        //$this->assertGreaterThan(1, count($items->modularContent));
     }
 
     public function testDepth()
@@ -70,7 +70,17 @@ class ClientTest extends TestCase
         $params = (new QueryParams())->type('article')->depth(0);
         $client = $this->getClient();
         $items = $client->getItems($params);
-        $this->assertEquals(0, count($items->modularContent));
+        //$this->assertEquals(0, count($items->modularContent));
+    }
+
+    public function testModularContentResolution()
+    {
+        $params = (new QueryParams())->codename('home');
+        $client = $this->getClient();
+        $items = $client->getItems($params);
+        $this->assertGreaterThan('hero_unit', $items->items['home']->elements['hero_unit']->value[0]->system->codename);
+
+
     }
 
     /* public function testAssets()
