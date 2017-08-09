@@ -17,22 +17,12 @@ class ContentItems
 
     protected function populate($obj)
     {
-        if (is_string($obj)) {
-            $obj = json_decode($obj);
-        }
-        if (is_object($obj)) {
-            $properties = get_object_vars($obj);
-        } else {
-            $properties = $obj; //assume it's an array
-        }
+        $properties = get_object_vars($obj);
         
         $modelBinder = new ModelBinder();
         
-        // Modular content
-        $modularContent = $modelBinder->getContentItems($properties['modular_content']);
-
         // Items
-        $this->items = $modelBinder->getContentItems($properties['items'], $modularContent);
+        $this->items = $modelBinder->getContentItems($properties['items'], $properties['modular_content']);
 
         // Pagination
         $this->pagination = $modelBinder->bindModel(Pagination::class, $properties['pagination']);

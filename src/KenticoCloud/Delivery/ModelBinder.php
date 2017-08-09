@@ -21,9 +21,17 @@ class ModelBinder
 
     public function bindModel($modelType, $data, $modularContent = null)
     {
+        static $processedItems = array();
+
         $model = new $modelType();
         $modelProperties = get_object_vars($model);
-        
+
+        if (isset($data->system->codename)) {
+            // Add item to processed items collection to prevent recursion
+            if (!isset($processedItems[$data->system->codename])) {
+                $processedItems[$data->system->codename] = $model;
+            }
+        }        
 
         if (is_string($data)) {
             $data = json_decode($data);
@@ -40,10 +48,7 @@ class ModelBinder
                 $dataProperty = $dataProperties[TextHelper::getInstance()->decamelize($modelProperty)];
             if ($modelProperty === 'system') {
                 $dataProperty = $this->bindModel(\KenticoCloud\Delivery\Models\ContentItemSystem::class, $dataProperty, $modularContent);
-            } /*  else if ($modelProperty === 'elements') {
-
-            } */
-            else {
+            } else {
                 if (is_object($dataProperty)) {
                     $dataProperty = get_object_vars($dataProperty);
                 } else {
@@ -54,22 +59,29 @@ class ModelBinder
                 if (is_array($dataProperty)) {
                     foreach ($dataProperty as $item => $itemValue) {
                         if (isset($itemValue->type)) {
-                            if ($itemValue->type == 'modular_content') {
-                                if ($modularContent != null) {
-                                    foreach ($itemValue->value as $key => $modularCodename) {
-                                        foreach ($modularContent as $mc) {
-                                            if ($mc->system->codename == $modularCodename) {
-                                                 $itemValue->value[$key] = $mc;
-                                                 //TODO: recursively resolve all levels + prevent infinite recursion
+                            // Elements
+                            switch ($itemValue->type) {
+                                case 'modular_content':
+                                    if ($modularContent != null) {
+                                        foreach ($itemValue->value as $key => $modularCodename) {
+                                            // Try to load the content item from processed items
+                                            if (isset($processedItems[$modularCodename])) {
+                                                $ci = $processedItems[$modularCodename];
+                                            } else {
+                                                // If not found, recursively load model
+                                                if (isset($modularContent->$modularCodename)) {
+                                                    $class = ContentTypesMap::getTypeClass($modularContent->$modularCodename->system->type);
+                                                    $ci = $this->bindModel($class, $modularContent->$modularCodename, $modularContent);
+                                                    $processedItems[$modularCodename] = $ci;
+                                                    // Remove placeholders holding references to modular content items
+                                                    unset($itemValue->value[$key]);
+                                                }
                                             }
+                                            $itemValue->value[$modularCodename] = $ci;
                                         }
                                     }
-                                }
+                                    break;
                             }
-                          /*   $class = ContentElementTypesMap::getTypeClass($itemValue->type);
-                            if ($class != null) {
-                                $dataProperty = $this->bindModel($class, $itemValue);
-                            } */
                         }
                     }
                 }

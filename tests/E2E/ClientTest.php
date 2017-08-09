@@ -78,7 +78,7 @@ class ClientTest extends TestCase
         $params = (new QueryParams())->codename('home');
         $client = $this->getClient();
         $items = $client->getItems($params);
-        $this->assertGreaterThan('hero_unit', $items->items['home']->elements['hero_unit']->value[0]->system->codename);
+        $this->assertEquals('home_page_hero_unit', $items->items['home']->elements['hero_unit']->value['home_page_hero_unit']->system->codename);
 
 
     }
