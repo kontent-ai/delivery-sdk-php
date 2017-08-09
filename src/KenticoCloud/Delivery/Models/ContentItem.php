@@ -36,7 +36,7 @@ class ContentItem extends Model
     public function getNumber($name)
     {
         $value = $this->getElementValue($name);
-        return floatval($value) !== intval($value) ? floatval($value) : intval($value);
+        return gettype($value) == "double" ? floatval($value) : intval($value);
     }
 
     public function getDateTime($name, $format = null)
