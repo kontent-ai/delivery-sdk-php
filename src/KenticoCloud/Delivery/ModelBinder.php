@@ -7,6 +7,7 @@ use \KenticoCloud\Delivery\Helpers\TextHelper;
 class ModelBinder
 {
     protected $typeMapper = null;
+    protected $processedItems = array();
 
     public function __construct(TypeMapperInterface $typeMapper)
     {
@@ -26,17 +27,15 @@ class ModelBinder
 
     public function bindModel($modelType, $data, $modularContent = null)
     {
-        static $processedItems = array();
-
         $model = new $modelType();
         $modelProperties = get_object_vars($model);
 
         if (isset($data->system->codename)) {
             // Add item to processed items collection to prevent recursion
-            if (!isset($processedItems[$data->system->codename])) {
-                $processedItems[$data->system->codename] = $model;
+            if (!isset($this->processedItems[$data->system->codename])) {
+                $this->processedItems[$data->system->codename] = $model;
             }
-        }        
+        }
 
         if (is_string($data)) {
             $data = json_decode($data);
@@ -70,18 +69,20 @@ class ModelBinder
                                     if ($modularContent != null) {
                                         foreach ($itemValue->value as $key => $modularCodename) {
                                             // Try to load the content item from processed items
-                                            if (isset($processedItems[$modularCodename])) {
-                                                $ci = $processedItems[$modularCodename];
+                                            if (isset($this->processedItems[$modularCodename])) {
+                                                $ci = $this->processedItems[$modularCodename];
                                             } else {
                                                 // If not found, recursively load model
                                                 if (isset($modularContent->$modularCodename)) {
                                                     $class = $this->typeMapper->getTypeClass($modularContent->$modularCodename->system->type);
                                                     $ci = $this->bindModel($class, $modularContent->$modularCodename, $modularContent);
-                                                    $processedItems[$modularCodename] = $ci;
-                                                    // Remove placeholders holding references to modular content items
-                                                    unset($itemValue->value[$key]);
+                                                    $this->processedItems[$modularCodename] = $ci;                                                    
+                                                } else {
+                                                    $ci = null;
                                                 }
                                             }
+                                            // Remove placeholders holding references to modular content items
+                                            unset($itemValue->value[$key]);
                                             $itemValue->value[$modularCodename] = $ci;
                                         }
                                     }
