@@ -7,7 +7,7 @@ use \KenticoCloud\Delivery\ModelBinder;
 class ContentTypes
 {
     public $types = null;
-    public $pagination = null;  // TODO: Is this neccessary for content types?
+    // public $pagination = null;  // Is this neccessary for content types?
 
     public function __construct($obj)
     {
@@ -18,9 +18,9 @@ class ContentTypes
     protected function populate($obj)
     {
         $properties = get_object_vars($obj);
-        $mb = new ModelBinder();
+        $modelBuilder = new ModelBinder();
 
-        $this->types = $mb->getContentTypes($properties['types'], null);
+        $this->types = $modelBuilder->getContentTypes($properties['types'], null);
 
         return $this;
     }
