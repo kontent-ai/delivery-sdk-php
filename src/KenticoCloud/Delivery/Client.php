@@ -10,7 +10,8 @@ class Client
     public $_debug = true;
     public $lastRequest = null;
     public $mode = null;
-    protected $typeMapper = null;    
+    protected $typeMapper = null; 
+    protected $modelBinder = null;   
 
     public function __construct($projectId, $previewApiKey = null, TypeMapperInterface $typeMapper = null)
     {
@@ -70,11 +71,10 @@ class Client
 
     protected function getModelBinder()
     {
-        static $modelBinder = null;
-        if($modelBinder == null)
+        if($this->modelBinder == null)
         {
-            $modelBinder = new ModelBinder($this->typeMapper ?? new DefaultTypeMapper());
+            $this->modelBinder = new ModelBinder($this->typeMapper ?? new DefaultTypeMapper());
         }
-        return $modelBinder;
+        return $this->modelBinder;
     }
 }

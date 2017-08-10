@@ -45,15 +45,6 @@ class ClientTest extends TestCase
         $this->assertEquals('e844a6aa-4dc4-464f-8ae9-f9f66cc6ab61', $item->system->id);
     }
 
-    public function testGetModel()
-    {
-        $params['system.codename'] = 'home';
-        $client = $this->getClient();
-
-        $item = $client->getItem($params);
-        //$this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
-    }
-
     
     public function testGetContentItems()
     {
