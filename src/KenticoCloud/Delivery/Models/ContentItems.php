@@ -9,17 +9,15 @@ class ContentItems
     public $items = null;
     public $pagination = null;
 
-    public function __construct($obj)
+    public function __construct(ModelBinder $modelBinder, $obj)
     {
-        $this->populate($obj);
+        $this->populate($modelBinder, $obj);
         return $this;
     }
 
-    protected function populate($obj)
+    protected function populate($modelBinder, $obj)
     {
         $properties = get_object_vars($obj);
-        
-        $modelBinder = new ModelBinder();
         
         // Items
         $this->items = $modelBinder->getContentItems($properties['items'], $properties['modular_content']);

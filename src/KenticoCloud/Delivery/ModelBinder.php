@@ -3,16 +3,21 @@
 namespace KenticoCloud\Delivery;
 
 use \KenticoCloud\Delivery\Helpers\TextHelper;
-use \KenticoCloud\Delivery\ContentTypesMap;
-use \KenticoCloud\Delivery\ContentElementTypesMap;
 
 class ModelBinder
 {
+    protected $typeMapper = null;
+
+    public function __construct(TypeMapperInterface $typeMapper)
+    {
+        $this->typeMapper = $typeMapper;
+    }
+
     public function getContentItems($contentItems, $modularContent = null)
     {
         $arr = array();
         foreach ($contentItems as $item) {
-            $class = ContentTypesMap::getTypeClass($item->system->type);
+            $class = $this->typeMapper->getTypeClass($item->system->type);
             $arr[$item->system->codename] = $this->bindModel($class, $item, $modularContent);
         }
         return $arr;
@@ -70,7 +75,7 @@ class ModelBinder
                                             } else {
                                                 // If not found, recursively load model
                                                 if (isset($modularContent->$modularCodename)) {
-                                                    $class = ContentTypesMap::getTypeClass($modularContent->$modularCodename->system->type);
+                                                    $class = $this->typeMapper->getTypeClass($modularContent->$modularCodename->system->type);
                                                     $ci = $this->bindModel($class, $modularContent->$modularCodename, $modularContent);
                                                     $processedItems[$modularCodename] = $ci;
                                                     // Remove placeholders holding references to modular content items

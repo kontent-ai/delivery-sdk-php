@@ -2,9 +2,9 @@
 
 namespace KenticoCloud\Delivery;
 
-class ContentElementTypesMap extends TypesMap
+class ContentElementTypesMap extends AbstractTypeMapper
 {
-    public static $types = array(
+    public $types = array(
         //'asset' => \KenticoCloud\Delivery\Models\Elements\Assets::class,
         //'taxonomy' => \KenticoCloud\Delivery\Models\Elements\TaxonomyTerm::class,
        // 'multiple_choice' => \KenticoCloud\Delivery\Models\Elements\MultipleChoiceOption::class,
@@ -12,5 +12,8 @@ class ContentElementTypesMap extends TypesMap
         'number' => float::class
     );
 
-    public static $defaultTypeClass = null;//\KenticoCloud\Delivery\Models\ContentItemElement::class;
+    protected function getDefaultTypeClass()
+    {
+        return \KenticoCloud\Delivery\Models\ContentItemElement::class;
+    }
 }

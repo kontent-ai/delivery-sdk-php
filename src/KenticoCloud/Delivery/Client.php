@@ -4,41 +4,21 @@ namespace KenticoCloud\Delivery;
 
 class Client
 {
-    const MODE_PREVIEW = 1;
-    const MODE_PUBLISHED = 2;
-
+    public $previewMode = false;
     public $urlBuilder = null;
     public $previewApiKey = null;
     public $_debug = true;
     public $lastRequest = null;
     public $mode = null;
+    protected $typeMapper = null;    
 
-    public function __construct($projectId, $previewApiKey = null)
+    public function __construct($projectId, $previewApiKey = null, TypeMapperInterface $typeMapper = null)
     {
         $this->previewApiKey = $previewApiKey;
-        $this->urlBuilder = new UrlBuilder($projectId, !is_null($previewApiKey));
+        $this->previewMode = !is_null($previewApiKey);
+        $this->urlBuilder = new UrlBuilder($projectId, $this->previewMode);
+        $this->typeMapper = $typeMapper;
         $self = get_class($this);
-        $this->mode = $self::MODE_PUBLISHED;
-    }
-
-    public function getRequest($uri)
-    {
-        //TODO: make use of templates http://phphttpclient.com/#templates
-        $request = \Httpful\Request::get($uri);
-        $request->_debug = $this->_debug;
-        $request->mime('json');
-        if (!is_null($this->previewApiKey)) {
-            $request->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
-        }
-        return $request;
-    }
-
-    public function send($request)
-    {
-        $response = $request->send();
-        $this->lastRequest = $request;
-        $this->lastResponse = $response;
-        return $response;
     }
 
     public function getItems($params)
@@ -46,8 +26,10 @@ class Client
         $uri = $this->urlBuilder->getItemsUrl($params);
         $request = $this->getRequest($uri);
         $response = $this->send($request);
-        
-        $items = new Models\ContentItems($response->body);
+
+        $modelBinder = $this->getModelBinder();
+                
+        $items = new Models\ContentItems($modelBinder, $response->body);
 
         return $items;
     }
@@ -64,5 +46,35 @@ class Client
 
         $item = reset($results->items);
         return $item;
+    }
+
+    protected function getRequest($uri)
+    {
+        //TODO: make use of templates http://phphttpclient.com/#templates
+        $request = \Httpful\Request::get($uri);
+        $request->_debug = $this->_debug;
+        $request->mime('json');
+        if (!is_null($this->previewApiKey)) {
+            $request->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
+        }
+        return $request;
+    }
+
+    protected function send($request)
+    {
+        $response = $request->send();
+        $this->lastRequest = $request;
+        $this->lastResponse = $response;
+        return $response;
+    }
+
+    protected function getModelBinder()
+    {
+        static $modelBinder = null;
+        if($modelBinder == null)
+        {
+            $modelBinder = new ModelBinder($this->typeMapper ?? new DefaultTypeMapper());
+        }
+        return $modelBinder;
     }
 }
