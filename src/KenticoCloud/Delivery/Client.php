@@ -10,15 +10,17 @@ class Client
     public $_debug = true;
     public $lastRequest = null;
     public $mode = null;
-    protected $typeMapper = null; 
-    protected $modelBinder = null;   
+    protected $typeMapper = null;
+    protected $propertyMapper = null;
+    protected $modelBinder = null;
 
-    public function __construct($projectId, $previewApiKey = null, TypeMapperInterface $typeMapper = null)
+    public function __construct($projectId, $previewApiKey = null, TypeMapperInterface $typeMapper = null, PropertyMapperInterface $propertyMapper = null)
     {
         $this->previewApiKey = $previewApiKey;
         $this->previewMode = !is_null($previewApiKey);
         $this->urlBuilder = new UrlBuilder($projectId, $this->previewMode);
         $this->typeMapper = $typeMapper;
+        $this->propertyMapper = $propertyMapper;
         $self = get_class($this);
     }
 
@@ -71,9 +73,11 @@ class Client
 
     protected function getModelBinder()
     {
-        if($this->modelBinder == null)
-        {
-            $this->modelBinder = new ModelBinder($this->typeMapper ?? new DefaultTypeMapper());
+        if ($this->modelBinder == null) {
+            if ($this->typeMapper == null || $this->propertyMapper == null) {
+                $defaultMapper = new DefaultMapper();
+            }
+            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper);
         }
         return $this->modelBinder;
     }
