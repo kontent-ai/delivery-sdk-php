@@ -23,14 +23,18 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
 
     
     public function getProperty($data, $modelType, $property)
-    {        
-        $index = TextHelper::getInstance()->decamelize($property);
+    {
         
-        if(!array_key_exists($index, $data))
-        {
-            // Custom model, search in elements
-            $data = get_object_vars($data['elements']);
+        
+        if ($property == 'elements' && $modelType == $this->ci) {
+            return get_object_vars($data['elements']);
+        } else {
+            $index = TextHelper::getInstance()->decamelize($property);
+            if (!array_key_exists($index, $data)) {
+                // Custom model, search in elements
+                $data = get_object_vars($data['elements']);
+            }
+            return $data[$index];
         }
-        return $data[$index];
     }
 }
