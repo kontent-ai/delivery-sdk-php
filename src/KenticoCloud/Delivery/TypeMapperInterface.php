@@ -4,5 +4,5 @@ namespace KenticoCloud\Delivery;
 
 interface TypeMapperInterface
 {
-    public function getTypeClass($type);
+    public function getTypeClass($typeName, $elementName = null, $parentModelType = null);
 }

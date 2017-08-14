@@ -11,9 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class TetsTypeMapper implements TypeMapperInterface
 {
-    public function getTypeClass($type)
+    public function getTypeClass($typeName, $elementName = null, $parentModelType = null)
     {
-        switch($type)
+        switch($typeName)
         {
             case 'home':
                 return \KenticoCloud\Tests\E2E\HomeModel::class;
@@ -29,14 +29,12 @@ class ModelBindingTest extends TestCase
         $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
         return new Client($projectId, null, new TetsTypeMapper());
     }    
-
+/*
     public function testGetModel()
     {
-        /*
         $params['system.codename'] = 'home';
         $client = $this->getClient();
-
         $item = $client->getItem($params);
-        //$this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);*/
-    } 
+        //$this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
+    } */
 }

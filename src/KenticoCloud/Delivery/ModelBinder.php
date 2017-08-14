@@ -7,7 +7,6 @@ use \KenticoCloud\Delivery\Helpers\TextHelper;
 class ModelBinder
 {
     protected $typeMapper = null;
-    protected $processedItems = array();
 
     public function __construct(TypeMapperInterface $typeMapper)
     {
@@ -25,15 +24,16 @@ class ModelBinder
     }
 
 
-    public function bindModel($modelType, $data, $modularContent = null)
+    public function bindModel($modelType, $data, $modularContent = null, $processedItems = null)
     {
+        $processedItems = $processedItems ?? array();
         $model = new $modelType();
         $modelProperties = get_object_vars($model);
 
         if (isset($data->system->codename)) {
             // Add item to processed items collection to prevent recursion
-            if (!isset($this->processedItems[$data->system->codename])) {
-                $this->processedItems[$data->system->codename] = $model;
+            if (!isset($processedItems[$data->system->codename])) {
+                $processedItems[$data->system->codename] = $model;
             }
         }
 
@@ -49,9 +49,12 @@ class ModelBinder
         }
         
         foreach ($modelProperties as $modelProperty => $modelPropertyValue) {
-                $dataProperty = $dataProperties[TextHelper::getInstance()->decamelize($modelProperty)];
-            if ($modelProperty === 'system') {
-                $dataProperty = $this->bindModel(\KenticoCloud\Delivery\Models\ContentItemSystem::class, $dataProperty, $modularContent);
+            $dataProperty = $dataProperties[TextHelper::getInstance()->decamelize($modelProperty)];
+            $modelPropertyValue = null;
+
+            $type = $this->typeMapper->getTypeClass(null, $modelProperty, $modelType);
+            if ($type != null) {
+                $modelPropertyValue = $this->bindModel($type, $dataProperty, $modularContent);
             } else {
                 if (is_object($dataProperty)) {
                     $dataProperty = get_object_vars($dataProperty);
@@ -61,39 +64,42 @@ class ModelBinder
                 }
 
                 if (is_array($dataProperty)) {
+                    $modelPropertyValue = array();
                     foreach ($dataProperty as $item => $itemValue) {
                         if (isset($itemValue->type)) {
                             // Elements
                             switch ($itemValue->type) {
                                 case 'modular_content':
+                                    $modelModularItems = array();
                                     if ($modularContent != null) {
                                         foreach ($itemValue->value as $key => $modularCodename) {
                                             // Try to load the content item from processed items
-                                            if (isset($this->processedItems[$modularCodename])) {
-                                                $ci = $this->processedItems[$modularCodename];
+                                            if (isset($processedItems[$modularCodename])) {
+                                                $subItem = $processedItems[$modularCodename];
                                             } else {
                                                 // If not found, recursively load model
                                                 if (isset($modularContent->$modularCodename)) {
                                                     $class = $this->typeMapper->getTypeClass($modularContent->$modularCodename->system->type);
-                                                    $ci = $this->bindModel($class, $modularContent->$modularCodename, $modularContent);
-                                                    $this->processedItems[$modularCodename] = $ci;                                                    
+                                                    $subItem = $this->bindModel($class, $modularContent->$modularCodename, $modularContent, $processedItems);
+                                                    $processedItems[$modularCodename] = $subItem;
                                                 } else {
-                                                    $ci = null;
+                                                    $subItem = null;
                                                 }
                                             }
-                                            // Remove placeholders holding references to modular content items
-                                            unset($itemValue->value[$key]);
-                                            $itemValue->value[$modularCodename] = $ci;
+                                            $modelModularItems[$modularCodename] = $subItem;
                                         }
+                                        $modelPropertyValue[$item] = $modelModularItems;
                                     }
                                     break;
                             }
                         }
                     }
+                } else {
+                    $modelPropertyValue = $dataProperty;
                 }
             }
             
-            $model->$modelProperty = $dataProperty;
+            $model->$modelProperty = $modelPropertyValue;
         }
         return $model;
     }

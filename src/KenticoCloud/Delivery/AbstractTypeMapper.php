@@ -8,9 +8,8 @@ abstract class AbstractTypeMapper implements TypeMapperInterface
 
     abstract protected function getDefaultTypeClass();
 
-    public function getTypeClass($type)
-    {
-        $self = get_called_class();
-        return isset($this->types[$type]) ? $this->types[$type] : $this->getDefaultTypeClass();
+    public function getTypeClass($typeName, $elementName = null, $parentModelType = null)
+    {        
+        return isset($this->types[$typeName]) ? $this->types[$typeName] : $this->getDefaultTypeClass();
     }
 }

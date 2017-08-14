@@ -68,9 +68,7 @@ class ClientTest extends TestCase
         $params = (new QueryParams())->codename('home');
         $client = $this->getClient();
         $items = $client->getItems($params);
-        $this->assertEquals('home_page_hero_unit', $items->items['home']->elements['hero_unit']->value['home_page_hero_unit']->system->codename);
-
-
+        $this->assertEquals('home_page_hero_unit', $items->items['home']->elements['hero_unit']['home_page_hero_unit']->system->codename);
     }
 
     /* public function testAssets()
