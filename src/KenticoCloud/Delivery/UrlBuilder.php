@@ -36,7 +36,7 @@ class UrlBuilder
         return $this->buildUrl(sprintf(self::URL_TEMPLATE_TYPE, urlencode($codename)));
     }
 
-    public function getTypesUrl($query)
+    public function getTypesUrl($query = null)
     {
         return $this->buildUrl(self::URL_TEMPLATE_TYPES, $query);
     }
