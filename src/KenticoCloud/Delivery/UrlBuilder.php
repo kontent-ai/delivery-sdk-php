@@ -23,7 +23,7 @@ class UrlBuilder
 
     public function getItemUrl($codename, $query)
     {
-        return $this->buildUrl(sprintf(self::URL_TEMPLATE_ITEM, urlencode($codename)), parameters);
+        return $this->buildUrl(sprintf(self::URL_TEMPLATE_ITEM, urlencode($codename)), $query);
     }
 
     public function getItemsUrl($query = null)
@@ -33,12 +33,12 @@ class UrlBuilder
 
     public function getTypeUrl($codename)
     {
-        return $this->uildUrl(sprintf(self::URL_TEMPLATE_TYPE, urlencode($codename)));
+        return $this->buildUrl(sprintf(self::URL_TEMPLATE_TYPE, urlencode($codename)));
     }
 
     public function getTypesUrl($query)
     {
-        return $this->buildUrl(self::URL_TEMPLATE_TYPES, parameters);
+        return $this->buildUrl(self::URL_TEMPLATE_TYPES, $query);
     }
 
     public function getContentElementUrl($contentTypeCodename, $contentElementCodename)
