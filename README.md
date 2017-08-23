@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/delivery-sdk-php)
 [![Forums](https://img.shields.io/badge/chat-on%20forums-orange.svg)](https://forums.kenticocloud.com)
 
-**THE PROJECT IS BEING KICKED OFF. LET US KNOW IF YOU WANT TO CONTRIBUTE AT DEVELOPERSCOMMUNITY@KENTICO.COM**
+🚧 ** This is currently a work in progress, and is only a prototype. Not ready for general consumption. Let us know if you want to contribute at DEVELOPERSCOMMUNITY@KENTICO.COM ** 🚧 
 
 TODO README
 
