@@ -2,15 +2,15 @@
 
 namespace KenticoCloud\Delivery;
 
-use \KenticoCloud\Delivery\Helpers\TextHelper;
-
 class ModelBinder
 {
     protected $typeMapper = null;
+    protected $propertyMapper = null;
 
-    public function __construct(TypeMapperInterface $typeMapper)
+    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper)
     {
         $this->typeMapper = $typeMapper;
+        $this->propertyMapper = $propertyMapper;
     }
 
     public function getContentItems($contentItems, $modularContent = null)
@@ -49,7 +49,7 @@ class ModelBinder
         }
         
         foreach ($modelProperties as $modelProperty => $modelPropertyValue) {
-            $dataProperty = $dataProperties[TextHelper::getInstance()->decamelize($modelProperty)];
+            $dataProperty = $this->propertyMapper->getProperty($dataProperties, $modelType, $modelProperty);
             $modelPropertyValue = null;
 
             $type = $this->typeMapper->getTypeClass(null, $modelProperty, $modelType);
@@ -57,7 +57,9 @@ class ModelBinder
                 $modelPropertyValue = $this->bindModel($type, $dataProperty, $modularContent);
             } else {
                 if (is_object($dataProperty)) {
-                    $dataProperty = get_object_vars($dataProperty);
+                    $tmpProperty = array();
+                    array_push($tmpProperty, $dataProperty);
+                    $dataProperty = $tmpProperty;
                 } else {
                     // Assume it's an array
                     $dataProperty = $dataProperty;
@@ -90,6 +92,10 @@ class ModelBinder
                                         }
                                         $modelPropertyValue[$item] = $modelModularItems;
                                     }
+                                    break;
+
+                                default:
+                                    $modelPropertyValue[$item] = $itemValue->value;
                                     break;
                             }
                         }

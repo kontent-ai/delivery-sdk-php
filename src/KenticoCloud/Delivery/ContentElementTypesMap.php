@@ -2,7 +2,7 @@
 
 namespace KenticoCloud\Delivery;
 
-class ContentElementTypesMap extends AbstractTypeMapper
+class ContentElementTypesMap
 {
     public $types = array(
         //'asset' => \KenticoCloud\Delivery\Models\Elements\Assets::class,
