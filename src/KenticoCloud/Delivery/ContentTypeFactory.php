@@ -25,9 +25,13 @@ class ContentTypeFactory
      */
     public function createTypes($response)
     {
-        $typesData = get_object_vars($response)['types'];
         $types = array();
+        if (empty($response) || is_null($response))
+        {
+            return $types;
+        }
 
+        $typesData = get_object_vars($response)['types'];
         foreach ($typesData as $type)
         {
             // Acquire data for 'system' property
@@ -109,7 +113,7 @@ class ContentTypeFactory
     }
 
     #region "Debug functions, to be removed"
-    
+    /*
     private function debug_PrintTypeSystem($typeSystem)
     {
         echo "\n";
@@ -120,7 +124,7 @@ class ContentTypeFactory
         echo "\tLastModified: " . $typeSystem->lastModified . "\n";
         echo "\n";
     }
-    
+
     private function debug_TypeElement($typeElement)
     {
         echo "\n";
@@ -148,6 +152,6 @@ class ContentTypeFactory
             echo "\tTaxonomy group: " . $typeElement->taxonomy_group . "\n";
         }
     }
-
+    */
     #endregion
 }
