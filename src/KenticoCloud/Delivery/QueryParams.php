@@ -2,7 +2,6 @@
 
 namespace KenticoCloud\Delivery;
 
-
 class QueryParams implements \ArrayAccess
 {
     public $data = array();
@@ -114,7 +113,11 @@ class QueryParams implements \ArrayAccess
         return $this;
     }
 
-    public function offsetSet($offset, $value) {
+    /**
+     * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
+     */
+    public function offsetSet($offset, $value)
+    {
         if (is_null($offset)) {
             $this->data[] = $value;
         } else {
@@ -122,15 +125,27 @@ class QueryParams implements \ArrayAccess
         }
     }
 
-    public function offsetExists($offset) {
+    /**
+     * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
+     */
+    public function offsetExists($offset)
+    {
         return isset($this->data[$offset]);
     }
 
-    public function offsetUnset($offset) {
+    /**
+     * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
+     */
+    public function offsetUnset($offset)
+    {
         unset($this->data[$offset]);
     }
 
-    public function offsetGet($offset) {
+    /**
+     * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
+     */
+    public function offsetGet($offset)
+    {
         return isset($this->data[$offset]) ? $this->data[$offset] : null;
     }
 }
