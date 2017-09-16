@@ -66,6 +66,7 @@ class ModelBinder
                 }
 
                 if (is_array($dataProperty)) {
+                    //TODO: only create array if there is more than one item
                     $modelPropertyValue = array();
                     foreach ($dataProperty as $item => $itemValue) {
                         if (isset($itemValue->type)) {

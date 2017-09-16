@@ -23,9 +23,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
 
     
     public function getProperty($data, $modelType, $property)
-    {
-        
-        
+    { 
         if ($property == 'elements' && $modelType == $this->ci) {
             return get_object_vars($data['elements']);
         } else {

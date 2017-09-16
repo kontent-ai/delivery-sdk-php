@@ -25,6 +25,7 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         $item = $client->getItem($params);
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
+        $this->assertEquals('On Roasts', $item->elements['title']);
         /* $this->assertInternalType('integer', $item->system->last_modified);
         $this->assertInternalType('integer', $item->system->getLastModified()); */
     }
