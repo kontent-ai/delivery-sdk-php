@@ -13,6 +13,7 @@ class Client
     protected $typeMapper = null;
     protected $propertyMapper = null;
     protected $modelBinder = null;
+    protected $contentTypeFactory = null;
 
     public function __construct($projectId, $previewApiKey = null, TypeMapperInterface $typeMapper = null, PropertyMapperInterface $propertyMapper = null)
     {
@@ -51,11 +52,36 @@ class Client
         return $item;
     }
 
+    public function getTypes($params)
+    {
+        $uri = $this->urlBuilder->getTypesUrl($params);
+        $request = $this->getRequest($uri);
+        $response = $this->send($request);
+
+        $typeFactory = $this->getContentTypeFactory();
+        $types = $typeFactory->createTypes($response->body);
+
+        return $types;
+    }
+
+    public function getType($params)
+    {
+        $params['limit'] = 1;
+        $results = $this->getTypes($params);
+        
+        if (count($results) != 1){
+            return null;
+        }
+
+        $type = $results[0];
+        return $type;
+    }
+
     protected function getRequest($uri)
     {
         //TODO: make use of templates http://phphttpclient.com/#templates
         $request = \Httpful\Request::get($uri);
-        $request->_debug = $this->_debug;
+       # $request->_debug = $this->_debug;
         $request->mime('json');
         if (!is_null($this->previewApiKey)) {
             $request->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
@@ -80,5 +106,14 @@ class Client
             $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper);
         }
         return $this->modelBinder;
+    }
+
+    protected function getContentTypeFactory()
+    {
+        if ($this->contentTypeFactory == null)
+        {
+            $this->contentTypeFactory = new ContentTypeFactory();
+        }
+        return $this->contentTypeFactory;
     }
 }

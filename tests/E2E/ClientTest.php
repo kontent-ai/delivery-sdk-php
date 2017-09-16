@@ -25,6 +25,7 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         $item = $client->getItem($params);
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
+        $this->assertEquals('On Roasts', $item->elements['title']);
         /* $this->assertInternalType('integer', $item->system->last_modified);
         $this->assertInternalType('integer', $item->system->getLastModified()); */
     }
@@ -37,6 +38,41 @@ class ClientTest extends TestCase
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
         /* $this->assertInternalType('integer', $item->system->last_modified);
         $this->assertInternalType('integer', $item->system->getLastModified()); */
+    }
+
+    public function testGetContentTypesLimit_TwoTypes()
+    {
+        $params = (new QueryParams())->limit(2);
+        $client = $this->getClient();
+        $types = $client->getTypes($params);
+
+        $this->assertTrue(count($types) === 2);
+    }
+
+    public function testGetContentType_TypeNotExist()
+    {
+        $params = (new QueryParams())->codename('inexistent-codename');
+        $client = $this->getClient();
+        $type = $client->getType($params);
+
+        $this->assertNull($type);
+    }
+
+    public function testGetContentType_FirstRecord()
+    {
+        $params = (new QueryParams())->limit(1);
+        $client = $this->getClient();
+        $type = $client->getType($params);
+
+        $this->assertEquals("b2c14f2c-6467-460b-a70b-bca17972a33a", $type->system->id);
+    }
+
+    public function testGetContentTypesCount()
+    {
+        $client = $this->getClient();
+        $types = $client->getTypes(null);
+
+        $this->assertGreaterThan(1, count($types));
     }
 
     public function testGetPreviewApiEmpty()
@@ -71,6 +107,7 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         $items = $client->getItems($params);
         //$this->assertEquals(0, count($items->modularContent));
+        $this->assertTrue(true);    # TODO: Add real assert here.
     }
 
     public function testModularContentResolution()
