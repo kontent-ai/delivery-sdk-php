@@ -6,14 +6,14 @@ class UrlBuilder
 {
     public $projectID = null;
     public $usePreviewApi = false;
-    public const PREVIEW_ENDPOINT  = 'https://preview-deliver.kenticocloud.com/';
-    public const PRODUCTION_ENDPOINT  = 'https://deliver.kenticocloud.com/';
+	const PREVIEW_ENDPOINT  = 'https://preview-deliver.kenticocloud.com/';
+	const PRODUCTION_ENDPOINT  = 'https://deliver.kenticocloud.com/';
     
-    private const URL_TEMPLATE_ITEM = '/items/%s';
-    private const URL_TEMPLATE_ITEMS = '/items';
-    private const URL_TEMPLATE_TYPE = '/types/%s';
-    private const URL_TEMPLATE_TYPES = '/types';
-    private const URL_TEMPLATE_ELEMENT = '/types/%s/elements/%s';
+    const URL_TEMPLATE_ITEM = '/items/%s';
+    const URL_TEMPLATE_ITEMS = '/items';
+    const URL_TEMPLATE_TYPE = '/types/%s';
+    const URL_TEMPLATE_TYPES = '/types';
+    const URL_TEMPLATE_ELEMENT = '/types/%s/elements/%s';
 
     public function __construct($projectID, $usePreviewApi = null)
     {
