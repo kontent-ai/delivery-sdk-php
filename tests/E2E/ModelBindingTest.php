@@ -2,7 +2,7 @@
 
 namespace KenticoCloud\Tests\E2E;
 
-use KenticoCloud\Delivery\Client;
+use KenticoCloud\Delivery\DeliveryClient;
 use KenticoCloud\Delivery\QueryParams;
 use KenticoCloud\Delivery\AbstractTypeMapper;
 use KenticoCloud\Delivery\TypeMapperInterface;
@@ -28,7 +28,7 @@ class ModelBindingTest extends TestCase
     public function getClient()
     {
         $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
-        return new Client($projectId, null, new TetsMapper());
+        return new DeliveryClient($projectId, null, new TetsMapper());
     }
 
     public function testArticleModel()
@@ -36,7 +36,8 @@ class ModelBindingTest extends TestCase
         $params['system.codename'] = 'on_roasts';
         $client = $this->getClient();
         $item = $client->getItem($params);
-        //$this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
+        $this->assertEquals('On Roasts', $item->title);
+        //$this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);        
     }
 
     /*

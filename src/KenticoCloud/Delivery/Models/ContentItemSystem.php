@@ -2,6 +2,8 @@
 
 namespace KenticoCloud\Delivery\Models;
 
+use \DateTime;
+
 class ContentItemSystem
 {
     public $id = null;
@@ -11,20 +13,12 @@ class ContentItemSystem
     public $sitemapLocations = null;
     public $lastModified = null;
 
-    public function getLastModified($format = null)
+    public function getLastModifiedDateTime($format = null)
     {
+        $dt = new DateTime($this->lastModified);
         if (!$format) {
-            return $this->lastModified;
+            return $dt;
         }
-        return date($format, $this->lastModified);
-    }
-
-    public function setLastModified($value)
-    {
-        if (is_string($value)) {
-            $value = strtotime($value);
-        }
-        $this->lastModified = $value;
-        return $this;
+        return $dt->format($format);
     }
 }

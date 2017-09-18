@@ -3,7 +3,7 @@ namespace KenticoCloud\Tests\Unit;
 
 use KenticoCloud\Delivery;
 use PHPUnit\Framework\TestCase;
-use KenticoCloud\Delivery\Client;
+use KenticoCloud\Delivery\DeliveryClient;
 use KenticoCloud\Delivery\Models;
 use KenticoCloud\Delivery\QueryParams;
 
@@ -13,9 +13,9 @@ class ContentTypeFactoryTest extends TestCase
     {
         $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
         if (is_null($previewApiKey)) {
-            return new Client($projectId);
+            return new DeliveryClient($projectId);
         } else {
-            return new Client($projectId, $previewApiKey);
+            return new DeliveryClient($projectId, $previewApiKey);
         }
     }
 

@@ -56,15 +56,6 @@ class ModelBinder
             if ($type != null) {
                 $modelPropertyValue = $this->bindModel($type, $dataProperty, $modularContent);
             } else {
-                if (is_object($dataProperty)) {
-                    $tmpProperty = array();
-                    array_push($tmpProperty, $dataProperty);
-                    $dataProperty = $tmpProperty;
-                } else {
-                    // Assume it's an array
-                    $dataProperty = $dataProperty;
-                }
-
                 if (is_array($dataProperty)) {
                     //TODO: only create array if there is more than one item
                     $modelPropertyValue = array();
@@ -102,6 +93,9 @@ class ModelBinder
                         }
                     }
                 } else {
+                    if (isset($dataProperty->value)) {
+                        $dataProperty = $dataProperty->value;
+                    }
                     $modelPropertyValue = $dataProperty;
                 }
             }

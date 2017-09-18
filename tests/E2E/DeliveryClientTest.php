@@ -2,20 +2,20 @@
 
 namespace KenticoCloud\Tests\E2E;
 
-use KenticoCloud\Delivery\Client;
+use KenticoCloud\Delivery\DeliveryClient;
 use KenticoCloud\Delivery\QueryParams;
 
 use PHPUnit\Framework\TestCase;
 
-class ClientTest extends TestCase
+class DeliveryClientTest extends TestCase
 {
     public function getClient($previewApiKey = null)
     {
         $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
         if (is_null($previewApiKey)) {
-            return new Client($projectId);
+            return new DeliveryClient($projectId);
         } else {
-            return new Client($projectId, $previewApiKey);
+            return new DeliveryClient($projectId, $previewApiKey);
         }
     }
     
@@ -26,18 +26,17 @@ class ClientTest extends TestCase
         $item = $client->getItem($params);
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
         $this->assertEquals('On Roasts', $item->elements['title']);
-        /* $this->assertInternalType('integer', $item->system->last_modified);
-        $this->assertInternalType('integer', $item->system->getLastModified()); */
+        $this->assertEquals('on-roasts', $item->elements['url_pattern']);
     }
 
-    public function testGetContentItem()
+    public function testGetHomeItem()
     {
         $params = (new QueryParams())->codename('home');
         $client = $this->getClient();
         $item = $client->getItem($params);
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
-        /* $this->assertInternalType('integer', $item->system->last_modified);
-        $this->assertInternalType('integer', $item->system->getLastModified()); */
+        $this->assertInternalType('string', $item->system->lastModified);
+        $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());        
     }
 
     public function testGetContentTypesLimit_TwoTypes()
@@ -98,16 +97,37 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         $items = $client->getItems($params);
         $this->assertGreaterThan(1, count($items->items));
-        //$this->assertGreaterThan(1, count($items->modularContent));
     }
 
-    public function testDepth()
+    public function testZeroDepth()
     {
         $params = (new QueryParams())->type('article')->depth(0);
         $client = $this->getClient();
         $items = $client->getItems($params);
-        //$this->assertEquals(0, count($items->modularContent));
-        $this->assertTrue(true);    # TODO: Add real assert here.
+        foreach($items->items as $item)
+        {
+            $relatedArticles = $item->elements['related_articles'];
+            foreach($relatedArticles as $article)
+            {
+                $this->assertNull($article);
+            }
+        }
+    }
+    
+    public function testNonZeroDepth()
+    {
+        $params = (new QueryParams())->type('article')->depth(99);
+        $client = $this->getClient();
+        $items = $client->getItems($params);
+        foreach($items->items as $item)
+        {
+            $relatedArticles = $item->elements['related_articles'];
+            foreach($relatedArticles as $article)
+            {
+                // All related articles should be resolved
+                $this->assertNotNull($article);
+            }
+        }
     }
 
     public function testModularContentResolution()
@@ -115,7 +135,9 @@ class ClientTest extends TestCase
         $params = (new QueryParams())->codename('home');
         $client = $this->getClient();
         $items = $client->getItems($params);
-        //$this->assertEquals('home_page_hero_unit', $items->items['home']->elements['hero_unit']['home_page_hero_unit']->system->codename);
+        $heroUnit = $items->items['home']->elements['hero_unit']['home_page_hero_unit'];
+        $this->assertEquals('home_page_hero_unit', $heroUnit->system->codename);
+        $this->assertEquals('Roasting premium coffee', $heroUnit->elements['title']);
     }
 
     /* public function testAssets()

@@ -2,7 +2,7 @@
 
 namespace KenticoCloud\Delivery;
 
-class Client
+class DeliveryClient
 {
     public $previewMode = false;
     public $urlBuilder = null;
