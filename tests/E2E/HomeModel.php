@@ -4,6 +4,7 @@ namespace KenticoCloud\Tests\E2E;
 
 class HomeModel
 {
+    public $system = null;
     public $heroUnit = null;
     public $articles = null;
     public $ourStory = null;
