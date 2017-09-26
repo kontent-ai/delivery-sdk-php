@@ -2,11 +2,11 @@
 namespace KenticoCloud\Delivery\Models;
 
 /**
- * ContentTypeSystem
+ * TaxonomySystem
  *
- * Represents 'system' property of any content type.
+ * Represents 'system' property of taxonomy.
  */
-class ContentTypeSystem
+class TaxonomySystem
 {
     public $id = null;
     public $name = null;
@@ -18,13 +18,13 @@ class ContentTypeSystem
         $this->id = $id;
         $this->name = $name;
         $this->codename = $codename;
-        $this->lastModified = $lastModified;
+        $this->last_modified = $this->setLastModified($lastModified);
     }
 
 
     /**
      * Returns 'lastModified' property in requested format.
-     *
+     * 
      * @param string $format Format in which 'lastModified' property should
      * be returned.
      *
@@ -52,9 +52,10 @@ class ContentTypeSystem
     {
         if (is_string($value))
         {
-             $value = strtotime($value);
+            $value = strtotime($value);
         }
         $this->lastModified = $value;
-        return $this;
+        return $this;   // TODO: This is questionable, I think it should be void, but I have it in contentTypeSystem with $this
     }
+
 }

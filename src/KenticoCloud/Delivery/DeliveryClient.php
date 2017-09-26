@@ -14,6 +14,7 @@ class DeliveryClient
     protected $propertyMapper = null;
     protected $modelBinder = null;
     protected $contentTypeFactory = null;
+    protected $taxonomyFactory = null;
 
     public function __construct($projectId, $previewApiKey = null, TypeMapperInterface $typeMapper = null, PropertyMapperInterface $propertyMapper = null)
     {
@@ -52,6 +53,13 @@ class DeliveryClient
         return $item;
     }
 
+    /**
+     * Retrieves Content Types.
+     *
+     * @param QueryParams Specification of parameters for Content Types retrieval.
+     *
+     * @return mixed array of corresponding content type objects
+     */
     public function getTypes($params)
     {
         $uri = $this->urlBuilder->getTypesUrl($params);
@@ -64,6 +72,10 @@ class DeliveryClient
         return $types;
     }
 
+    /**
+     * Retrieves single content type.
+     * TODO: Allow specifying content type by codename
+     */
     public function getType($params)
     {
         $params['limit'] = 1;
@@ -75,6 +87,44 @@ class DeliveryClient
 
         $type = $results[0];
         return $type;
+    }
+
+    
+    /**
+     * Retrieves Taxonomies.
+     *
+     * @param QueryParams Specification of parameters for Taxonomy retrieval.
+     *
+     * @return Taxonomy array of retrieved Taxonomies.
+     */
+    public function getTaxonomies($params)
+    {
+        $uri = $this->urlBuilder->getTaxonomiesUrl($params);
+        $request = $this->getRequest($uri);
+        $response = $this->send($request);
+
+        $taxonomyFactory = $this->getTaxonomyFactory();
+        $taxonomies = $taxonomyFactory->createTaxonomies($response->body);
+
+        return $taxonomies;
+    }
+
+
+    /**
+     * Retrieves single taxonomy.
+     * TODO: Allow specifying taxonomy by codename
+     */
+    public function getTaxonomy($params)
+    {
+        $params['limit'] = 1;
+        $results = $this->getTaxonomies($params);
+
+        if (count($results) != 1)
+        {
+            return $null;
+        }
+
+        return ($results[0]);
     }
 
     protected function getRequest($uri)
@@ -115,5 +165,14 @@ class DeliveryClient
             $this->contentTypeFactory = new ContentTypeFactory();
         }
         return $this->contentTypeFactory;
+    }
+
+    protected function getTaxonomyFactory()
+    {
+        if ($this->taxonomyFactory == null)
+        {
+            $this->taxonomyFactory = new TaxonomyFactory();
+        }
+        return $this->taxonomyFactory;
     }
 }
