@@ -2,6 +2,8 @@
 
 namespace KenticoCloud\Delivery;
 
+use KenticoCloud\Delivery\QueryParams;
+
 class UrlBuilder
 {
     public $projectID = null;
@@ -37,8 +39,7 @@ class UrlBuilder
     /**
      * Returns URL to specified Content Type endpoint.
      *
-     * @param string $codename Content Type code name.
-     *
+     * @param $codename string Content Type code name.
      * @return string URL pointing to specific Content Type endpoint.
      */
     public function getTypeUrl($codename)
@@ -50,8 +51,7 @@ class UrlBuilder
     /**
      * Returns URL to all Content Types endpoint.
      *
-     * @param QueryParams Specification of parameters for Content Types request.
-     *
+     * @param $query QueryParams Specification of parameters for Content Types request.
      * @return string URL pointing to Content Types endpoint.
      */
     public function getTypesUrl($query = null)
@@ -63,8 +63,7 @@ class UrlBuilder
     /**
      * Returns URL to Taxonomy endopoint.
      *
-     * @param string $codename Codename of specific taxonomy to be retrieved.
-     *
+     * @param $codename string Codename of specific taxonomy to be retrieved.
      * @return string URL pointing to Taxonomy endpoint.
      */
     public function getTaxonomyUrl($codename)
@@ -74,9 +73,9 @@ class UrlBuilder
 
 
     /**
-     * Returns URL to all taxonomies endopoint.
+     * Returns URL to all taxonomies endpoint.
      *
-     * @param QueryParams Specification of parameters for Taxonomies request.
+     * @param object QueryParams Specification of parameters for Taxonomies request.
      *
      * @return string URL pointing to all taxonomies endpoint.
      */
@@ -85,11 +84,19 @@ class UrlBuilder
         return $this->buildUrl(self::URL_TEMPLATE_TAXONOMIES, $query);
     }
 
+    /**
+     * Returns URL to content element endpoint.
+     *
+     * @param $contentTypeCodename string Codename for specified content type.
+     * @param $contentElementCodename string Codename for specified content element.
+     * @return string URL to content element endpoint.
+     */
     public function getContentElementUrl($contentTypeCodename, $contentElementCodename)
     {
         return $this->buildUrl(sprintf(self::URL_TEMPLATE_ELEMENT, urlencode($contentTypeCodename), urlencode($contentElementCodename)));
     }
-    
+
+
     private function buildUrl($endpoint, $query = null)
     {
         $segments = array(
@@ -99,7 +106,7 @@ class UrlBuilder
         );
         $url = implode('/', $segments);
         
-        if (is_a($query, \KenticoCloud\Delivery\QueryParams::class)) {
+        if (is_a($query, QueryParams::class)) {
             $query = $query->data;
         }
         if (is_array($query)) {
