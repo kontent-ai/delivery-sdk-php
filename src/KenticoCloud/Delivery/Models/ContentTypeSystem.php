@@ -13,6 +13,7 @@ class ContentTypeSystem
     public $codename = null;
     public $lastModified = null;
 
+
     public function __construct($id, $name, $codename, $lastModified)
     {
         $this->id = $id;
@@ -25,10 +26,9 @@ class ContentTypeSystem
     /**
      * Returns 'lastModified' property in requested format.
      *
-     * @param string $format Format in which 'lastModified' property should
+     * @param $format string Format in which 'lastModified' property should
      * be returned.
-     *
-     * @return string
+     * @return string datetime
      */
     public function getLastModified($format = null)
     {
@@ -43,7 +43,7 @@ class ContentTypeSystem
     /**
      * Sets 'lastModified'.
      *
-     * @param mixed $value Value representing time to stored to 'lastModified'
+     * @param $value mixed Value representing time to stored to 'lastModified'
      * property.
      *
      * @return void
@@ -55,6 +55,5 @@ class ContentTypeSystem
              $value = strtotime($value);
         }
         $this->lastModified = $value;
-        return $this;
     }
 }

@@ -18,17 +18,17 @@ class TaxonomySystem
         $this->id = $id;
         $this->name = $name;
         $this->codename = $codename;
-        $this->last_modified = $this->setLastModified($lastModified);
+        $this->lastModified = $lastModified;
     }
 
 
     /**
      * Returns 'lastModified' property in requested format.
      * 
-     * @param string $format Format in which 'lastModified' property should
+     * @param $format string in which 'lastModified' property should
      * be returned.
      *
-     * @return string
+     * @return string datetime
      */
     public function getLastModified($format = null)
     {
@@ -43,7 +43,7 @@ class TaxonomySystem
     /**
      * Sets 'lastModified'.
      *
-     * @param mixed $value Value representing time to stored to 'lastModified'
+     * @param $value mixed Value representing time to stored to 'lastModified'
      * property.
      *
      * @return void
@@ -55,7 +55,5 @@ class TaxonomySystem
             $value = strtotime($value);
         }
         $this->lastModified = $value;
-        return $this;   // TODO: This is questionable, I think it should be void, but I have it in contentTypeSystem with $this
     }
-
 }

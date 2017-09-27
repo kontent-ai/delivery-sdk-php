@@ -1,7 +1,6 @@
 <?php
 namespace KenticoCloud\Delivery;
 use \KenticoCloud\Delivery\Models;
-use \KenticoCloud\Delivery\Models\Taxonomies;
 
 /**
  * TaxonomyFactory
@@ -18,9 +17,9 @@ class TaxonomyFactory
      * Parses response for taxonomies and returns array of 
      * _Taxonomy_ objects that represent them.
      * 
-     * @param object $response HttpFull response body for taxonomies request.
+     * @param $response object response body for taxonomies request.
      *
-     * @return Taxonomy array
+     * @return array of Taxonomy objects
      */
     public function createTaxonomies($response)
     {
@@ -68,13 +67,11 @@ class TaxonomyFactory
     /**
      * Checks whether response parameter is invalid.
      *
-     * @param object HttpFull response body for taxonomies.
-     *
+     * @param $response object response body for taxonomies.
      * @return bool True on invalid response body, false on valid.
      */
     private function isInvalidResponse($response)
     {
         return empty($response) || is_null($response);
     }
-
 }

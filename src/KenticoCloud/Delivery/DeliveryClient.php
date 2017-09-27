@@ -56,8 +56,7 @@ class DeliveryClient
     /**
      * Retrieves Content Types.
      *
-     * @param QueryParams Specification of parameters for Content Types retrieval.
-     *
+     * @param $params QueryParams Specification of parameters for Content Types retrieval.
      * @return mixed array of corresponding content type objects
      */
     public function getTypes($params)
@@ -93,9 +92,8 @@ class DeliveryClient
     /**
      * Retrieves Taxonomies.
      *
-     * @param QueryParams Specification of parameters for Taxonomy retrieval.
-     *
-     * @return Taxonomy array of retrieved Taxonomies.
+     * @param $params QueryParams Specification of parameters for Taxonomy retrieval.
+     * @return array of retrieved Taxonomies.
      */
     public function getTaxonomies($params)
     {
@@ -121,7 +119,7 @@ class DeliveryClient
 
         if (count($results) != 1)
         {
-            return $null;
+            return null;
         }
 
         return ($results[0]);

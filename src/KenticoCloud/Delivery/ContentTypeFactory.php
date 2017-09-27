@@ -1,7 +1,6 @@
 <?php
 namespace KenticoCloud\Delivery;
 use \KenticoCloud\Delivery\Models;
-use \KenticoCloud\Delivery\Models\Types;
 
 /**
  * ContentTypeFactory
@@ -19,8 +18,7 @@ class ContentTypeFactory
      * _MultipleOptionsTypeElement_, _TaxonomyTypeElement_ and 
      * _ContentTypeElement_ objects that represent them.
      *
-     * @param object $response HttpFull response body for content type request.
-     *
+     * @param $response object response body for content type request.
      * @return mixed array 
      */
     public function createTypes($response)
@@ -77,7 +75,6 @@ class ContentTypeFactory
                     );
                 }
 
-                #$this->debug_TypeElement($newElement);
                 $elements[] = $newElement;
                 $i++;
             }
@@ -99,7 +96,7 @@ class ContentTypeFactory
      * Returned Types\MultipleChoiceOption objects are different from 
      * MultipleChoiceOption objects used with ContentItem objects.
      *
-     * @return MultipleChoiceOption array 
+     * @return array of Types\MultipleChoiceOption
      */
     private function loadOptions($optionItems)
     {
@@ -111,47 +108,4 @@ class ContentTypeFactory
 
         return $options;
     }
-
-    #region "Debug functions, to be removed"
-    /*
-    private function debug_PrintTypeSystem($typeSystem)
-    {
-        echo "\n";
-        echo "Printing out Type System:\n";
-        echo "\tID: " . $typeSystem->id . "\n";
-        echo "\tName: " . $typeSystem->name . "\n";
-        echo "\tCodename: " . $typeSystem->codename . "\n";
-        echo "\tLastModified: " . $typeSystem->lastModified . "\n";
-        echo "\n";
-    }
-
-    private function debug_TypeElement($typeElement)
-    {
-        echo "\n";
-        echo "Printing out Content Type Element:\n";
-        echo "\tType: " . $typeElement->type . "\n";
-        echo "\tCodename: " . $typeElement->codename . "\n";
-        echo "\tName: " . $typeElement->name . "\n";
-        
-        if (is_a($typeElement, \KenticoCloud\Delivery\Models\Types\MultipleOptionsTypeElement::class))
-        {
-            echo "\tOptions(" . count($typeElement->options) . "):\n";
-            if (isset($typeElement->options))
-            {
-                $i = 0;
-                foreach($typeElement->options as $option)
-                {
-                    echo "\t\t[$i](" . $option->name . ", ". $option->codename  .")\n";
-                    $i++;
-                }
-            }
-            echo "\n";
-        }
-        elseif (is_a($typeElement, \KenticoCloud\Delivery\Models\Types\TaxonomyTypeElement::class))
-        {
-            echo "\tTaxonomy group: " . $typeElement->taxonomy_group . "\n";
-        }
-    }
-    */
-    #endregion
 }
