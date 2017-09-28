@@ -109,20 +109,22 @@ class DeliveryClient
 
 
     /**
-     * Retrieves single taxonomy.
-     * TODO: Allow specifying taxonomy by codename
+     * Retrieves single taxonomy by its codename.
+     *
+     * @param $codename string Codename of taxonomy object to be retrieved
+     * @return Taxonomy object Retrieved taxonomy, or null when taxonomy 
+     * with given codename does not exist.
      */
-    public function getTaxonomy($params)
+    public function getTaxonomy($codename)
     {
-        $params['limit'] = 1;
-        $results = $this->getTaxonomies($params);
+        $taxonomyUri = $this->urlBuilder->getTaxonomyUrl($codename);
+        
+        $request = $this->getRequest($taxonomyUri);
+        $response = $this->send($request);
 
-        if (count($results) != 1)
-        {
-            return null;
-        }
-
-        return ($results[0]);
+        $taxonomy = ($this->getTaxonomyFactory())->createTaxonomy($response->body);
+        
+        return $taxonomy;
     }
 
     protected function getRequest($uri)

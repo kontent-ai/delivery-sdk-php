@@ -85,4 +85,14 @@ class TaxnomyFactoryTest extends TestCase
 
         $this->assertEquals($expectedCount, $actualCount);
     }
+
+    public function testCreateTaxonomy_TaxonomyExist_TaxonomyObjectReturned()
+    {
+        // Think about rewriting this test not to use client.
+        $client = $this->getClient();
+        $codename = "manufacturer";
+        $taxonomy = $client->getTaxonomy($codename);
+
+        $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomy::class));
+    }
 }
