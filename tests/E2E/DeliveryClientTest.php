@@ -74,6 +74,36 @@ class DeliveryClientTest extends TestCase
         $this->assertGreaterThan(1, count($types));
     }
 
+    public function testGetTaxonomy_CodenameNotExist_IsNull()
+    {
+        $codename = "XX_manufacturer_XX";
+        $client = $this->getClient();
+        $taxonomy = $client->getTaxonomy($codename);
+
+        $this->assertNull($taxonomy, "Taxonomy with codename that does not exist is expected to be null.");
+    }
+
+    public function testGetTaxonomy_CodenameExist_IsTaxonomyObject()
+    {
+        $codename = "manufacturer";
+        $client = $this->getClient();
+        $taxonomy = $client->getTaxonomy($codename);
+
+        $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomy::class));
+    }
+
+    public function testGetTaxonomy_CodenameManufacturer_HasFourTerms()
+    {
+        $codename = "manufacturer";
+        $client = $this->getClient();
+        $taxonomy = $client->getTaxonomy($codename);
+
+        $expectedTerms = 4;
+        $actualTerms = count($taxonomy->terms);
+
+        $this->assertEquals($expectedTerms, $actualTerms, "Four 'manufacturer' terms are expected.");
+    }
+
     public function testGetPreviewApiEmpty()
     {
         $params = (new QueryParams())->codename('amsterdam');

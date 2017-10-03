@@ -1,7 +1,6 @@
 <?php
 namespace KenticoCloud\Delivery;
 use \KenticoCloud\Delivery\Models;
-use \KenticoCloud\Delivery\Models\Taxonomies;
 
 /**
  * TaxonomyFactory
@@ -16,11 +15,12 @@ class TaxonomyFactory
      * Crafts an array of taxonomies
      *
      * Parses response for taxonomies and returns array of 
-     * _Taxonomy_ objects that represent them.
+     * _Taxonomy_ objects that represent them. Can be also used to
+     * retrieve single taxonomy object from single taxonomy request.
+     * See call to _createTaxonomy()_ method.
      * 
-     * @param object $response HttpFull response body for taxonomies request.
-     *
-     * @return Taxonomy array
+     * @param $response object response body for taxonomies request.
+     * @return array of Taxonomy objects, or single Taxonomy object.
      */
     public function createTaxonomies($response)
     {
@@ -30,51 +30,91 @@ class TaxonomyFactory
             return $taxonomies;
         }
 
+        // Allow single taxonomy to be create via createTaxonomies() method
+        if (!isset(get_object_vars($response)["taxonomies"]))
+        {
+            return $this->createTaxonomy($response);
+        }
+        
         $taxonomiesData = get_object_vars($response)["taxonomies"];
         foreach($taxonomiesData as $taxonomy)
         {
-            // Acquire data for 'system' property
-            $system = new Models\TaxonomySystem(
-                $taxonomy->system->id,
-                $taxonomy->system->name,
-                $taxonomy->system->codename,
-                $taxonomy->system->last_modified
-            );
-
-            // Iterate over 'terms' and prepare content for 'terms' property
-            $terms = array();
-            foreach ($taxonomy->terms as $term)
-            {
-                $termsItem = new Models\Taxonomies\Term(
-                    $term->name,
-                    $term->codename,
-                    $term->terms
-                );
-                $terms[] = $termsItem;
-            }
-            
-            $newTaxonomy = new Models\Taxonomy();
-            $newTaxonomy->system = $system;
-            $newTaxonomy->terms = $terms;
-            
-            $taxonomies[] = $newTaxonomy;
-
+            $taxonomies[] =  $this->prepareTaxonomy($taxonomy);
         }
 
         return $taxonomies;
+    }
+
+    
+    /**
+     * Creates single taxonomy object.
+     *
+     * @param $response object Response body for single taxonomy request.
+     * @return Null on invalid response, Taxonomy object on valid response.
+     */
+    public function createTaxonomy($response)
+    {
+        var_dump($response);
+        if ($this->isInvalidResponse($response))
+        {
+            return null;
+        }
+        return $this->prepareTaxonomy($response);
+    }
+
+
+    /**
+     * Crafts Taxonomy object.
+     * 
+     * @param $taxonomyItem object representing single taxonomy item.
+     * @return Taxonomy object
+     */
+    private function prepareTaxonomy($taxonomyItem)
+    {
+        // Acquire data for 'system' property
+        $system = new Models\TaxonomySystem(
+            $taxonomyItem->system->id,
+            $taxonomyItem->system->name,
+            $taxonomyItem->system->codename,
+            $taxonomyItem->system->last_modified
+        );
+
+        // Iterate over 'terms' and prepare content for 'terms' property
+        $terms = array();
+        foreach ($taxonomyItem->terms as $term)
+        {
+            $termsItem = new Models\Taxonomies\Term(
+                $term->name,
+                $term->codename,
+                $term->terms
+            );
+            $terms[] = $termsItem;
+        }
+        
+        $newTaxonomy = new Models\Taxonomy();
+        $newTaxonomy->system = $system;
+        $newTaxonomy->terms = $terms;
+        
+        return $newTaxonomy;
     }
 
 
     /**
      * Checks whether response parameter is invalid.
      *
-     * @param object HttpFull response body for taxonomies.
-     *
+     * @param $response object response body for taxonomies.
      * @return bool True on invalid response body, false on valid.
      */
     private function isInvalidResponse($response)
     {
-        return empty($response) || is_null($response);
+        if (empty($response) || is_null($response))
+        {
+            echo "will be returning null;";
+            return true;
+        }
+    
+        $notTaxonomyFormat = !isset(get_object_vars($response)["taxonomies"]) &&
+                             !isset(get_object_vars($response)["system"]);         
+        return $notTaxonomyFormat;
     }
-
 }
