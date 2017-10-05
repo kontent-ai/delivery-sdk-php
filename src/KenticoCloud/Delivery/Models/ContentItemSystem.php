@@ -12,6 +12,7 @@ class ContentItemSystem
     public $type = null;
     public $sitemapLocations = null;
     public $lastModified = null;
+    public $language = null;
 
     public function getLastModifiedDateTime($format = null)
     {
