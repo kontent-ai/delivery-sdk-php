@@ -1,5 +1,5 @@
 <?php
-namespace KenticoCloud\Delivery\Models;
+namespace KenticoCloud\Delivery\Models\Taxonomies;
 
 /**
  * Taxonomy

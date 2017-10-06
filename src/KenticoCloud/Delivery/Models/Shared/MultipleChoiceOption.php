@@ -1,5 +1,5 @@
 <?php
-namespace KenticoCloud\Delivery\Models\Types;
+namespace KenticoCloud\Delivery\Models\Shared;
 
 /**
  * MultipleChoiceOption

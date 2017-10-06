@@ -1,6 +1,7 @@
 <?php
 namespace KenticoCloud\Delivery;
-use \KenticoCloud\Delivery\Models;
+
+use \KenticoCloud\Delivery\Models\Types;
 
 /**
  * ContentTypeFactory
@@ -9,31 +10,31 @@ use \KenticoCloud\Delivery\Models;
  */
 class ContentTypeFactory
 {
-    public function __construct(){ }
+    public function __construct()
+    {
+    }
 
     /**
-     * Crafts an array of content types 
+     * Crafts an array of content types
      *
-     * Parses response for types and returns mixed array of 
-     * _MultipleOptionsTypeElement_, _TaxonomyTypeElement_ and 
+     * Parses response for types and returns mixed array of
+     * _MultipleOptionsTypeElement_, _TaxonomyTypeElement_ and
      * _ContentTypeElement_ objects that represent them.
      *
      * @param $response object response body for content type request.
-     * @return mixed array 
+     * @return mixed array
      */
     public function createTypes($response)
     {
         $types = array();
-        if (empty($response) || is_null($response))
-        {
+        if (empty($response) || is_null($response)) {
             return $types;
         }
 
         $typesData = get_object_vars($response)['types'];
-        foreach ($typesData as $type)
-        {
+        foreach ($typesData as $type) {
             // Acquire data for 'system' property
-            $system = new Models\ContentTypeSystem(
+            $system = new Models\Types\ContentTypeSystem(
                 $type->system->id,
                 $type->system->name,
                 $type->system->codename,
@@ -44,11 +45,9 @@ class ContentTypeFactory
             $i = 0;
             $elements = array();
             $codenames = array_keys(get_object_vars($type->elements));
-            foreach ($type->elements as $element)
-            {
+            foreach ($type->elements as $element) {
                 // Create types of ContentTypeElement with different properties
-                if (isset($element->options))
-                {
+                if (isset($element->options)) {
                     $options = $this->loadOptions($element->options);
                     $newElement = new Models\Types\MultipleOptionsTypeElement(
                         $element->type,
@@ -56,19 +55,15 @@ class ContentTypeFactory
                         $element->name,
                         $options
                     );
-                }
-                elseif (isset($element->taxonomy_group))
-                {
+                } elseif (isset($element->taxonomy_group)) {
                     $newElement = new Models\Types\TaxonomyTypeElement(
                         $element->type,
-                        $codenames[$i], 
-                        $element->name, 
+                        $codenames[$i],
+                        $element->name,
                         $element->taxonomy_group
                     );
-                }
-                else
-                {
-                    $newElement = new Models\ContentTypeElement(
+                } else {
+                    $newElement = new Models\Types\ContentTypeElement(
                         $element->type,
                         $codenames[$i],
                         $element->name
@@ -80,7 +75,7 @@ class ContentTypeFactory
             }
             
             // Create content type object with it's values
-            $newType = new Models\ContentType();
+            $newType = new Models\Types\ContentType();
             $newType->system = $system;
             $newType->elements = $elements;
 
@@ -93,7 +88,7 @@ class ContentTypeFactory
     /**
      * Transforms response option items to MultipleChoiceOption objects.
      *
-     * Returned Types\MultipleChoiceOption objects are different from 
+     * Returned Types\MultipleChoiceOption objects are different from
      * MultipleChoiceOption objects used with ContentItem objects.
      *
      * @return array of Types\MultipleChoiceOption
@@ -101,9 +96,8 @@ class ContentTypeFactory
     private function loadOptions($optionItems)
     {
         $options = array();
-        foreach ($optionItems as $option)
-        {
-            $options[] = new Models\Types\MultipleChoiceOption($option->name, $option->codename);
+        foreach ($optionItems as $option) {
+            $options[] = new Models\Shared\MultipleChoiceOption($option->name, $option->codename);
         }
 
         return $options;

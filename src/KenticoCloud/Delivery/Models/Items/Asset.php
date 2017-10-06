@@ -1,6 +1,6 @@
 <?php
 
-namespace KenticoCloud\Delivery\Models\Elements;
+namespace KenticoCloud\Delivery\Models\Items;
 
 use KenticoCloud\Delivery\Models\ContentItemElement;
 

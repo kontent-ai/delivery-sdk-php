@@ -1,5 +1,6 @@
 <?php
 namespace KenticoCloud\Delivery\Models\Types;
+
 use \KenticoCloud\Delivery\Models;
 
 /**
@@ -8,7 +9,7 @@ use \KenticoCloud\Delivery\Models;
  * Represents content type element with possibility to select from multiple
  * choices.
  */
-class MultipleOptionsTypeElement extends Models\ContentTypeElement
+class MultipleOptionsTypeElement extends ContentTypeElement
 {
     public $options = null;
 

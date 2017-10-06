@@ -89,7 +89,7 @@ class DeliveryClientTest extends TestCase
         $client = $this->getClient();
         $taxonomy = $client->getTaxonomy($codename);
 
-        $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomy::class));
+        $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomies\Taxonomy::class));
     }
 
     public function testGetTaxonomy_CodenameManufacturer_HasFourTerms()

@@ -6,8 +6,8 @@ use \KenticoCloud\Delivery\Helpers\TextHelper;
 
 class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
 {
-    private $ci = \KenticoCloud\Delivery\Models\ContentItem::class;
-    private $cis = \KenticoCloud\Delivery\Models\ContentItemSystem::class;
+    private $ci = \KenticoCloud\Delivery\Models\Items\ContentItem::class;
+    private $cis = \KenticoCloud\Delivery\Models\Items\ContentItemSystem::class;
 
     public function getTypeClass($typeName, $elementName = null, $parentModelType = null)
     {

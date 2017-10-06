@@ -4,7 +4,7 @@ namespace KenticoCloud\Tests\Unit;
 use KenticoCloud\Delivery;
 use PHPUnit\Framework\TestCase;
 use KenticoCloud\Delivery\DeliveryClient;
-use KenticoCloud\Delivery\Models;
+use KenticoCloud\Delivery\Models\Types;
 use KenticoCloud\Delivery\QueryParams;
 
 class ContentTypeFactoryTest extends TestCase
@@ -34,18 +34,18 @@ class ContentTypeFactoryTest extends TestCase
         $params = (new QueryParams())->limit(1);
         $actual = $client->getTypes($params);
 
-        $contentSystem = new Models\ContentTypeSystem(
+        $contentSystem = new Types\ContentTypeSystem(
             "b2c14f2c-6467-460b-a70b-bca17972a33a",
             "About us",
             "about_us",
             "2017-08-02T07:33:28.2997578Z"
         );
         $contentElements = array(
-            new Models\ContentTypeElement("modular_content", "facts", "Facts"),
-            new Models\ContentTypeElement("url_slug", "url_pattern", "URL pattern")
+            new Types\ContentTypeElement("modular_content", "facts", "Facts"),
+            new Types\ContentTypeElement("url_slug", "url_pattern", "URL pattern")
         );
 
-        $dummyType = new Models\ContentType();
+        $dummyType = new Types\ContentType();
         $dummyType->system = $contentSystem;
         $dummyType->elements = $contentElements;
         $expected = array($dummyType);

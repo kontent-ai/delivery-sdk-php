@@ -1,8 +1,9 @@
 <?php
 
-namespace KenticoCloud\Delivery\Models;
+namespace KenticoCloud\Delivery\Models\Items;
 
 use \KenticoCloud\Delivery\ModelBinder;
+use \KenticoCloud\Delivery\Models\Shared\Pagination;
 
 class ContentItems
 {
