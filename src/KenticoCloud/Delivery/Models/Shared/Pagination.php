@@ -1,6 +1,6 @@
 <?php
 
-namespace KenticoCloud\Delivery\Models;
+namespace KenticoCloud\Delivery\Models\Shared;
 
 class Pagination
 {

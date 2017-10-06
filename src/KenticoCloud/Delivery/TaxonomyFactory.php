@@ -1,6 +1,7 @@
 <?php
 namespace KenticoCloud\Delivery;
-use \KenticoCloud\Delivery\Models;
+
+use \KenticoCloud\Delivery\Models\Taxonomies;
 
 /**
  * TaxonomyFactory
@@ -9,36 +10,35 @@ use \KenticoCloud\Delivery\Models;
  */
 class TaxonomyFactory
 {
-    public function __construct(){ }
+    public function __construct()
+    {
+    }
 
     /**
      * Crafts an array of taxonomies
      *
-     * Parses response for taxonomies and returns array of 
+     * Parses response for taxonomies and returns array of
      * _Taxonomy_ objects that represent them. Can be also used to
      * retrieve single taxonomy object from single taxonomy request.
      * See call to _createTaxonomy()_ method.
-     * 
+     *
      * @param $response object response body for taxonomies request.
      * @return array of Taxonomy objects, or single Taxonomy object.
      */
     public function createTaxonomies($response)
     {
         $taxonomies = array();
-        if ($this->isInvalidResponse($response))
-        {
+        if ($this->isInvalidResponse($response)) {
             return $taxonomies;
         }
 
         // Allow single taxonomy to be create via createTaxonomies() method
-        if (!isset(get_object_vars($response)["taxonomies"]))
-        {
+        if (!isset(get_object_vars($response)["taxonomies"])) {
             return $this->createTaxonomy($response);
         }
         
         $taxonomiesData = get_object_vars($response)["taxonomies"];
-        foreach($taxonomiesData as $taxonomy)
-        {
+        foreach ($taxonomiesData as $taxonomy) {
             $taxonomies[] =  $this->prepareTaxonomy($taxonomy);
         }
 
@@ -55,8 +55,7 @@ class TaxonomyFactory
     public function createTaxonomy($response)
     {
         var_dump($response);
-        if ($this->isInvalidResponse($response))
-        {
+        if ($this->isInvalidResponse($response)) {
             return null;
         }
         return $this->prepareTaxonomy($response);
@@ -65,14 +64,14 @@ class TaxonomyFactory
 
     /**
      * Crafts Taxonomy object.
-     * 
+     *
      * @param $taxonomyItem object representing single taxonomy item.
      * @return Taxonomy object
      */
     private function prepareTaxonomy($taxonomyItem)
     {
         // Acquire data for 'system' property
-        $system = new Models\TaxonomySystem(
+        $system = new Models\Taxonomies\TaxonomySystem(
             $taxonomyItem->system->id,
             $taxonomyItem->system->name,
             $taxonomyItem->system->codename,
@@ -81,8 +80,7 @@ class TaxonomyFactory
 
         // Iterate over 'terms' and prepare content for 'terms' property
         $terms = array();
-        foreach ($taxonomyItem->terms as $term)
-        {
+        foreach ($taxonomyItem->terms as $term) {
             $termsItem = new Models\Taxonomies\Term(
                 $term->name,
                 $term->codename,
@@ -91,7 +89,7 @@ class TaxonomyFactory
             $terms[] = $termsItem;
         }
         
-        $newTaxonomy = new Models\Taxonomy();
+        $newTaxonomy = new Models\Taxonomies\Taxonomy();
         $newTaxonomy->system = $system;
         $newTaxonomy->terms = $terms;
         
@@ -107,14 +105,13 @@ class TaxonomyFactory
      */
     private function isInvalidResponse($response)
     {
-        if (empty($response) || is_null($response))
-        {
+        if (empty($response) || is_null($response)) {
             echo "will be returning null;";
             return true;
         }
     
         $notTaxonomyFormat = !isset(get_object_vars($response)["taxonomies"]) &&
-                             !isset(get_object_vars($response)["system"]);         
+                             !isset(get_object_vars($response)["system"]);
         return $notTaxonomyFormat;
     }
 }

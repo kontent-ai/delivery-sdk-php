@@ -1,5 +1,6 @@
 <?php
 namespace KenticoCloud\Delivery\Models\Types;
+
 use \KenticoCloud\Delivery\Models;
 
 /**
@@ -7,7 +8,7 @@ use \KenticoCloud\Delivery\Models;
  *
  * Represents content type element with taxonomy_group property.
  */
-class TaxonomyTypeElement extends Models\ContentTypeElement
+class TaxonomyTypeElement extends ContentTypeElement
 {
     public $taxonomy_group = null;
 

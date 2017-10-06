@@ -4,7 +4,7 @@ namespace KenticoCloud\Tests\Unit;
 use KenticoCloud\Delivery;
 use PHPUnit\Framework\TestCase;
 use KenticoCloud\Delivery\DeliveryClient;
-use KenticoCloud\Delivery\Models;
+use KenticoCloud\Delivery\Models\Taxonomies;
 use KenticoCloud\Delivery\QueryParams;
 
 class TaxnomyFactoryTest extends TestCase
@@ -34,7 +34,7 @@ class TaxnomyFactoryTest extends TestCase
         $params = (new QueryParams())->limit(1);
         $actual = $client->getTaxonomies($params);
 
-        $taxonomySystem = new Models\TaxonomySystem(
+        $taxonomySystem = new Taxonomies\TaxonomySystem(
             "4ce421e9-c403-eee8-fdc2-74f09392a749",
             "Manufacturer",
             "manufacturer",
@@ -42,21 +42,21 @@ class TaxnomyFactoryTest extends TestCase
         );
 
         $termsArray = array(
-            new Models\Taxonomies\Term(
+            new Taxonomies\Term(
                 "Aerobie", "aerobie", array()
             ),
-            new Models\Taxonomies\Term(
+            new Taxonomies\Term(
                 "Chemex", "chemex", array()
             ),
-            new Models\Taxonomies\Term(
+            new Taxonomies\Term(
                 "Espro", "espro", array()
             ),
-            new Models\Taxonomies\Term(
+            new Taxonomies\Term(
                 "Hario", "hario", array()
             )
         );
 
-        $dummyTaxonomy = new Models\Taxonomy();
+        $dummyTaxonomy = new Taxonomies\Taxonomy();
         $dummyTaxonomy->system = $taxonomySystem;
         $dummyTaxonomy->terms = $termsArray;
         $expected = array($dummyTaxonomy);
@@ -93,6 +93,6 @@ class TaxnomyFactoryTest extends TestCase
         $codename = "manufacturer";
         $taxonomy = $client->getTaxonomy($codename);
 
-        $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomy::class));
+        $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomies\Taxonomy::class));
     }
 }

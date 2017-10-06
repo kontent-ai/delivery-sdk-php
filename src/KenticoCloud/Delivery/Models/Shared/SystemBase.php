@@ -1,12 +1,12 @@
 <?php
-namespace KenticoCloud\Delivery\Models;
+namespace KenticoCloud\Delivery\Models\Shared;
 
 /**
- * TaxonomySystem
+ * SystemBase
  *
- * Represents 'system' property of taxonomy.
+ * Base class 'system' property.
  */
-class TaxonomySystem
+class SystemBase
 {
     public $id = null;
     public $name = null;
@@ -24,7 +24,7 @@ class TaxonomySystem
 
     /**
      * Returns 'lastModified' property in requested format.
-     * 
+     *
      * @param $format string in which 'lastModified' property should
      * be returned.
      *
@@ -32,8 +32,7 @@ class TaxonomySystem
      */
     public function getLastModified($format = null)
     {
-        if (!$format)
-        {
+        if (!$format) {
             return $this->lastModified;
         }
         return date($format, $this->lastModified);
@@ -50,8 +49,7 @@ class TaxonomySystem
      */
     public function setLastModified($value)
     {
-        if (is_string($value))
-        {
+        if (is_string($value)) {
             $value = strtotime($value);
         }
         $this->lastModified = $value;

@@ -34,7 +34,7 @@ class DeliveryClient
 
         $modelBinder = $this->getModelBinder();
                 
-        $items = new Models\ContentItems($modelBinder, $response->body);
+        $items = new Models\Items\ContentItems($modelBinder, $response->body);
 
         return $items;
     }
