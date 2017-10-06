@@ -13,14 +13,18 @@ class ContentItemSystem extends SystemBase
 
     public function __construct($id = null, $name = null, $codename = null, $lastModified = null, $type = null, $sitemapLocations = null, $language = null)
     {
+        parent::__construct($id, $name, $codename, $lastModified);
+        $this->type = $type;
+        $this->sitemapLocations = $sitemapLocations;
+        $this->language = $language;
     }
 
     public function getLastModifiedDateTime($format = null)
     {
-        $dt = new DateTime($this->lastModified);
+        $dateTime = new DateTime($this->lastModified);
         if (!$format) {
-            return $dt;
+            return $dateTime;
         }
-        return $dt->format($format);
+        return $dateTime->format($format);
     }
 }
