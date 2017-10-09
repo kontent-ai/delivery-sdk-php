@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>delivery-sdk-php</title>
+    <parser>
+        <target>phpdocs/output</target>
+        <extensions>
+            <extension>module</extension>
+            <extension>inc</extension>
+            <extension>php</extension>
+        </extensions>
+    </parser>
+    <transformer>
+        <target>phpdocs/docs</target>
+    </transformer>
+    <files>
+        <directory>./src</directory>
+    </files>
+</phpdoc>
