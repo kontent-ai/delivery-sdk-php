@@ -5,11 +5,20 @@ namespace KenticoCloud\Delivery\Models\Items;
 use \KenticoCloud\Delivery\ModelBinder;
 use \KenticoCloud\Delivery\Models\Shared\Pagination;
 
+/**
+ * Class ContentItems
+ * @package KenticoCloud\Delivery\Models\Items
+ */
 class ContentItems
 {
     public $items = null;
     public $pagination = null;
 
+    /**
+     * ContentItems constructor.
+     * @param ModelBinder $modelBinder
+     * @param $obj
+     */
     public function __construct(ModelBinder $modelBinder, $obj)
     {
         $this->populate($modelBinder, $obj);

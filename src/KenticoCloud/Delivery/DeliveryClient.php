@@ -2,6 +2,10 @@
 
 namespace KenticoCloud\Delivery;
 
+/**
+ * Class DeliveryClient
+ * @package KenticoCloud\Delivery
+ */
 class DeliveryClient
 {
     public $previewMode = false;

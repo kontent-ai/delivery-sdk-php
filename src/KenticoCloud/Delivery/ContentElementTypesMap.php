@@ -2,6 +2,10 @@
 
 namespace KenticoCloud\Delivery;
 
+/**
+ * Class ContentElementTypesMap
+ * @package KenticoCloud\Delivery
+ */
 class ContentElementTypesMap
 {
     public $types = array(

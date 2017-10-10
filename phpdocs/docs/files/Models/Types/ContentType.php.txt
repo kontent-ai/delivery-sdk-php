@@ -1,10 +1,13 @@
-<?php 
+<?php
+/**
+ * Represents specific content type.
+ */
+
 namespace KenticoCloud\Delivery\Models\Types;
 
 /**
- * ContentType
- *
- * Represents specific content type.
+ * Class ContentType
+ * @package KenticoCloud\Delivery\Models\Types
  */
 class ContentType
 {

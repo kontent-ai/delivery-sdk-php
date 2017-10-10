@@ -2,11 +2,20 @@
 
 namespace KenticoCloud\Delivery;
 
+/**
+ * Class ModelBinder
+ * @package KenticoCloud\Delivery
+ */
 class ModelBinder
 {
     protected $typeMapper = null;
     protected $propertyMapper = null;
 
+    /**
+     * ModelBinder constructor.
+     * @param TypeMapperInterface $typeMapper
+     * @param PropertyMapperInterface $propertyMapper
+     */
     public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper)
     {
         $this->typeMapper = $typeMapper;

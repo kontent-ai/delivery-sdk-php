@@ -1,10 +1,15 @@
 <?php
-namespace KenticoCloud\Delivery\Models\Shared;
-
 /**
  * SystemBase
  *
  * Base class 'system' property.
+ */
+
+namespace KenticoCloud\Delivery\Models\Shared;
+
+/**
+ * Class SystemBase
+ * @package KenticoCloud\Delivery\Models\Shared
  */
 class SystemBase
 {
@@ -13,6 +18,13 @@ class SystemBase
     public $codename = null;
     public $lastModified = null;
 
+    /**
+     * SystemBase constructor.
+     * @param $id
+     * @param $name
+     * @param $codename
+     * @param $lastModified
+     */
     public function __construct($id, $name, $codename, $lastModified)
     {
         $this->id = $id;

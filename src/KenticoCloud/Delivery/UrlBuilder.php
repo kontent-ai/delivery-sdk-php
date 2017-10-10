@@ -19,6 +19,11 @@ class UrlBuilder
     const URL_TEMPLATE_TAXONOMIES = '/taxonomies';
     const URL_TEMPLATE_TAXONOMY = '/taxonomies/%s';
 
+    /**
+     * UrlBuilder constructor.
+     * @param $projectID
+     * @param null $usePreviewApi
+     */
     public function __construct($projectID, $usePreviewApi = null)
     {
         $this->projectID = $projectID;

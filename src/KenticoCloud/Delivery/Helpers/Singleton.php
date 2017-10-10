@@ -4,6 +4,9 @@ namespace KenticoCloud\Delivery\Helpers;
 
 abstract class Singleton
 {
+    /**
+     * Singleton constructor.
+     */
     protected function __construct()
     {
     }

@@ -4,6 +4,10 @@ namespace KenticoCloud\Delivery;
 
 use \KenticoCloud\Delivery\Helpers\TextHelper;
 
+/**
+ * Class DefaultMapper
+ * @package KenticoCloud\Delivery
+ */
 class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
 {
     private $ci = \KenticoCloud\Delivery\Models\Items\ContentItem::class;

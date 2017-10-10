@@ -1,12 +1,15 @@
 <?php
+/**
+ * Retrieves content types as corresponding content type objects.
+ */
+
 namespace KenticoCloud\Delivery;
 
 use \KenticoCloud\Delivery\Models\Types;
 
 /**
- * ContentTypeFactory
- *
- * Retrieves content types as corresponding content type objects.
+ * Class ContentTypeFactory
+ * @package KenticoCloud\Delivery
  */
 class ContentTypeFactory
 {

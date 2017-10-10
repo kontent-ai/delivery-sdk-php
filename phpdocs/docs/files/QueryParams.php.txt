@@ -2,6 +2,10 @@
 
 namespace KenticoCloud\Delivery;
 
+/**
+ * Class QueryParams
+ * @package KenticoCloud\Delivery
+ */
 class QueryParams implements \ArrayAccess
 {
     public $data = array();

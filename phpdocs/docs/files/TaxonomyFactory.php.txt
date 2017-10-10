@@ -1,15 +1,21 @@
 <?php
+/**
+ * Retrieves taxonomy as corresponding taxonomy objects
+ */
+
 namespace KenticoCloud\Delivery;
 
 use \KenticoCloud\Delivery\Models\Taxonomies;
 
 /**
- * TaxonomyFactory
- *
- * Retrieves taxonomy as corresponding taxonomy objects
+ * Class TaxonomyFactory
+ * @package KenticoCloud\Delivery
  */
 class TaxonomyFactory
 {
+    /**
+     * TaxonomyFactory constructor.
+     */
     public function __construct()
     {
     }
