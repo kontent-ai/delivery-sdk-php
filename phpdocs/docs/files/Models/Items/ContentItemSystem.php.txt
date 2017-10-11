@@ -1,4 +1,7 @@
 <?php
+/**
+ * Represents system attributes of a content item.
+ */
 
 namespace KenticoCloud\Delivery\Models\Items;
 
@@ -11,8 +14,20 @@ use \DateTime;
  */
 class ContentItemSystem extends SystemBase
 {
+    /**
+     * @var null
+     * Gets the codename of the content type, for example "article".
+     */
     public $type = null;
+    /**
+     * @var null
+     * Gets a list of codenames of sitemap items to which the content item is assigned.
+     */
     public $sitemapLocations = null;
+    /**
+     * @var null
+     * Gets the language of the content item.
+     */
     public $language = null;
 
     /**
@@ -33,6 +48,12 @@ class ContentItemSystem extends SystemBase
         $this->language = $language;
     }
 
+    /**
+     * TODO: RC
+     * @param null $format
+     * @return DateTime|string
+     *
+     */
     public function getLastModifiedDateTime($format = null)
     {
         $dateTime = new DateTime($this->lastModified);

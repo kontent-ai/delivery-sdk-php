@@ -1,4 +1,7 @@
 <?php
+/**
+ * Executes requests against the Kentico Cloud Delivery API.
+ */
 
 namespace KenticoCloud\Delivery;
 
@@ -122,12 +125,14 @@ class DeliveryClient
     public function getTaxonomy($codename)
     {
         $taxonomyUri = $this->urlBuilder->getTaxonomyUrl($codename);
-        
+
         $request = $this->getRequest($taxonomyUri);
         $response = $this->send($request);
 
+        // TODO: RC
+        // Syntax error, unexpected T_OBJECT_OPERATOR
         $taxonomy = ($this->getTaxonomyFactory())->createTaxonomy($response->body);
-        
+
         return $taxonomy;
     }
 

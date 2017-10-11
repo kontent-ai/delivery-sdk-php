@@ -1,4 +1,7 @@
 <?php
+/**
+ * TODO: RC
+ */
 
 namespace KenticoCloud\Delivery;
 
@@ -10,9 +13,24 @@ use \KenticoCloud\Delivery\Helpers\TextHelper;
  */
 class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
 {
+    /**
+     * TODO: RC
+     * @var string
+     */
     private $ci = \KenticoCloud\Delivery\Models\Items\ContentItem::class;
+    /**
+     * TODO: RC
+     * @var string
+     */
     private $cis = \KenticoCloud\Delivery\Models\Items\ContentItemSystem::class;
 
+    /**
+     * TODO: RC
+     * @param $typeName
+     * @param null $elementName
+     * @param null $parentModelType
+     * @return null|string
+     */
     public function getTypeClass($typeName, $elementName = null, $parentModelType = null)
     {
         if ($elementName === 'system' && $parentModelType == $this->ci) {
@@ -27,7 +45,14 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
         }
     }
 
-    
+
+    /**
+     * TODO: RC
+     * @param $data
+     * @param $modelType
+     * @param $property
+     * @return array
+     */
     public function getProperty($data, $modelType, $property)
     { 
         if ($property == 'elements' && $modelType == $this->ci) {

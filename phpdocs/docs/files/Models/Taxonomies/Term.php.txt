@@ -10,8 +10,20 @@ namespace KenticoCloud\Delivery\Models\Taxonomies;
  */
 class Term
 {
+    /**
+     * Gets the name of the taxonomy term.
+     * @var string
+     */
     public $name = null;
+    /**
+     * Gets the codename of the taxonomy term.
+     * @var string
+     */
     public $codename = null;
+    /**
+     * TODO: RC
+     * @var null
+     */
     public $terms = null;
 
     /**

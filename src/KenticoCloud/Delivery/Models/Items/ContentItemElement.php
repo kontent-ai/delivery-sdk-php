@@ -16,6 +16,10 @@ class ContentItemElement
      * Gets the type of the content element, for example "multiple_choice".
      */
     public $type = null;
+    /**
+     * @var null
+     * TODO: RC
+     */
     public $value = null;
     /**
      * @var string

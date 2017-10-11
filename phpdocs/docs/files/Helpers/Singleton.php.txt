@@ -1,7 +1,14 @@
 <?php
+/**
+ * TODO: RC
+ */
 
 namespace KenticoCloud\Delivery\Helpers;
 
+/**
+ * Class Singleton
+ * @package KenticoCloud\Delivery\Helpers
+ */
 abstract class Singleton
 {
     /**
@@ -11,6 +18,11 @@ abstract class Singleton
     {
     }
 
+    /**
+     * Get Singleton instance.
+     * TODO: RC
+     * @return mixed
+     */
     final public static function getInstance()
     {
         static $aoInstance = array();
@@ -25,6 +37,9 @@ abstract class Singleton
         return $aoInstance[$calledClassName];
     }
 
+    /**
+     * TODO: RC
+     */
     final private function __clone()
     {
     }

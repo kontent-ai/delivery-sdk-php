@@ -1,4 +1,7 @@
 <?php
+/**
+ * TODO: RC
+ */
 
 namespace KenticoCloud\Delivery;
 
@@ -8,7 +11,15 @@ namespace KenticoCloud\Delivery;
  */
 class ModelBinder
 {
+    /**
+     * TODO: RC
+     * @var TypeMapperInterface|null
+     */
     protected $typeMapper = null;
+    /**
+     * TODO: RC
+     * @var PropertyMapperInterface|null
+     */
     protected $propertyMapper = null;
 
     /**
@@ -22,6 +33,12 @@ class ModelBinder
         $this->propertyMapper = $propertyMapper;
     }
 
+    /**
+     * TODO: RC
+     * @param $contentItems
+     * @param null $modularContent
+     * @return array
+     */
     public function getContentItems($contentItems, $modularContent = null)
     {
         $arr = array();
@@ -33,6 +50,14 @@ class ModelBinder
     }
 
 
+    /**
+     * TODO: RC
+     * @param $modelType
+     * @param $data
+     * @param null $modularContent
+     * @param null $processedItems
+     * @return mixed
+     */
     public function bindModel($modelType, $data, $modularContent = null, $processedItems = null)
     {
         $processedItems = $processedItems ?? array();

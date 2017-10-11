@@ -13,6 +13,10 @@ use \KenticoCloud\Delivery\Models;
  */
 class MultipleOptionsTypeElement extends ContentTypeElement
 {
+    /**
+     * TODO: RC
+     * @var null
+     */
     public $options = null;
 
     /**

@@ -1,4 +1,8 @@
 <?php
+/**
+ * Represents a content item.
+ */
+
 
 namespace KenticoCloud\Delivery\Models\Items;
 
@@ -11,7 +15,15 @@ use \KenticoCloud\Delivery\Models\Shared\Pagination;
  */
 class ContentItems
 {
+    /**
+     * TODO:RC
+     * @var null
+     */
     public $items = null;
+    /**
+     * TODO:RC
+     * @var null
+     */
     public $pagination = null;
 
     /**
@@ -25,6 +37,12 @@ class ContentItems
         return $this;
     }
 
+    /**
+     * Fill items collection by data.
+     * @param $modelBinder
+     * @param $obj
+     * @return $this
+     */
     protected function populate($modelBinder, $obj)
     {
         $properties = get_object_vars($obj);

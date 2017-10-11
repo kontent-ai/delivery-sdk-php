@@ -13,9 +13,25 @@ namespace KenticoCloud\Delivery\Models\Shared;
  */
 class SystemBase
 {
+    /**
+     * TODO: RC
+     * @var null
+     */
     public $id = null;
+    /**
+     * TODO: RC
+     * @var null
+     */
     public $name = null;
+    /**
+     * TODO: RC
+     * @var null
+     */
     public $codename = null;
+    /**
+     * TODO: RC
+     * @var null
+     */
     public $lastModified = null;
 
     /**

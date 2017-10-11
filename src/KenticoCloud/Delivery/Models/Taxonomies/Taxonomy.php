@@ -12,6 +12,14 @@ namespace KenticoCloud\Delivery\Models\Taxonomies;
  */
 class Taxonomy
 {
+    /**
+     * TODO: RC
+     * @var
+     */
     public $system;
+    /**
+     * TODO: RC
+     * @var
+     */
     public $terms;
 }

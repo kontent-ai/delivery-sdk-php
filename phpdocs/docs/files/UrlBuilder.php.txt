@@ -1,12 +1,28 @@
 <?php
+/**
+ * Helper class for building url.
+ */
+
 
 namespace KenticoCloud\Delivery;
 
 use KenticoCloud\Delivery\QueryParams;
 
+/**
+ * Class UrlBuilder
+ * @package KenticoCloud\Delivery
+ */
 class UrlBuilder
 {
+    /**
+     * Gets or sets the Project identifier.
+     * @var string
+     */
     public $projectID = null;
+    /**
+     * Gets or sets whether the Preview API should be used. If TRUE, <see cref="PreviewApiKey"/> needs to be set as well.
+     * @var bool
+     */
     public $usePreviewApi = false;
 	const PREVIEW_ENDPOINT  = 'https://preview-deliver.kenticocloud.com/';
 	const PRODUCTION_ENDPOINT  = 'https://deliver.kenticocloud.com/';
@@ -30,11 +46,22 @@ class UrlBuilder
         $this->usePreviewApi = $usePreviewApi;
     }
 
+    /**
+     * Get url for specifed item.
+     * @param $codename
+     * @param $query
+     * @return string
+     */
     public function getItemUrl($codename, $query)
     {
         return $this->buildUrl(sprintf(self::URL_TEMPLATE_ITEM, urlencode($codename)), $query);
     }
 
+    /**
+     * Get items by query.
+     * @param null $query
+     * @return string
+     */
     public function getItemsUrl($query = null)
     {
         return $this->buildUrl(self::URL_TEMPLATE_ITEMS, $query);
@@ -102,6 +129,12 @@ class UrlBuilder
     }
 
 
+    /**
+     * Build url for given endpoint and query.
+     * @param $endpoint
+     * @param null $query
+     * @return string
+     */
     private function buildUrl($endpoint, $query = null)
     {
         $segments = array(
