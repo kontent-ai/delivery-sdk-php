@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * Represents collection of Assets.
  */
 
 namespace KenticoCloud\Delivery\Models\Items;

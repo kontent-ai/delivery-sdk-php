@@ -1,8 +1,6 @@
 <?php
 /**
- * SystemBase
- *
- * Base class 'system' property.
+ * Base metadata shared for all objects.
  */
 
 namespace KenticoCloud\Delivery\Models\Shared;
@@ -14,7 +12,7 @@ namespace KenticoCloud\Delivery\Models\Shared;
 class SystemBase
 {
     /**
-     * TODO: RC
+     * TODO:
      * @var null
      */
     public $id = null;

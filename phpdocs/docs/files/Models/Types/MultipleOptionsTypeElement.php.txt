@@ -14,8 +14,8 @@ use \KenticoCloud\Delivery\Models;
 class MultipleOptionsTypeElement extends ContentTypeElement
 {
     /**
-     * TODO: RC
-     * @var null
+     * Represents an option of a Multiple choice element.
+     * @var Models\Shared\MultipleChoiceOption
      */
     public $options = null;
 

@@ -12,15 +12,13 @@ namespace KenticoCloud\Delivery\Models\Items;
 class ContentItem
 {
     /**
-     * Gets the system attributes of the content item.
-     * TODO: RC specify type
-     * @var null
+     * Content item metadata
+     * @var ContentItemSystem
      */
     public $system = null;
     /**
-     * TODO: RC specify type
-     * Gets the dynamic view of the JSON response where elements and their properties can be retrieved by name, for example <c>item.Elements.description.value</c>;
-     * @var null
+     * Gets an array that contains elements of the content item indexed by their codename.
+     * @var ContentItemElement[]
      */
     public $elements = null;
 }

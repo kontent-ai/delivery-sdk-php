@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * TODO RC: review Array Access
  */
 
 namespace KenticoCloud\Delivery;

@@ -21,7 +21,7 @@ class Term
      */
     public $codename = null;
     /**
-     * TODO: RC
+     * TODO: DD
      * @var null
      */
     public $terms = null;
