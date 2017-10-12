@@ -12,14 +12,13 @@ namespace KenticoCloud\Delivery\Models\Types;
 class ContentType
 {
     /**
-     * TODO: RC
-     * @var
+     * Content type metadata
+     * @var ContentTypeSystem
      */
     public $system;
     /**
-     * TODO: RC
-     * Gets a dictionary that contains elements of the content type index by their codename.
-     * @var
+     * Gets an array that contains elements of the content type indexed by their codename.
+     * @var ContentTypeElement[]
      */
     public $elements;
 }

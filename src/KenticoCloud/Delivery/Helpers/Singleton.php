@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * Ensure singleton instance for successors.
  */
 
 namespace KenticoCloud\Delivery\Helpers;
@@ -20,7 +20,6 @@ abstract class Singleton
 
     /**
      * Get Singleton instance.
-     * TODO: RC
      * @return mixed
      */
     final public static function getInstance()
@@ -38,7 +37,7 @@ abstract class Singleton
     }
 
     /**
-     * TODO: RC
+     * TODO: RC - do not comment probably
      */
     final private function __clone()
     {

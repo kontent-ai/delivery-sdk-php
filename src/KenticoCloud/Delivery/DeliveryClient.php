@@ -129,7 +129,6 @@ class DeliveryClient
         $request = $this->getRequest($taxonomyUri);
         $response = $this->send($request);
 
-        // TODO: RC
         // Syntax error, unexpected T_OBJECT_OPERATOR
         $taxonomy = ($this->getTaxonomyFactory())->createTaxonomy($response->body);
 

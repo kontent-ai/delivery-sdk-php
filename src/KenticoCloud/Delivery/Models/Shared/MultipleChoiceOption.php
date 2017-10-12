@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents a selected option of a Multiple choice element.
+ * Represents an option of a Multiple choice element.
  */
 
 namespace KenticoCloud\Delivery\Models\Shared;

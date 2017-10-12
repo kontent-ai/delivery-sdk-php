@@ -11,6 +11,9 @@ namespace KenticoCloud\Delivery;
  */
 class DeliveryClient
 {
+    /**
+     * @var bool
+     */
     public $previewMode = false;
     public $urlBuilder = null;
     public $previewApiKey = null;

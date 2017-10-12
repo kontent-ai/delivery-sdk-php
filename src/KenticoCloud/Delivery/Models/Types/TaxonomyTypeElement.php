@@ -14,8 +14,8 @@ use \KenticoCloud\Delivery\Models;
 class TaxonomyTypeElement extends ContentTypeElement
 {
     /**
-     * TODO: RC
-     * @var null
+     * Taxonomy Group
+     * @var string
      */
     public $taxonomy_group = null;
 
