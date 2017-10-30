@@ -1,0 +1,10 @@
+engines:
+  phpmd:
+    enabled: true
+    checks:
+      CleanCode/ElseExpression:
+        enabled: false
+
+
+exclude_paths:
+- "phpdocs/"
