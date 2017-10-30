@@ -17,7 +17,7 @@ class TaxonomyTypeElement extends ContentTypeElement
      * Taxonomy Group
      * @var string
      */
-    public $taxonomy_group = null;
+    public $taxonomyGroup = null;
 
     /**
      * TaxonomyTypeElement constructor.
@@ -26,9 +26,9 @@ class TaxonomyTypeElement extends ContentTypeElement
      * @param $name
      * @param $taxonomy_group
      */
-    public function __construct($type, $codename, $name, $taxonomy_group)
+    public function __construct($type, $codename, $name, $taxonomyGroup)
     {
-        $this->taxonomy_group = $taxonomy_group;
+        $this->taxonomyGroup = $taxonomyGroup;
         parent::__construct($type, $codename, $name);
     }
 }

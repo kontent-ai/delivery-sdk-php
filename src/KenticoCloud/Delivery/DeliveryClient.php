@@ -14,7 +14,7 @@ class DeliveryClient
     public $previewMode = false;
     public $urlBuilder = null;
     public $previewApiKey = null;
-    public $_debug = true;
+    public $debugRequests = false;
     public $lastRequest = null;
     public $mode = null;
     protected $typeMapper = null;
@@ -30,7 +30,6 @@ class DeliveryClient
         $this->urlBuilder = new UrlBuilder($projectId, $this->previewMode);
         $this->typeMapper = $typeMapper;
         $this->propertyMapper = $propertyMapper;
-        $self = get_class($this);
     }
 
     public function getItems($params)
@@ -139,7 +138,7 @@ class DeliveryClient
     {
         //TODO: make use of templates http://phphttpclient.com/#templates
         $request = \Httpful\Request::get($uri);
-       # $request->_debug = $this->_debug;
+        $request->_debug = $this->debugRequests;
         $request->mime('json');
         if (!is_null($this->previewApiKey)) {
             $request->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);

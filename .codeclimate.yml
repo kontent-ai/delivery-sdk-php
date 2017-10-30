@@ -4,6 +4,10 @@ engines:
     checks:
       CleanCode/ElseExpression:
         enabled: false
+      Naming/ShortVariable:
+        enabled: false
+      Naming/LongVariable:
+        enabled: false
 
 
 exclude_paths:

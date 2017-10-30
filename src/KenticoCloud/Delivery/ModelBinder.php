@@ -100,7 +100,7 @@ class ModelBinder
                                 case 'modular_content':
                                     $modelModularItems = array();
                                     if ($modularContent != null) {
-                                        foreach ($itemValue->value as $key => $modularCodename) {
+                                        foreach ($itemValue->value as $modularCodename) {
                                             // Try to load the content item from processed items
                                             if (isset($processedItems[$modularCodename])) {
                                                 $subItem = $processedItems[$modularCodename];
