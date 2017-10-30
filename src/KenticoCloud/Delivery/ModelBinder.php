@@ -1,18 +1,44 @@
 <?php
+/**
+ * TODO: RC
+ */
 
 namespace KenticoCloud\Delivery;
 
+/**
+ * Class ModelBinder
+ * @package KenticoCloud\Delivery
+ */
 class ModelBinder
 {
+    /**
+     * TODO: RC
+     * @var TypeMapperInterface|null
+     */
     protected $typeMapper = null;
+    /**
+     * TODO: RC
+     * @var PropertyMapperInterface|null
+     */
     protected $propertyMapper = null;
 
+    /**
+     * ModelBinder constructor.
+     * @param TypeMapperInterface $typeMapper
+     * @param PropertyMapperInterface $propertyMapper
+     */
     public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper)
     {
         $this->typeMapper = $typeMapper;
         $this->propertyMapper = $propertyMapper;
     }
 
+    /**
+     * TODO: RC
+     * @param $contentItems
+     * @param null $modularContent
+     * @return array
+     */
     public function getContentItems($contentItems, $modularContent = null)
     {
         $arr = array();
@@ -24,6 +50,14 @@ class ModelBinder
     }
 
 
+    /**
+     * TODO: RC
+     * @param $modelType
+     * @param $data
+     * @param null $modularContent
+     * @param null $processedItems
+     * @return mixed
+     */
     public function bindModel($modelType, $data, $modularContent = null, $processedItems = null)
     {
         $processedItems = $processedItems ?? array();

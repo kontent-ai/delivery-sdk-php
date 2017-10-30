@@ -1,13 +1,23 @@
 <?php
+/**
+ * Represents single taxonomy item
+ */
 namespace KenticoCloud\Delivery\Models\Taxonomies;
 
 /**
- * Taxonomy
- *
- * Represents single taxonomy item
+ * Class Taxonomy
+ * @package KenticoCloud\Delivery\Models\Taxonomies
  */
 class Taxonomy
 {
+    /**
+     * Taxonomy metadata
+     * @var
+     */
     public $system;
+    /**
+     * Array that content taxonomy terms in the taxonomy group
+     * @var mixed[]
+     */
     public $terms;
 }

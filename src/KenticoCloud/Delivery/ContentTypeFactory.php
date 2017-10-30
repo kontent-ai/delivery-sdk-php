@@ -1,15 +1,21 @@
 <?php
+/**
+ * Retrieves content types as corresponding content type objects.
+ */
+
 namespace KenticoCloud\Delivery;
 
 use \KenticoCloud\Delivery\Models\Types;
 
 /**
- * ContentTypeFactory
- *
- * Retrieves content types as corresponding content type objects.
+ * Class ContentTypeFactory
+ * @package KenticoCloud\Delivery
  */
 class ContentTypeFactory
 {
+    /**
+     * ContentTypeFactory constructor.
+     */
     public function __construct()
     {
     }
@@ -84,13 +90,13 @@ class ContentTypeFactory
         return $types;
     }
 
-
     /**
      * Transforms response option items to MultipleChoiceOption objects.
      *
      * Returned Types\MultipleChoiceOption objects are different from
      * MultipleChoiceOption objects used with ContentItem objects.
      *
+     * @param $optionItems
      * @return array of Types\MultipleChoiceOption
      */
     private function loadOptions($optionItems)

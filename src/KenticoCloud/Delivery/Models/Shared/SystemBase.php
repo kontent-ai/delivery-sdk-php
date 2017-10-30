@@ -1,18 +1,44 @@
 <?php
+/**
+ * Base metadata shared for all objects.
+ */
+
 namespace KenticoCloud\Delivery\Models\Shared;
 
 /**
- * SystemBase
- *
- * Base class 'system' property.
+ * Class SystemBase
+ * @package KenticoCloud\Delivery\Models\Shared
  */
 class SystemBase
 {
+    /**
+     * TODO:
+     * @var null
+     */
     public $id = null;
+    /**
+     * TODO: RC
+     * @var null
+     */
     public $name = null;
+    /**
+     * TODO: RC
+     * @var null
+     */
     public $codename = null;
+    /**
+     * TODO: RC
+     * @var null
+     */
     public $lastModified = null;
 
+    /**
+     * SystemBase constructor.
+     * @param $id
+     * @param $name
+     * @param $codename
+     * @param $lastModified
+     */
     public function __construct($id, $name, $codename, $lastModified)
     {
         $this->id = $id;

@@ -1,13 +1,27 @@
 <?php
+/**
+ * Ensure singleton instance for successors.
+ */
 
 namespace KenticoCloud\Delivery\Helpers;
 
+/**
+ * Class Singleton
+ * @package KenticoCloud\Delivery\Helpers
+ */
 abstract class Singleton
 {
+    /**
+     * Singleton constructor.
+     */
     protected function __construct()
     {
     }
 
+    /**
+     * Get Singleton instance.
+     * @return mixed
+     */
     final public static function getInstance()
     {
         static $aoInstance = array();
@@ -22,6 +36,9 @@ abstract class Singleton
         return $aoInstance[$calledClassName];
     }
 
+    /**
+     * TODO: RC - do not comment probably
+     */
     final private function __clone()
     {
     }
