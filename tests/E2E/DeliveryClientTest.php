@@ -46,7 +46,6 @@ class DeliveryClientTest extends TestCase
         $client->waitForLoadingNewContent = true;
         $item = $client->getItem($params);
         $this->assertArrayHasKey('X-KC-Wait-For-Loading-New-Content', $client->lastRequest->headers);
-        //$client->lastRequest
     }
 
     public function testGetContentTypesLimit_TwoTypes()
