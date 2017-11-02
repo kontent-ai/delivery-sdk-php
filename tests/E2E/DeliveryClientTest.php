@@ -39,6 +39,16 @@ class DeliveryClientTest extends TestCase
         $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());        
     }
 
+    public function testWebhooks()
+    {
+        $params = (new QueryParams())->codename('home');
+        $client = $this->getClient();
+        $client->waitForLoadingNewContent = true;
+        $item = $client->getItem($params);
+        $this->assertArrayHasKey('X-KC-Wait-For-Loading-New-Content', $client->lastRequest->headers);
+        //$client->lastRequest
+    }
+
     public function testGetContentTypesLimit_TwoTypes()
     {
         $params = (new QueryParams())->limit(2);

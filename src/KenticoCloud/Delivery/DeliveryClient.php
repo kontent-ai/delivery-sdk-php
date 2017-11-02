@@ -17,6 +17,7 @@ class DeliveryClient
     public $debugRequests = false;
     public $lastRequest = null;
     public $mode = null;
+    public $waitForLoadingNewContent = false;
     protected $typeMapper = null;
     protected $propertyMapper = null;
     protected $modelBinder = null;
@@ -86,7 +87,7 @@ class DeliveryClient
         $params['limit'] = 1;
         $results = $this->getTypes($params);
         
-        if (count($results) != 1){
+        if (count($results) != 1) {
             return null;
         }
 
@@ -118,7 +119,7 @@ class DeliveryClient
      * Retrieves single taxonomy by its codename.
      *
      * @param $codename string Codename of taxonomy object to be retrieved
-     * @return Taxonomy object Retrieved taxonomy, or null when taxonomy 
+     * @return Taxonomy object Retrieved taxonomy, or null when taxonomy
      * with given codename does not exist.
      */
     public function getTaxonomy($codename)
@@ -142,6 +143,9 @@ class DeliveryClient
         $request->mime('json');
         if (!is_null($this->previewApiKey)) {
             $request->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
+        }
+        if ($this->waitForLoadingNewContent) {
+            $request->addHeader('X-KC-Wait-For-Loading-New-Content', 'true');
         }
         return $request;
     }
@@ -167,8 +171,7 @@ class DeliveryClient
 
     protected function getContentTypeFactory()
     {
-        if ($this->contentTypeFactory == null)
-        {
+        if ($this->contentTypeFactory == null) {
             $this->contentTypeFactory = new ContentTypeFactory();
         }
         return $this->contentTypeFactory;
@@ -176,8 +179,7 @@ class DeliveryClient
 
     protected function getTaxonomyFactory()
     {
-        if ($this->taxonomyFactory == null)
-        {
+        if ($this->taxonomyFactory == null) {
             $this->taxonomyFactory = new TaxonomyFactory();
         }
         return $this->taxonomyFactory;
