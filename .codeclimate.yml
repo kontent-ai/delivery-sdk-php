@@ -1,4 +1,6 @@
-exclude_patterns:
+engines:
+
+exclude_paths:
 - "phpdocs/"
 - "tests/"
 - "test/"
