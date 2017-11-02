@@ -1,15 +1,3 @@
-engines:
-  phpmd:
-    enabled: true
-    checks:
-      CleanCode/ElseExpression:
-        enabled: false
-      Naming/ShortVariable:
-        enabled: false
-      Naming/LongVariable:
-        enabled: false
-
-
 exclude_paths:
 - "phpdocs/"
 - "tests/"
