@@ -1,5 +1,6 @@
 engines:
--  phpmd:
+  phpmd:
+    enabled: true
 
 exclude_paths:
 - "phpdocs/"
