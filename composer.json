@@ -1,9 +1,19 @@
 {
-    "name": "kentico/delivery-sdk-php",
+    "name": "kentico-cloud/delivery-sdk-php",
     "type": "library",
     "license": "MIT",
     "version": "0.0.1",
     "description": "Kentico Cloud Delivery SDK for PHP",
+    "keywords": [
+        "delivery",
+        "content-delivery",
+        "headless",
+        "cms",
+        "kentico",
+        "kentico-cloud",
+        "headless-cms"
+    ],
+    "homepage": "https://kenticocloud.com/",
     "authors": [
         {
             "name": "Kentico",
@@ -15,6 +25,7 @@
         }
     ],
     "require": {
+        "php": "^7.0",
         "nategood/httpful": "^0.2.20"
     },
     "require-dev": {
