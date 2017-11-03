@@ -10,10 +10,3 @@ install:
 
 after_success:
   - vendor/bin/test-reporter
-  
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: 9b25e7cedcbfc61aeae483e2cb928413d7c9a719
-  on:
-    branch: master
