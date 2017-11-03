@@ -37,7 +37,7 @@ abstract class Singleton
     }
 
     /**
-     * TODO: RC - do not comment probably
+     * TODO: PS - do not comment probably
      */
     final private function __clone()
     {

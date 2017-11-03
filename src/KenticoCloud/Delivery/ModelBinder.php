@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * TODO: PS
  */
 
 namespace KenticoCloud\Delivery;
@@ -12,12 +12,12 @@ namespace KenticoCloud\Delivery;
 class ModelBinder
 {
     /**
-     * TODO: RC
+     * TODO: PS
      * @var TypeMapperInterface|null
      */
     protected $typeMapper = null;
     /**
-     * TODO: RC
+     * TODO: PS
      * @var PropertyMapperInterface|null
      */
     protected $propertyMapper = null;
@@ -34,7 +34,7 @@ class ModelBinder
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $contentItems
      * @param null $modularContent
      * @return array
@@ -51,7 +51,7 @@ class ModelBinder
 
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $modelType
      * @param $data
      * @param null $modularContent

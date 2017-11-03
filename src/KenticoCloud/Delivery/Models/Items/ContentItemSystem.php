@@ -49,7 +49,7 @@ class ContentItemSystem extends SystemBase
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param null $format
      * @return DateTime|string
      *

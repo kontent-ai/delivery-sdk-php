@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * TODO: PS
  */
 
 
@@ -13,7 +13,7 @@ namespace KenticoCloud\Delivery;
 interface TypeMapperInterface
 {
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $typeName
      * @param null $elementName
      * @param null $parentModelType

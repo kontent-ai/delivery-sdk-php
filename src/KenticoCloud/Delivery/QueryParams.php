@@ -12,13 +12,13 @@ namespace KenticoCloud\Delivery;
 class QueryParams implements \ArrayAccess
 {
     /**
-     * TODO: RC
+     * TODO: PS
      * @var array
      */
     public $data = array();
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param int $depth
      * @return $this
      */
@@ -29,7 +29,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $types
      * @return QueryParams
      */
@@ -39,7 +39,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param int $limit
      * @return $this
      */
@@ -50,7 +50,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param int $skip
      * @return $this
      */
@@ -61,7 +61,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $codename
      * @return $this
      */
@@ -72,7 +72,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @return $this
      */
@@ -83,7 +83,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @return $this
      */
@@ -94,7 +94,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $language
      * @return $this
      */
@@ -105,7 +105,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @param $values
      * @return $this
@@ -117,7 +117,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * \TODO: PS
      * @param $element
      * @param $values
      * @return $this
@@ -129,7 +129,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @param $values
      * @return $this
@@ -141,7 +141,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @param $value
      * @return $this
@@ -153,7 +153,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @param $value
      * @return $this
@@ -165,7 +165,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @param $value
      * @return $this
@@ -177,7 +177,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @param $value
      * @return $this
@@ -189,7 +189,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @param $value
      * @return $this
@@ -201,7 +201,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @param $value
      * @return $this
@@ -213,7 +213,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $element
      * @param $lowerLimit
      * @param $upperLimit
@@ -227,7 +227,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
-     * TODO: RC
+     * TODO: PS
      * @param mixed $offset
      * @param mixed $value
      */
@@ -253,7 +253,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
-     * TODO: RC
+     * TODO: PS
      * @param mixed $offset
      */
     public function offsetUnset($offset)
@@ -264,7 +264,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
-     * TODO: RC
+     * TODO: PS
      * @param mixed $offset
      * @return mixed|null
      */

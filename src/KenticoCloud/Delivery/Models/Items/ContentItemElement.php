@@ -18,7 +18,7 @@ class ContentItemElement
     public $type = null;
     /**
      * @var null
-     * TODO: RC
+     * TODO: PS
      */
     public $value = null;
     /**
