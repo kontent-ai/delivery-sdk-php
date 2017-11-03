@@ -10,11 +10,10 @@ install:
 
 after_success:
   - vendor/bin/test-reporter
-
+  
 deploy:
   provider: pages
   skip_cleanup: true
-  local_dir: phpsdk
-  github_token: 25bb6fb71e19b65b82bb61cdd25f1184a765925d
+  github_token: 9b25e7cedcbfc61aeae483e2cb928413d7c9a719
   on:
     branch: master
