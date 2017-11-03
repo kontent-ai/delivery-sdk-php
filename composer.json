@@ -2,7 +2,6 @@
     "name": "kentico-cloud/delivery-sdk-php",
     "type": "library",
     "license": "MIT",
-    "version": "0.0.1",
     "description": "Kentico Cloud Delivery SDK for PHP",
     "keywords": [
         "delivery",
