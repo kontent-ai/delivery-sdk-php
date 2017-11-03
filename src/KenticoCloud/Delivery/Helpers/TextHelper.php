@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * TODO: PS
  */
 
 
@@ -14,7 +14,7 @@ class TextHelper extends Singleton
 {    
     //http://syframework.alwaysdata.net/decamelize
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $input
      * @param string $separator
      * @return string
@@ -28,7 +28,7 @@ class TextHelper extends Singleton
     //http://stackoverflow.com/a/33122760/3363709
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $input
      * @param string $separator
      * @return mixed
@@ -39,7 +39,7 @@ class TextHelper extends Singleton
     }
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $input
      * @param string $separator
      * @return mixed

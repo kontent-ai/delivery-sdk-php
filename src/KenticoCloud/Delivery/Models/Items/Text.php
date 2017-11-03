@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * TODO: PS
  */
 
 namespace KenticoCloud\Delivery\Models\Items;
@@ -14,17 +14,17 @@ use KenticoCloud\Delivery\Models\ContentItemElement;
 class Text extends ContentItemElement
 {
     /**
-     * TODO: RC
+     * TODO: PS
      * @var null
      */
     public $name = null;
     /**
-     * TODO: RC
+     * TODO: PS
      * @var null
      */
     public $size = null;
     /**
-     * TODO: RC
+     * TODO: PS
      * @var null
      */
     public $url = null;

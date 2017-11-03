@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * TODO: PS
  */
 
 namespace KenticoCloud\Delivery;
@@ -14,18 +14,18 @@ use \KenticoCloud\Delivery\Helpers\TextHelper;
 class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
 {
     /**
-     * TODO: RC
+     * TODO: PS
      * @var string
      */
     private $ci = \KenticoCloud\Delivery\Models\Items\ContentItem::class;
     /**
-     * TODO: RC
+     * TODO: PS
      * @var string
      */
     private $cis = \KenticoCloud\Delivery\Models\Items\ContentItemSystem::class;
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $typeName
      * @param null $elementName
      * @param null $parentModelType
@@ -47,7 +47,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
 
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $data
      * @param $modelType
      * @param $property

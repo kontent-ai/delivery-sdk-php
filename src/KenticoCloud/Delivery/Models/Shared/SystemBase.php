@@ -17,17 +17,17 @@ class SystemBase
      */
     public $id = null;
     /**
-     * TODO: RC
+     * TODO: PS
      * @var null
      */
     public $name = null;
     /**
-     * TODO: RC
+     * TODO: PS
      * @var null
      */
     public $codename = null;
     /**
-     * TODO: RC
+     * TODO: PS
      * @var null
      */
     public $lastModified = null;

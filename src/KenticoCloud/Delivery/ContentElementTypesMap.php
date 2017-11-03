@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * TODO: PS
  */
 
 namespace KenticoCloud\Delivery;
@@ -12,7 +12,7 @@ namespace KenticoCloud\Delivery;
 class ContentElementTypesMap
 {
     /**
-     * TODO: RC
+     * TODO: PS
      * @var array
      */
     public $types = array(
@@ -24,7 +24,7 @@ class ContentElementTypesMap
     );
 
     /**
-     * TODO: RC
+     * TODO: PS
      * @return string
      */
     protected function getDefaultTypeClass()

@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: RC
+ * TODO: PS
  */
 
 namespace KenticoCloud\Delivery;
@@ -12,7 +12,7 @@ namespace KenticoCloud\Delivery;
 interface PropertyMapperInterface
 {
     /**
-     * TODO: RC
+     * TODO: PS
      * @param $data
      * @param $modelType
      * @param $property
