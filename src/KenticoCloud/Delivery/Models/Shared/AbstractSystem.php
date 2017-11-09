@@ -6,34 +6,34 @@
 namespace KenticoCloud\Delivery\Models\Shared;
 
 /**
- * Class SystemBase
+ * Class AbstractSystem
  * @package KenticoCloud\Delivery\Models\Shared
  */
-class SystemBase
+abstract class AbstractSystem
 {
     /**
-     * TODO:
+     * Gets and sets objects unique identifier. 
      * @var null
      */
     public $id = null;
     /**
-     * TODO: PS
+     * Gets and sets object's display name.
      * @var null
      */
     public $name = null;
     /**
-     * TODO: PS
+     * Gets and sets object's code name.
      * @var null
      */
     public $codename = null;
     /**
-     * TODO: PS
+     * Gets and sets object's last modified timestamp.
      * @var null
      */
     public $lastModified = null;
 
     /**
-     * SystemBase constructor.
+     * AbstractSystem constructor.
      * @param $id
      * @param $name
      * @param $codename

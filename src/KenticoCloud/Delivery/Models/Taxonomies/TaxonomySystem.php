@@ -7,12 +7,12 @@
 
 namespace KenticoCloud\Delivery\Models\Taxonomies;
 
-use KenticoCloud\Delivery\Models\Shared\SystemBase;
+use KenticoCloud\Delivery\Models\Shared\AbstractSystem;
 
 /**
  * Class TaxonomySystem
  * @package KenticoCloud\Delivery\Models\Taxonomies
  */
-class TaxonomySystem extends SystemBase
+class TaxonomySystem extends AbstractSystem
 {
 }

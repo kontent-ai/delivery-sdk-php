@@ -5,12 +5,12 @@
 
 namespace KenticoCloud\Delivery\Models\Types;
 
-use KenticoCloud\Delivery\Models\Shared\SystemBase;
+use KenticoCloud\Delivery\Models\Shared\AbstractSystem;
 
 /**
  * Class ContentTypeSystem
  * @package KenticoCloud\Delivery\Models\Types
  */
-class ContentTypeSystem extends SystemBase
+class ContentTypeSystem extends AbstractSystem
 {
 }

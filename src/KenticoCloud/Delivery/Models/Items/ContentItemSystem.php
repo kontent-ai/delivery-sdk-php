@@ -5,14 +5,14 @@
 
 namespace KenticoCloud\Delivery\Models\Items;
 
-use KenticoCloud\Delivery\Models\Shared\SystemBase;
+use KenticoCloud\Delivery\Models\Shared\AbstractSystem;
 use \DateTime;
 
 /**
  * Class ContentItemSystem
  * @package KenticoCloud\Delivery\Models\Items
  */
-class ContentItemSystem extends SystemBase
+class ContentItemSystem extends AbstractSystem
 {
     /**
      * @var null
