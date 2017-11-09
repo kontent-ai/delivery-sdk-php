@@ -32,7 +32,7 @@ class TaxnomyFactoryTest extends TestCase
     {
         $client = $this->getClient();
         $params = (new QueryParams())->limit(1);
-        $actual = $client->getTaxonomies($params);
+        $actual = $client->getTaxonomies($params)->taxonomies;
 
         $taxonomySystem = new Taxonomies\TaxonomySystem(
             "4ce421e9-c403-eee8-fdc2-74f09392a749",
@@ -71,14 +71,15 @@ class TaxnomyFactoryTest extends TestCase
         $params = new QueryParams();
         $taxonomies = $client->getTaxonomies($params);
 
-        $this->assertEquals($expectedCount, count($taxonomies));
+        $this->assertEquals($expectedCount, $taxonomies->pagination->count);
+        $this->assertCount($expectedCount, $taxonomies->taxonomies);
     }
 
     public function testCreateTaxonomies_SingleTaxonomyResponse_NoTermsRecordIsMissing()
     {
         $client = $this->getClient();
         $params = (new QueryParams())->limit(1);
-        $taxonomy = $client->getTaxonomies($params);
+        $taxonomy = $client->getTaxonomies($params)->taxonomies;
 
         $expectedCount = 4;
         $actualCount = count($taxonomy[0]->terms);

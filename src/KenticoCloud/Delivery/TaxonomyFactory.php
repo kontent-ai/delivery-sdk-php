@@ -60,7 +60,7 @@ class TaxonomyFactory
      */
     public function createTaxonomy($response)
     {
-        var_dump($response);
+        //var_dump($response);
         if ($this->isInvalidResponse($response)) {
             return null;
         }
@@ -112,7 +112,6 @@ class TaxonomyFactory
     private function isInvalidResponse($response)
     {
         if (empty($response) || is_null($response)) {
-            echo "will be returning null;";
             return true;
         }
     

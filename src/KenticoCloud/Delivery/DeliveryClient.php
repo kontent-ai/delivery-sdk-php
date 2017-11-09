@@ -40,10 +40,18 @@ class DeliveryClient
         $response = $this->send($request);
 
         $modelBinder = $this->getModelBinder();
-                
-        $items = new Models\Items\ContentItems($modelBinder, $response->body);
+        
+        $properties = get_object_vars($response->body);
+        
+        // Items
+        $items = $modelBinder->getContentItems($properties['items'], $properties['modular_content']);
 
-        return $items;
+        // Pagination
+        $pagination = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
+                
+        $itemsResponse = new Models\Items\ContentItemsResponse($items, $pagination);
+
+        return $itemsResponse;
     }
 
     public function getItem($params)
@@ -73,9 +81,20 @@ class DeliveryClient
         $response = $this->send($request);
 
         $typeFactory = $this->getContentTypeFactory();
-        $types = $typeFactory->createTypes($response->body);
+        
+        $modelBinder = $this->getModelBinder();
 
-        return $types;
+        $properties = get_object_vars($response->body);
+
+        // Types
+        $types = $typeFactory->createTypes($response->body);
+        
+        // Pagination
+        $pagination = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
+
+        $typesResponse = new Models\Types\ContentTypesResponse($types, $pagination);
+
+        return $typesResponse;
     }
 
     /**
@@ -85,7 +104,7 @@ class DeliveryClient
     public function getType($params)
     {
         $params['limit'] = 1;
-        $results = $this->getTypes($params);
+        $results = $this->getTypes($params)->types;
         
         if (count($results) != 1) {
             return null;
@@ -109,9 +128,20 @@ class DeliveryClient
         $response = $this->send($request);
 
         $taxonomyFactory = $this->getTaxonomyFactory();
+        
+        $modelBinder = $this->getModelBinder();
+        
+        $properties = get_object_vars($response->body);
+        
+        // Taxonomies
         $taxonomies = $taxonomyFactory->createTaxonomies($response->body);
-
-        return $taxonomies;
+                
+        // Pagination
+        $pagination = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
+        
+        $taxonomiesResponse = new Models\Taxonomies\TaxonomiesResponse($taxonomies, $pagination);
+        
+        return $taxonomiesResponse;
     }
 
 

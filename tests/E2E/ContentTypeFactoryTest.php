@@ -32,7 +32,7 @@ class ContentTypeFactoryTest extends TestCase
     {
         $client = $this->getClient();
         $params = (new QueryParams())->limit(1);
-        $actual = $client->getTypes($params);
+        $actual = $client->getTypes($params)->types;
 
         $contentSystem = new Types\ContentTypeSystem(
             "b2c14f2c-6467-460b-a70b-bca17972a33a",
@@ -58,7 +58,7 @@ class ContentTypeFactoryTest extends TestCase
         $expectedObjects = 13;
         $client = $this->getClient();
         $params = new QueryParams();
-        $types = $client->getTypes($params);
+        $types = $client->getTypes($params)->types;
 
         $actualObjects = count($types);
 

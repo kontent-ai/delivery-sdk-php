@@ -54,7 +54,8 @@ class DeliveryClientTest extends TestCase
         $client = $this->getClient();
         $types = $client->getTypes($params);
 
-        $this->assertTrue(count($types) === 2);
+        $this->assertEquals(2, $types->pagination->count);
+        $this->assertCount(2, $types->types);
     }
 
     public function testGetContentType_TypeNotExist()
@@ -80,7 +81,8 @@ class DeliveryClientTest extends TestCase
         $client = $this->getClient();
         $types = $client->getTypes(null);
 
-        $this->assertGreaterThan(1, count($types));
+        $this->assertGreaterThan(1, $types->pagination->count);
+        $this->assertGreaterThan(1, count($types->types));
     }
 
     public function testGetTaxonomy_CodenameNotExist_IsNull()
@@ -107,10 +109,9 @@ class DeliveryClientTest extends TestCase
         $client = $this->getClient();
         $taxonomy = $client->getTaxonomy($codename);
 
-        $expectedTerms = 4;
         $actualTerms = count($taxonomy->terms);
 
-        $this->assertEquals($expectedTerms, $actualTerms, "Four 'manufacturer' terms are expected.");
+        $this->assertEquals(4, $actualTerms, "Four 'manufacturer' terms are expected.");
     }
 
     public function testGetPreviewApiEmpty()
@@ -128,13 +129,14 @@ class DeliveryClientTest extends TestCase
         $item = $client->getItem($params);
         $this->assertEquals('e844a6aa-4dc4-464f-8ae9-f9f66cc6ab61', $item->system->id);
     }
-
     
     public function testGetContentItems()
     {
         $params = (new QueryParams())->type('article')->depth(2);
         $client = $this->getClient();
         $items = $client->getItems($params);
+
+        $this->assertGreaterThan(1, $items->pagination->count);
         $this->assertGreaterThan(1, count($items->items));
     }
 
