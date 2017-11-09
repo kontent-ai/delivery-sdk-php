@@ -1,8 +1,4 @@
 <?php
-/**
- * TODO RC: review Array Access
- */
-
 namespace KenticoCloud\Delivery;
 
 /**
@@ -12,14 +8,15 @@ namespace KenticoCloud\Delivery;
 class QueryParams implements \ArrayAccess
 {
     /**
-     * TODO: PS
+     * Filter key-value pairs.
      * @var array
      */
     public $data = array();
 
     /**
-     * TODO: PS
-     * @param int $depth
+     * Specifies the maximum level of recursion when retrieving modular content items. If not specified, the default depth is one level.
+     *
+     * @param int $depth The maximum level of recursion to use when retrieving modular content items.
      * @return $this
      */
     public function depth(int $depth)
@@ -29,8 +26,9 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $types
+     * Specifies the type(s) of content items that should be returned.
+     *
+     * @param $types Type(s) of content items that should be returned.
      * @return QueryParams
      */
     public function type($types)
@@ -39,8 +37,9 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param int $limit
+     * Specifies the maximum number of content items to return.
+     *
+     * @param int $limit The maximum number of content items to return.
      * @return $this
      */
     public function limit(int $limit)
@@ -50,8 +49,9 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param int $skip
+     * Specifies the number of content items to skip.
+     *
+     * @param int $skip The number of content items to skip.
      * @return $this
      */
     public function skip(int $skip)
@@ -61,8 +61,9 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $codename
+     * Specifies the content item by its codename.
+     *
+     * @param $codename Codename of content item that should be returned.
      * @return $this
      */
     public function codename($codename)
@@ -72,8 +73,9 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
+     * Specifies that content items should be sorted ascendingly by $element.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
      * @return $this
      */
     public function orderAsc($element)
@@ -83,8 +85,9 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
+     * Specifies that content items should be sorted descendingly by $element.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
      * @return $this
      */
     public function orderDesc($element)
@@ -94,8 +97,9 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $language
+     * Specifies the language of content items to be requested.
+     *
+     * @param $language The language of items to be returned.
      * @return $this
      */
     public function language($language)
@@ -105,9 +109,11 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
-     * @param $values
+     * Represents a filter that matches a content item if the specified content element or system attribute has a value that contains all the specified values.
+     * This filter is applicable to array values only, such as sitemap location or value of Modular content, Taxonomy and Multiple choice content elements.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $values The filter values.
      * @return $this
      */
     public function all($element, $values)
@@ -117,9 +123,11 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * \TODO: PS
-     * @param $element
-     * @param $values
+     * Represents a filter that matches a content item if the specified content element or system attribute has a value that contains any of the specified values.
+     * This filter is applicable to array values only, such as sitemap location or value of Modular content, Taxonomy and Multiple choice content elements.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $values The filter values.
      * @return $this
      */
     public function any($element, $values)
@@ -129,9 +137,10 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
-     * @param $values
+     * Represents a filter that matches a content item if the specified content element or system attribute has a value that matches a value in the specified list.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $values The filter values.
      * @return $this
      */
     public function in($element, $values)
@@ -141,9 +150,11 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
-     * @param $value
+     * Represents a filter that matches a content item if the specified content element or system attribute has a value that contains the specified value.
+     * This filter is applicable to array values only, such as sitemap location or value of Modular content, Taxonomy and Multiple choice content elements.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $value The filter value.
      * @return $this
      */
     public function contains($element, $value)
@@ -153,9 +164,10 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
-     * @param $value
+     * Represents a filter that matches a content item if the specified content element or system attribute has the specified value.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $value The filter value.
      * @return $this
      */
     public function equals($element, $value)
@@ -165,9 +177,10 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
-     * @param $value
+     * Represents a filter that matches a content item if the specified content element or system attribute has a value that is greater than the specified value.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $value The filter value.
      * @return $this
      */
     public function greaterThan($element, $value)
@@ -177,9 +190,10 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
-     * @param $value
+     * Represents a filter that matches a content item if the specified content element or system attribute has a value that is greater than or equal to the specified value.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $value The filter value.
      * @return $this
      */
     public function greaterThanOrEqual($element, $value)
@@ -189,9 +203,10 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
-     * @param $value
+     * Represents a filter that matches a content item if the specified content element or system attribute has a value that is less than the specified value.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $value The filter value.
      * @return $this
      */
     public function lessThan($element, $value)
@@ -201,9 +216,10 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
-     * @param $value
+     * Represents a filter that matches a content item if the specified content element or system attribute has a value that is less than or equal to the specified value.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $value The filter value.
      * @return $this
      */
     public function lessThanOrEqual($element, $value)
@@ -213,10 +229,11 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * TODO: PS
-     * @param $element
-     * @param $lowerLimit
-     * @param $upperLimit
+     * Represents a filter that matches a content item if the specified content element or system attribute has a value that falls within the specified range of values (both inclusive).
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $lowerLimit The lower limit of the filter range.
+     * @param $upperLimit The upper limit of the filter range.
      * @return $this
      */
     public function range($element, $lowerLimit, $upperLimit)
@@ -227,7 +244,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
-     * TODO: PS
+     *
      * @param mixed $offset
      * @param mixed $value
      */
@@ -242,7 +259,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
-     * TODO RC:
+     *
      * @param mixed $offset
      * @return bool
      */
@@ -253,7 +270,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
-     * TODO: PS
+     *
      * @param mixed $offset
      */
     public function offsetUnset($offset)
@@ -264,7 +281,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
-     * TODO: PS
+     *
      * @param mixed $offset
      * @return mixed|null
      */
