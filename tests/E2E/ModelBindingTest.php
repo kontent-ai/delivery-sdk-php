@@ -33,9 +33,8 @@ class ModelBindingTest extends TestCase
 
     public function testArticleModel()
     {
-        $params['system.codename'] = 'on_roasts';
         $client = $this->getClient();
-        $item = $client->getItem($params);
+        $item = $client->getItem('on_roasts');
         $this->assertEquals('On Roasts', $item->title);
         //$this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);        
     }

@@ -34,7 +34,7 @@ class ModelBinder
     }
 
     /**
-     * TODO: PS
+     * Instantiates models for given content items and resolves modular content as nested models.
      * @param $contentItems
      * @param null $modularContent
      * @return array
@@ -42,13 +42,24 @@ class ModelBinder
     public function getContentItems($contentItems, $modularContent = null)
     {
         $arr = array();
-        foreach ($contentItems as $item) {
-            $class = $this->typeMapper->getTypeClass($item->system->type);
-            $arr[$item->system->codename] = $this->bindModel($class, $item, $modularContent);
+        foreach ($contentItems as $item) {            
+            $arr[$item->system->codename] = $this->getContentItem($item, $modularContent);
         }
         return $arr;
     }
 
+    /**
+     * Instantiates model for a given content item and resolves modular content as nested models.
+     * @param $item
+     * @param null $modularContent
+     * @return array
+     */
+    public function getContentItem($item, $modularContent = null)
+    {
+        $class = $this->typeMapper->getTypeClass($item->system->type);
+        $contentItem = $this->bindModel($class, $item, $modularContent);
+        return $contentItem;
+    }
 
     /**
      * TODO: PS

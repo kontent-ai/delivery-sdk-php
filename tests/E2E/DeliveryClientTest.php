@@ -21,9 +21,8 @@ class DeliveryClientTest extends TestCase
     
     public function testGetArticleItem()
     {
-        $params = (new QueryParams())->codename('on_roasts');
         $client = $this->getClient();
-        $item = $client->getItem($params);
+        $item = $client->getItem('on_roasts');
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
         $this->assertEquals('On Roasts', $item->elements['title']);
         $this->assertEquals('on-roasts', $item->elements['url_pattern']);
@@ -31,20 +30,18 @@ class DeliveryClientTest extends TestCase
 
     public function testGetHomeItem()
     {
-        $params = (new QueryParams())->codename('home');
         $client = $this->getClient();
-        $item = $client->getItem($params);
+        $item = $client->getItem('home');
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
         $this->assertInternalType('string', $item->system->lastModified);
-        $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());        
+        $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());
     }
 
     public function testWebhooks()
     {
-        $params = (new QueryParams())->codename('home');
         $client = $this->getClient();
         $client->waitForLoadingNewContent = true;
-        $item = $client->getItem($params);
+        $item = $client->getItem('home');
         $this->assertArrayHasKey('X-KC-Wait-For-Loading-New-Content', $client->lastRequest->headers);
     }
 
@@ -114,19 +111,17 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals(4, $actualTerms, "Four 'manufacturer' terms are expected.");
     }
 
-    public function testGetPreviewApiEmpty()
+    public function testGetItemPreviewApiEmpty()
     {
-        $params = (new QueryParams())->codename('amsterdam');
         $client = $this->getClient();
-        $item = $client->getItem($params);
+        $item = $client->getItem('amsterdam');
         $this->assertNull($item);
     }
 
     public function testGetPreviewApiPresent()
     {
-        $params['system.codename'] = 'amsterdam';
         $client = $this->getClient('ew0KICAiYWxnIjogIkhTMjU2IiwNCiAgInR5cCI6ICJKV1QiDQp9.ew0KICAidWlkIjogInVzcl8wdk4xUTA1bks2YmlyQVQ2TU5wdkkwIiwNCiAgImVtYWlsIjogInBldHIuc3ZpaGxpa0BrZW50aWNvLmNvbSIsDQogICJwcm9qZWN0X2lkIjogIjk3NWJmMjgwLWZkOTEtNDg4Yy05OTRjLTJmMDQ0MTZlNWVlMyIsDQogICJqdGkiOiAibzhUdkc0OHFqX0ZUSWplVCIsDQogICJ2ZXIiOiAiMS4wLjAiLA0KICAiZ2l2ZW5fbmFtZSI6ICJQZXRyIiwNCiAgImZhbWlseV9uYW1lIjogIlN2aWhsaWsiLA0KICAiYXVkIjogInByZXZpZXcuZGVsaXZlci5rZW50aWNvY2xvdWQuY29tIg0KfQ.wd7_nOYInsdsoh9-0R43FnDQuVk_azPaYze7Ghxv43I');
-        $item = $client->getItem($params);
+        $item = $client->getItem('amsterdam');
         $this->assertEquals('e844a6aa-4dc4-464f-8ae9-f9f66cc6ab61', $item->system->id);
     }
     
@@ -145,11 +140,9 @@ class DeliveryClientTest extends TestCase
         $params = (new QueryParams())->type('article')->depth(0);
         $client = $this->getClient();
         $items = $client->getItems($params);
-        foreach($items->items as $item)
-        {
+        foreach ($items->items as $item) {
             $relatedArticles = $item->elements['related_articles'];
-            foreach($relatedArticles as $article)
-            {
+            foreach ($relatedArticles as $article) {
                 $this->assertNull($article);
             }
         }
@@ -160,11 +153,9 @@ class DeliveryClientTest extends TestCase
         $params = (new QueryParams())->type('article')->depth(99);
         $client = $this->getClient();
         $items = $client->getItems($params);
-        foreach($items->items as $item)
-        {
+        foreach ($items->items as $item) {
             $relatedArticles = $item->elements['related_articles'];
-            foreach($relatedArticles as $article)
-            {
+            foreach ($relatedArticles as $article) {
                 // All related articles should be resolved
                 $this->assertNotNull($article);
             }
@@ -181,13 +172,12 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('Roasting premium coffee', $heroUnit->elements['title']);
     }
 
-    /* public function testAssets()
+    /*public function testAssets()
     {
-        $params['system.codename'] = 'home_page_hero_unit';
         $client = $this->getClient();
-        $item = $client->getItem($params);
-    }
- */
+        $item = $client->getItem('home_page_hero_unit');
+    }*/
+ 
     public function testQueryParams()
     {
         $params = (new QueryParams())->type('article', 'home')->depth(0)->language('es-ES')->orderDesc('system.name')->limit(2);

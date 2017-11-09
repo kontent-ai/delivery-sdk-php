@@ -54,17 +54,24 @@ class DeliveryClient
         return $itemsResponse;
     }
 
-    public function getItem($params)
+    public function getItem($codename, $params = null)
     {
-        //TODO: use the 'item' endpoint (https://deliver.kenticocloud.com/975bf280-fd91-488c-994c-2f04416e5ee3/items/home)
-        $params['limit'] = 1;
-        $results = $this->getItems($params);
+        $uri = $this->urlBuilder->getItemUrl($codename, $params);
 
-        if (!isset($results->items) || !count($results->items)) {
+        $request = $this->getRequest($uri);
+        $response = $this->send($request);
+
+        $modelBinder = $this->getModelBinder();
+
+        $properties = get_object_vars($response->body);
+
+        if (!isset($properties['item']) || !count($properties['item'])) {
             return null;
         }
 
-        $item = reset($results->items);
+        // Bind content item
+        $item = $modelBinder->getContentItem($properties['item'], $properties['modular_content']);
+
         return $item;
     }
 

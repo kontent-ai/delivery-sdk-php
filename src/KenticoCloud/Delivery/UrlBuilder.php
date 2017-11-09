@@ -52,7 +52,7 @@ class UrlBuilder
      * @param $query
      * @return string
      */
-    public function getItemUrl($codename, $query)
+    public function getItemUrl($codename, $query = null)
     {
         return $this->buildUrl(sprintf(self::URL_TEMPLATE_ITEM, urlencode($codename)), $query);
     }
