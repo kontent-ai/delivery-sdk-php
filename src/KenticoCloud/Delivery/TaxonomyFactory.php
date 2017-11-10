@@ -60,7 +60,6 @@ class TaxonomyFactory
      */
     public function createTaxonomy($response)
     {
-        //var_dump($response);
         if ($this->isInvalidResponse($response)) {
             return null;
         }

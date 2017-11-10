@@ -5,32 +5,34 @@
 
 namespace KenticoCloud\Delivery;
 
+use Httpful\Request;
+use Httpful\Http;
+
 /**
  * Class DeliveryClient
  * @package KenticoCloud\Delivery
  */
 class DeliveryClient
 {
-    public $previewMode = false;
-    public $urlBuilder = null;
-    public $previewApiKey = null;
-    public $debugRequests = false;
-    public $lastRequest = null;
-    public $mode = null;
-    public $waitForLoadingNewContent = false;
-    protected $typeMapper = null;
-    protected $propertyMapper = null;
-    protected $modelBinder = null;
+    private $urlBuilder = null;
+    private $previewMode = false;
+    protected $previewApiKey = null;
+    protected $debugRequests = false;
+    protected $waitForLoadingNewContent = false;
+    public $typeMapper = null;
+    public $propertyMapper = null;
+    public $modelBinder = null;
     protected $contentTypeFactory = null;
     protected $taxonomyFactory = null;
 
-    public function __construct($projectId, $previewApiKey = null, TypeMapperInterface $typeMapper = null, PropertyMapperInterface $propertyMapper = null)
+    public function __construct($projectId, $previewApiKey = null, $waitForLoadingNewContent = false, $debugRequests = false)
     {
         $this->previewApiKey = $previewApiKey;
         $this->previewMode = !is_null($previewApiKey);
         $this->urlBuilder = new UrlBuilder($projectId, $this->previewMode);
-        $this->typeMapper = $typeMapper;
-        $this->propertyMapper = $propertyMapper;
+        $this->waitForLoadingNewContent = $waitForLoadingNewContent;
+        $this->debugRequests = $debugRequests;
+        $this->initRequestTemplate();
     }
 
     public function getItems($params)
@@ -91,7 +93,6 @@ class DeliveryClient
         
         $modelBinder = $this->getModelBinder();
 
-        //TODO: pass "types" only
         $properties = get_object_vars($response->body);
 
         // Bind content types
@@ -180,19 +181,29 @@ class DeliveryClient
         return $taxonomy;
     }
 
-    protected function getRequest($uri)
+    protected function initRequestTemplate()
     {
-        //TODO: make use of templates http://phphttpclient.com/#templates
-        $request = \Httpful\Request::get($uri);
-        $request->_debug = $this->debugRequests;
-        $request->mime('json');
+        $template = Request::init()
+        ->method(Http::GET)
+        ->mime('json')
+        ->expectsJson();
+     
+        $template->_debug = $this->debugRequests;
+
         if (!is_null($this->previewApiKey)) {
-            $request->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
+            $template->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
         }
         if ($this->waitForLoadingNewContent) {
-            $request->addHeader('X-KC-Wait-For-Loading-New-Content', 'true');
+            $template->addHeader('X-KC-Wait-For-Loading-New-Content', 'true');
         }
-        return $request;
+
+        // Set an HTTP request template
+        Request::ini($template);
+    }
+
+    protected function getRequest($uri)
+    {
+        return Request::get($uri);
     }
 
     protected function send($request)

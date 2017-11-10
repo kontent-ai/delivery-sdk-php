@@ -38,9 +38,9 @@ class UrlBuilder
     /**
      * UrlBuilder constructor.
      * @param $projectID
-     * @param null $usePreviewApi
+     * @param false $usePreviewApi
      */
-    public function __construct($projectID, $usePreviewApi = null)
+    public function __construct($projectID, $usePreviewApi = false)
     {
         $this->projectID = $projectID;
         $this->usePreviewApi = $usePreviewApi;

@@ -12,18 +12,18 @@ namespace KenticoCloud\Delivery\Models\Types;
 class ContentTypeElement
 {
     /**
-     * @var string
      * Gets the type of the content element, for example "multiple_choice".
+     * @var string
      */
     public $type = null;
     /**
-     * @var string
      * Gets the codename of the content element.
+     * @var string
      */
     public $codename = null;
     /**
-     * @var string
      * Gets the name of the content element.
+     * @var string
      */
     public $name = null;
 
