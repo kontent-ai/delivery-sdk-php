@@ -21,7 +21,7 @@ class Term
      */
     public $codename = null;
     /**
-     * TODO: DD
+     * Gets nested taxonomy terms.
      * @var null
      */
     public $terms = null;

@@ -38,8 +38,6 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
         }
         if ($typeName != null) {
             return $this->ci;
-
-
         } else {
             return null;
         }

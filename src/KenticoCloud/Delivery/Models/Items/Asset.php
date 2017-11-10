@@ -11,28 +11,32 @@ use KenticoCloud\Delivery\Models\ContentItemElement;
  * Class Asset
  * @package KenticoCloud\Delivery\Models\Items *
  */
-class Asset extends ContentItemElement
+class Asset
 {
     /**
      * @var string
      * Gets the name of the asset.
      */
     public $name = null;
-    /**
-     * @var string
-     * Gets the description of the asset.
-     */
-    public $description = null;
+    
     /**
      * @var string
      * Gets the media type of the asset, for example "image/jpeg".
      */
     public $type = null;
+
     /**
      * @var int
      * Gets the asset size in bytes.
      */
     public $size = null;
+
+    /**
+     * @var string
+     * Gets the description of the asset.
+     */
+    public $description = null;
+
     /**
      * @var string
      * Gets the URL of the asset.

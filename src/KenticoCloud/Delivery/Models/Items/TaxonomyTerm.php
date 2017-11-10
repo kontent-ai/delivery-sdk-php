@@ -1,17 +1,15 @@
 <?php
 /**
- * Represents a taxonomy term assigned to a Taxonomy element.
+ * Represents a taxonomy term assigned to a Taxonomy element of a content item.
  */
 
 namespace KenticoCloud\Delivery\Models\Items;
-
-use KenticoCloud\Delivery\Models\ContentItemElement;
 
 /**
  * Class TaxonomyTerm
  * @package KenticoCloud\Delivery\Models\Items
  */
-class TaxonomyTerm extends ContentItemElement
+class TaxonomyTerm
 {
     /**
      * @var string

@@ -42,7 +42,7 @@ class ModelBinder
     public function getContentItems($contentItems, $modularContent = null)
     {
         $arr = array();
-        foreach ($contentItems as $item) {            
+        foreach ($contentItems as $item) {
             $arr[$item->system->codename] = $this->getContentItem($item, $modularContent);
         }
         return $arr;
@@ -139,6 +139,12 @@ class ModelBinder
                     }
                 } else {
                     if (isset($dataProperty->value)) {
+                        /*if (isset($dataProperty->type)) {
+                            $class = $this->typeMapper->getTypeClass($dataProperty->type);
+                            //TODO: check class for  null
+                            $subItem = $this->bindModel($class, $dataProperty->value, $modularContent, $processedItems);
+                            
+                        }*/
                         $dataProperty = $dataProperty->value;
                     }
                     $modelPropertyValue = $dataProperty;
