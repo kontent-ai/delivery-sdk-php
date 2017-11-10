@@ -91,10 +91,11 @@ class DeliveryClient
         
         $modelBinder = $this->getModelBinder();
 
+        //TODO: pass "types" only
         $properties = get_object_vars($response->body);
 
-        // Types
-        $types = $typeFactory->createTypes($response->body);
+        // Bind content types
+        $types = $typeFactory->createTypes($properties['types']);
         
         // Pagination
         $pagination = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
@@ -106,18 +107,25 @@ class DeliveryClient
 
     /**
      * Retrieves single content type.
-     * TODO: Allow specifying content type by codename
      */
-    public function getType($params)
+    public function getType($codename)
     {
-        $params['limit'] = 1;
-        $results = $this->getTypes($params)->types;
-        
-        if (count($results) != 1) {
+        $uri = $this->urlBuilder->getTypeUrl($codename);
+
+        $request = $this->getRequest($uri);
+        $response = $this->send($request);
+
+        $typeFactory = $this->getContentTypeFactory();
+
+        $properties = get_object_vars($response->body);
+
+        if (!isset($properties['system']) || !count($properties['system'])) {
             return null;
         }
 
-        $type = $results[0];
+        // Bind content type
+        $type = $typeFactory->createType($response->body);
+
         return $type;
     }
 

@@ -57,20 +57,27 @@ class DeliveryClientTest extends TestCase
 
     public function testGetContentType_TypeNotExist()
     {
-        $params = (new QueryParams())->codename('inexistent-codename');
         $client = $this->getClient();
-        $type = $client->getType($params);
+        $type = $client->getType('non-existent-codename');
 
         $this->assertNull($type);
     }
 
-    public function testGetContentType_FirstRecord()
+    public function testGetContentTypes_FirstRecord()
     {
         $params = (new QueryParams())->limit(1);
         $client = $this->getClient();
-        $type = $client->getType($params);
+        $types = $client->getTypes($params);
 
-        $this->assertEquals("b2c14f2c-6467-460b-a70b-bca17972a33a", $type->system->id);
+        $this->assertEquals("b2c14f2c-6467-460b-a70b-bca17972a33a", $types->types[0]->system->id);
+    }
+    
+    public function testGetContentType()
+    {
+        $client = $this->getClient();
+        $type = $client->getType('article');
+    
+        $this->assertEquals("b7aa4a53-d9b1-48cf-b7a6-ed0b182c4b89", $type->system->id);
     }
 
     public function testGetContentTypesCount()

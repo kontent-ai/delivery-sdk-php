@@ -27,67 +27,76 @@ class ContentTypeFactory
      * _MultipleOptionsTypeElement_, _TaxonomyTypeElement_ and
      * _ContentTypeElement_ objects that represent them.
      *
-     * @param $response object response body for content type request.
+     * @param $typesData types part of the body of the content type response.
      * @return mixed array
      */
-    public function createTypes($response)
+    public function createTypes($typesData)
     {
         $types = array();
-        if (empty($response) || is_null($response)) {
+        if (empty($typesData) || is_null($typesData)) {
             return $types;
         }
 
-        $typesData = get_object_vars($response)['types'];
         foreach ($typesData as $type) {
-            // Acquire data for 'system' property
-            $system = new Models\Types\ContentTypeSystem(
-                $type->system->id,
-                $type->system->name,
-                $type->system->codename,
-                $type->system->last_modified
-                );
-            
-            // Iterate over 'elements' and prepare content for 'elements' property
-            $i = 0;
-            $elements = array();
-            $codenames = array_keys(get_object_vars($type->elements));
-            foreach ($type->elements as $element) {
-                // Create types of ContentTypeElement with different properties
-                if (isset($element->options)) {
-                    $options = $this->loadOptions($element->options);
-                    $newElement = new Models\Types\MultipleOptionsTypeElement(
-                        $element->type,
-                        $codenames[$i],
-                        $element->name,
-                        $options
-                    );
-                } elseif (isset($element->taxonomy_group)) {
-                    $newElement = new Models\Types\TaxonomyTypeElement(
-                        $element->type,
-                        $codenames[$i],
-                        $element->name,
-                        $element->taxonomy_group
-                    );
-                } else {
-                    $newElement = new Models\Types\ContentTypeElement(
-                        $element->type,
-                        $codenames[$i],
-                        $element->name
-                    );
-                }
-
-                $elements[] = $newElement;
-                $i++;
-            }
-            
-            // Create content type object with it's values
-            $newType = new Models\Types\ContentType();
-            $newType->system = $system;
-            $newType->elements = $elements;
-
-            $types[] = $newType;
+            $types[] = $this->createType($type);
         }
         return $types;
+    }
+
+    /**
+     * Crafts a model of content type
+     *
+     * @param $typesData type part of the body of the content type response.
+     * @return mixed array
+     */
+    public function createType($type)
+    {
+        // Acquire data for 'system' property
+        $system = new Models\Types\ContentTypeSystem(
+            $type->system->id,
+            $type->system->name,
+            $type->system->codename,
+            $type->system->last_modified
+            );
+        
+        // Iterate over 'elements' and prepare content for 'elements' property
+        $i = 0;
+        $elements = array();
+        $codenames = array_keys(get_object_vars($type->elements));
+        foreach ($type->elements as $element) {
+            // Create types of ContentTypeElement with different properties
+            if (isset($element->options)) {
+                $options = $this->loadOptions($element->options);
+                $newElement = new Models\Types\MultipleOptionsTypeElement(
+                    $element->type,
+                    $codenames[$i],
+                    $element->name,
+                    $options
+                );
+            } elseif (isset($element->taxonomy_group)) {
+                $newElement = new Models\Types\TaxonomyTypeElement(
+                    $element->type,
+                    $codenames[$i],
+                    $element->name,
+                    $element->taxonomy_group
+                );
+            } else {
+                $newElement = new Models\Types\ContentTypeElement(
+                    $element->type,
+                    $codenames[$i],
+                    $element->name
+                );
+            }
+
+            $elements[] = $newElement;
+            $i++;
+        }
+        
+        // Create content type object with it's values
+        $newType = new Models\Types\ContentType();
+        $newType->system = $system;
+        $newType->elements = $elements;
+        return $newType;
     }
 
     /**
