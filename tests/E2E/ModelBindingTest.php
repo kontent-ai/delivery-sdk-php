@@ -35,17 +35,27 @@ class ModelBindingTest extends TestCase
 
     public function testArticleModel()
     {
+        // Arrange
         $client = $this->getClient();
+
+        // Act
         $item = $client->getItem('on_roasts');
+
+        // Assert
         $this->assertEquals('On Roasts', $item->title);
-        //$this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
+        $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
+        
     }
 
-    /*
     public function testHomeModel()
     {
-        $params['system.codename'] = 'home';
+        // Arrange
         $client = $this->getClient();
-        $item = $client->getItem($params);
-    } */
+
+        // Act
+        $item = $client->getItem('home');
+
+        // Assert
+        $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
+    } 
 }

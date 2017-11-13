@@ -4,6 +4,7 @@ namespace KenticoCloud\Tests\E2E;
 
 class ArticleModel
 {
+    public $system = null;
     public $personas = null;
     public $title = null;
     public $teaserImage = null;
