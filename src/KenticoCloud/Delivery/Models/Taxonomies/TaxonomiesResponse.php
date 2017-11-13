@@ -12,21 +12,21 @@ namespace KenticoCloud\Delivery\Models\Taxonomies;
 class TaxonomiesResponse
 {
     /**
-     * TODO:RC
+     * Returns an array of taxonomy terms.
      * @var null
      */
     public $taxonomies = null;
     
     /**
-     * TODO:RC
+     * Gets data about the page size, current page, etc.
      * @var null
      */
     public $pagination = null;
 
     /**
      * TaxonomiesResponse constructor.
-     * @param ModelBinder $modelBinder
-     * @param $obj
+     * @param $taxonomies Array of taxonomy terms.
+     * @param $pagination Pagination information (size, offset, etc.)
      */
     public function __construct($taxonomies, $pagination)
     {

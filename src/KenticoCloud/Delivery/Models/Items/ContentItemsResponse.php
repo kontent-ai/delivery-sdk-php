@@ -12,21 +12,21 @@ namespace KenticoCloud\Delivery\Models\Items;
 class ContentItemsResponse
 {
     /**
-     * TODO:RC
+     * Returns an array of content items.
      * @var null
      */
     public $items = null;
     
     /**
-     * TODO:RC
+     * Gets data about the page size, current page, etc.
      * @var null
      */
     public $pagination = null;
 
     /**
      * ContentItemsResponse constructor.
-     * @param ModelBinder $modelBinder
-     * @param $obj
+     * @param $items Array of content items.
+     * @param $pagination Pagination information (size, offset, etc.)
      */
     public function __construct($items, $pagination)
     {

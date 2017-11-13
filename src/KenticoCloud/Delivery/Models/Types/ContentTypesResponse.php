@@ -12,21 +12,21 @@ namespace KenticoCloud\Delivery\Models\Types;
 class ContentTypesResponse
 {
     /**
-     * TODO:RC
+     * Returns an array of content types.
      * @var null
      */
     public $types = null;
     
     /**
-     * TODO:RC
+     * Gets data about the page size, current page, etc.
      * @var null
      */
     public $pagination = null;
 
     /**
      * ContentTypesResponse constructor.
-     * @param ModelBinder $modelBinder
-     * @param $obj
+     * @param $types Array of content types.
+     * @param $pagination Pagination information (size, offset, etc.)
      */
     public function __construct($types, $pagination)
     {

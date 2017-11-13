@@ -49,7 +49,7 @@ class ContentItemSystem extends AbstractSystem
     }
 
     /**
-     * TODO: PS
+     * Gets strongly typed, formatted last modified time stamp.
      * @param null $format
      * @return DateTime|string
      *

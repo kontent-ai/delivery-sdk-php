@@ -18,7 +18,7 @@ class ContentItemElement
     public $type = null;
     /**
      * @var null
-     * TODO: PS
+     * Gets the value of the content element.
      */
     public $value = null;
     /**
