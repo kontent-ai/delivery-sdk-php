@@ -5,11 +5,11 @@ namespace KenticoCloud\Tests\E2E;
 use KenticoCloud\Delivery\DeliveryClient;
 use KenticoCloud\Delivery\QueryParams;
 use KenticoCloud\Delivery\AbstractTypeMapper;
-use KenticoCloud\Delivery\TypeMapperInterface;
+use KenticoCloud\Delivery\DefaultMapper;
 
 use PHPUnit\Framework\TestCase;
 
-class TetsMapper implements TypeMapperInterface
+class TetsMapper extends DefaultMapper
 {
     public function getTypeClass($typeName, $elementName = null, $parentModelType = null)
     {
@@ -19,7 +19,7 @@ class TetsMapper implements TypeMapperInterface
             case 'article':
                 return \KenticoCloud\Tests\E2E\ArticleModel::class;
         }
-        return null;
+        return parent::getTypeClass($typeName, $elementName, $parentModelType);
     }
 }
 
