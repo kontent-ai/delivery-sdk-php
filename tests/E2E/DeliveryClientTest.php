@@ -30,6 +30,7 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
         $this->assertInternalType('string', $item->system->lastModified);
         $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());
+        $this->assertEquals('2017-04-04', $item->system->getLastModifiedDateTime('Y-m-d'));
     }
 
     public function testWebhooks()

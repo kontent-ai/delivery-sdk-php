@@ -37,11 +37,6 @@ class TaxonomyFactory
         if ($this->isInvalidResponse($response)) {
             return $taxonomies;
         }
-
-        // Allow single taxonomy to be create via createTaxonomies() method
-        if (!isset(get_object_vars($response)["taxonomies"])) {
-            return $this->createTaxonomy($response);
-        }
         
         $taxonomiesData = get_object_vars($response)["taxonomies"];
         foreach ($taxonomiesData as $taxonomy) {
