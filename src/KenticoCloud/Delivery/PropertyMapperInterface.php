@@ -6,7 +6,7 @@
 namespace KenticoCloud\Delivery;
 
 /**
- * Interface PropertyMapperInterface
+ * Interface PropertyMapperInterface serves for mapping model properties to data in JSON responses.
  * @package KenticoCloud\Delivery
  */
 interface PropertyMapperInterface

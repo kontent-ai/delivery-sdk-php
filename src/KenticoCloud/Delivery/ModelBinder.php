@@ -12,12 +12,12 @@ namespace KenticoCloud\Delivery;
 class ModelBinder
 {
     /**
-     * TODO: PS
+     * Serves for resolving strong types based on provided information.
      * @var TypeMapperInterface|null
      */
     protected $typeMapper = null;
     /**
-     * TODO: PS
+     * Serves for mapping model properties to data in JSON responses.
      * @var PropertyMapperInterface|null
      */
     protected $propertyMapper = null;

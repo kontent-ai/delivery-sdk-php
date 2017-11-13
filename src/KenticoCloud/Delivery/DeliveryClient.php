@@ -38,8 +38,7 @@ class DeliveryClient
     public function getItems($params)
     {
         $uri = $this->urlBuilder->getItemsUrl($params);
-        $request = $this->getRequest($uri);
-        $response = $this->send($request);
+        $response = $this->sendRequest($uri);
 
         $modelBinder = $this->getModelBinder();
         
@@ -59,9 +58,7 @@ class DeliveryClient
     public function getItem($codename, $params = null)
     {
         $uri = $this->urlBuilder->getItemUrl($codename, $params);
-
-        $request = $this->getRequest($uri);
-        $response = $this->send($request);
+        $response = $this->sendRequest($uri);
 
         $modelBinder = $this->getModelBinder();
 
@@ -86,8 +83,7 @@ class DeliveryClient
     public function getTypes($params)
     {
         $uri = $this->urlBuilder->getTypesUrl($params);
-        $request = $this->getRequest($uri);
-        $response = $this->send($request);
+        $response = $this->sendRequest($uri);
 
         $typeFactory = $this->getContentTypeFactory();
         
@@ -112,9 +108,7 @@ class DeliveryClient
     public function getType($codename)
     {
         $uri = $this->urlBuilder->getTypeUrl($codename);
-
-        $request = $this->getRequest($uri);
-        $response = $this->send($request);
+        $response = $this->sendRequest($uri);
 
         $typeFactory = $this->getContentTypeFactory();
 
@@ -140,8 +134,7 @@ class DeliveryClient
     public function getTaxonomies($params)
     {
         $uri = $this->urlBuilder->getTaxonomiesUrl($params);
-        $request = $this->getRequest($uri);
-        $response = $this->send($request);
+        $response = $this->sendRequest($uri);
 
         $taxonomyFactory = $this->getTaxonomyFactory();
         
@@ -170,10 +163,8 @@ class DeliveryClient
      */
     public function getTaxonomy($codename)
     {
-        $taxonomyUri = $this->urlBuilder->getTaxonomyUrl($codename);
-
-        $request = $this->getRequest($taxonomyUri);
-        $response = $this->send($request);
+        $uri = $this->urlBuilder->getTaxonomyUrl($codename);
+        $response = $this->sendRequest($uri);
 
         // Syntax error, unexpected T_OBJECT_OPERATOR
         $taxonomy = ($this->getTaxonomyFactory())->createTaxonomy($response->body);
@@ -201,13 +192,10 @@ class DeliveryClient
         Request::ini($template);
     }
 
-    protected function getRequest($uri)
-    {
-        return Request::get($uri);
-    }
 
-    protected function send($request)
-    {
+    protected function sendRequest($uri)
+    {        
+        $request = Request::get($uri);
         $response = $request->send();
         $this->lastRequest = $request;
         $this->lastResponse = $response;

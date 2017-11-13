@@ -1,6 +1,6 @@
 <?php
 /**
- * Retrieves taxonomy as corresponding taxonomy objects
+ * Retrieves taxonomy as corresponding taxonomy objects.
  */
 
 namespace KenticoCloud\Delivery;
