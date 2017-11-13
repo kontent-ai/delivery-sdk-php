@@ -37,7 +37,20 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
             return $this->cis;
         }
         if ($typeName != null) {
-            return $this->ci;
+            switch ($typeName) {
+                case 'asset':
+                    return \KenticoCloud\Delivery\Models\Items\Asset::class;
+                case 'taxonomy':
+                    return \KenticoCloud\Delivery\Models\Items\TaxonomyTerm::class;
+                case 'multiple_choice':
+                    return \KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class;
+                /*case 'date_time':
+                    return \DateTime::class;
+                case 'number':
+                    return float::class;*/
+                default:
+                    return $this->ci;
+            }
         } else {
             return null;
         }
@@ -52,7 +65,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
      * @return array
      */
     public function getProperty($data, $modelType, $property)
-    { 
+    {
         if ($property == 'elements' && $modelType == $this->ci) {
             return get_object_vars($data['elements']);
         } else {

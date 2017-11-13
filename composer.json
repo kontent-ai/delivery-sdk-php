@@ -30,7 +30,7 @@
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*",
         "codeclimate/php-test-reporter": "dev-master",
-        "phpunit/phpunit": "~6"
+        "phpunit/phpunit": "^6.4"
     },
     "autoload": {
         "psr-4": {

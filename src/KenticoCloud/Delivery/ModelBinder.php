@@ -102,12 +102,23 @@ class ModelBinder
                 $modelPropertyValue = $this->bindModel($type, $dataProperty, $modularContent);
             } else {
                 if (is_array($dataProperty)) {
-                    //TODO: only create array if there is more than one item
                     $modelPropertyValue = array();
                     foreach ($dataProperty as $item => $itemValue) {
                         if (isset($itemValue->type)) {
                             // Elements
                             switch ($itemValue->type) {
+                                case 'asset':
+                                case 'taxonomy:':
+                                case 'multiple_choice':
+                                    $knownTypes = array();
+                                    foreach ($itemValue->value as $knownType) {
+                                        $knownTypeClass = $this->typeMapper->getTypeClass($itemValue->type);        
+                                        $knowTypeModel = $this->bindModel($knownTypeClass, $knownType, $modularContent, $processedItems);                                    
+                                        $knownTypes[] = $knowTypeModel;
+                                    }
+                                    $modelPropertyValue[$item] = $knownTypes;
+                                    break;
+                                    
                                 case 'modular_content':
                                     $modelModularItems = array();
                                     if ($modularContent != null) {
@@ -139,12 +150,13 @@ class ModelBinder
                     }
                 } else {
                     if (isset($dataProperty->value)) {
-                        /*if (isset($dataProperty->type)) {
+                        /* if (isset($dataProperty->type)) {
                             $class = $this->typeMapper->getTypeClass($dataProperty->type);
                             //TODO: check class for  null
+
                             $subItem = $this->bindModel($class, $dataProperty->value, $modularContent, $processedItems);
                             
-                        }*/
+                        } */
                         $dataProperty = $dataProperty->value;
                     }
                     $modelPropertyValue = $dataProperty;
