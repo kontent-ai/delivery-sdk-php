@@ -18,6 +18,9 @@ engines:
       languages:
       - php:
 
+  sonar-php:
+    enabled: true
+    
 ratings:
   paths:
   - src/**
