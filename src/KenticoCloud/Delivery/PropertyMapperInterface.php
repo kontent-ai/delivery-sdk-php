@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: PS
+ * Interface PropertyMapperInterface serves for mapping model properties to data in JSON responses.
  */
 
 namespace KenticoCloud\Delivery;
@@ -12,10 +12,10 @@ namespace KenticoCloud\Delivery;
 interface PropertyMapperInterface
 {
     /**
-     * TODO: PS
-     * @param $data
-     * @param $modelType
-     * @param $property
+     * Returns the correct element from $data based on $modelType and $property.
+     * @param $data Source data (deserialized JSON).
+     * @param $modelType Target model type.
+     * @param $property Target property name.
      * @return mixed
      */
     public function getProperty($data, $modelType, $property);

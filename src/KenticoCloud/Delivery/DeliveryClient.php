@@ -40,15 +40,15 @@ class DeliveryClient
         $uri = $this->urlBuilder->getItemsUrl($params);
         $response = $this->sendRequest($uri);
 
-        $modelBinder = $this->getModelBinder();
+        $binder = $this->getModelBinder();
         
         $properties = get_object_vars($response->body);
         
         // Items
-        $items = $modelBinder->getContentItems($properties['items'], $properties['modular_content']);
+        $items = $binder->getContentItems($properties['items'], $properties['modular_content']);
 
         // Pagination
-        $pagination = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
+        $pagination = $binder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
                 
         $itemsResponse = new Models\Items\ContentItemsResponse($items, $pagination);
 
@@ -60,7 +60,7 @@ class DeliveryClient
         $uri = $this->urlBuilder->getItemUrl($codename, $params);
         $response = $this->sendRequest($uri);
 
-        $modelBinder = $this->getModelBinder();
+        $binder = $this->getModelBinder();
 
         $properties = get_object_vars($response->body);
 
@@ -69,7 +69,7 @@ class DeliveryClient
         }
 
         // Bind content item
-        $item = $modelBinder->getContentItem($properties['item'], $properties['modular_content']);
+        $item = $binder->getContentItem($properties['item'], $properties['modular_content']);
 
         return $item;
     }
@@ -87,7 +87,7 @@ class DeliveryClient
 
         $typeFactory = $this->getContentTypeFactory();
         
-        $modelBinder = $this->getModelBinder();
+        $binder = $this->getModelBinder();
 
         $properties = get_object_vars($response->body);
 
@@ -95,7 +95,7 @@ class DeliveryClient
         $types = $typeFactory->createTypes($properties['types']);
         
         // Pagination
-        $pagination = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
+        $pagination = $binder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
 
         $typesResponse = new Models\Types\ContentTypesResponse($types, $pagination);
 
@@ -138,7 +138,7 @@ class DeliveryClient
 
         $taxonomyFactory = $this->getTaxonomyFactory();
         
-        $modelBinder = $this->getModelBinder();
+        $binder = $this->getModelBinder();
         
         $properties = get_object_vars($response->body);
         
@@ -146,7 +146,7 @@ class DeliveryClient
         $taxonomies = $taxonomyFactory->createTaxonomies($response->body);
                 
         // Pagination
-        $pagination = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
+        $pagination = $binder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
         
         $taxonomiesResponse = new Models\Taxonomies\TaxonomiesResponse($taxonomies, $pagination);
         

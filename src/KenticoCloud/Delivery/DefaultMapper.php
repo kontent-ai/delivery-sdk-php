@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: PS
+ * Default implementation of the TypeMapperInterface.
  */
 
 namespace KenticoCloud\Delivery;
@@ -8,27 +8,28 @@ namespace KenticoCloud\Delivery;
 use \KenticoCloud\Delivery\Helpers\TextHelper;
 
 /**
- * Class DefaultMapper
+ * Class DefaultMapper serves for resolving strong types based on provided information.
  * @package KenticoCloud\Delivery
  */
 class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
 {
     /**
-     * TODO: PS
+     * Generic content item model.
      * @var string
      */
     private $ci = \KenticoCloud\Delivery\Models\Items\ContentItem::class;
+    
     /**
-     * TODO: PS
+     * Content item system element model.
      * @var string
      */
     private $cis = \KenticoCloud\Delivery\Models\Items\ContentItemSystem::class;
 
     /**
-     * TODO: PS
-     * @param $typeName
-     * @param null $elementName
-     * @param null $parentModelType
+     * Gets strong type based on provided information.
+     * @param $typeName Name of the type to get (should be a primary source type resolution).
+     * @param null $elementName Name of the property whose type should be resolved.
+     * @param null $parentModelType Type of class where the $elementName resides.
      * @return null|string
      */
     public function getTypeClass($typeName, $elementName = null, $parentModelType = null)
@@ -44,10 +45,10 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
                     return \KenticoCloud\Delivery\Models\Items\TaxonomyTerm::class;
                 case 'multiple_choice':
                     return \KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class;
-                /*case 'date_time':
+                case 'date_time':
                     return \DateTime::class;
                 case 'number':
-                    return float::class;*/
+                    return float::class;
                 default:
                     return $this->ci;
             }
@@ -56,13 +57,12 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
         }
     }
 
-
     /**
-     * TODO: PS
-     * @param $data
-     * @param $modelType
-     * @param $property
-     * @return array
+     * Returns the correct element from $data based on $modelType and $property.
+     * @param $data Source data (deserialized JSON).
+     * @param $modelType Target model type.
+     * @param $property Target property name.
+     * @return mixed
      */
     public function getProperty($data, $modelType, $property)
     {
