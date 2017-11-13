@@ -46,6 +46,7 @@ class ModelBindingTest extends TestCase
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
         $this->assertEquals('2014-11-07T00:00:00Z', $item->postDate);
         $this->assertCount(2, $item->personas);
+        $this->assertTrue($item->personas[0] instanceof \KenticoCloud\Delivery\Models\Items\TaxonomyTerm);        
         $this->assertCount(2, $item->relatedArticles);
         $this->assertEquals('Coffee processing techniques', $item->relatedArticles['coffee_processing_techniques']->title);
         $this->assertTrue($item->relatedArticles['coffee_processing_techniques'] instanceof \KenticoCloud\Tests\E2E\ArticleModel);
