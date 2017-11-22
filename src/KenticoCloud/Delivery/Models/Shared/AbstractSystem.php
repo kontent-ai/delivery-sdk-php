@@ -6,34 +6,38 @@
 namespace KenticoCloud\Delivery\Models\Shared;
 
 /**
- * Class AbstractSystem
- * @package KenticoCloud\Delivery\Models\Shared
+ * Class AbstractSystem.
  */
 abstract class AbstractSystem
 {
     /**
-     * Gets and sets objects unique identifier. 
+     * Gets and sets objects unique identifier.
+     *
      * @var null
      */
     public $id = null;
     /**
      * Gets and sets object's display name.
+     *
      * @var null
      */
     public $name = null;
     /**
      * Gets and sets object's code name.
+     *
      * @var null
      */
     public $codename = null;
     /**
      * Gets and sets object's last modified timestamp.
+     *
      * @var null
      */
     public $lastModified = null;
 
     /**
      * AbstractSystem constructor.
+     *
      * @param $id
      * @param $name
      * @param $codename
@@ -47,12 +51,11 @@ abstract class AbstractSystem
         $this->lastModified = $lastModified;
     }
 
-
     /**
-     * Returns 'lastModified' property in requested format.
+     * Returns 'lastModified' property in a requested format.
      *
      * @param $format string in which 'lastModified' property should
-     * be returned.
+     * be returned
      *
      * @return string datetime
      */
@@ -61,17 +64,15 @@ abstract class AbstractSystem
         if (!$format) {
             return $this->lastModified;
         }
+
         return date($format, $this->lastModified);
     }
 
-    
     /**
      * Sets 'lastModified'.
      *
      * @param $value mixed Value representing time to stored to 'lastModified'
-     * property.
-     *
-     * @return void
+     * property
      */
     public function setLastModified($value)
     {
