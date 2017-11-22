@@ -109,10 +109,10 @@ class ModelBinder
                 if (is_array($dataProperty)) {
                     // There are items to iterate through
                     $modelPropertyValue = array();
-                    foreach ($dataProperty as $item => $itemValue) {
+                    foreach ($dataProperty as $itemKey => $itemValue) {
                         if (isset($itemValue->type)) {
                             // Bind elements
-                            $modelPropertyValue[$item] = $this->bindProperty($itemValue, $modularContent, $processedItems);
+                            $modelPropertyValue[$itemKey] = $this->bindElement($itemValue, $modularContent, $processedItems);
                         }
                     }
                 } else {
@@ -121,7 +121,7 @@ class ModelBinder
                         // The item contains a value element
                         if (isset($dataProperty->type)) {
                             // The item is an element (complex type that contains a type information)
-                            $modelPropertyValue = $this->bindProperty($dataProperty, $modularContent, $processedItems);
+                            $modelPropertyValue = $this->bindElement($dataProperty, $modularContent, $processedItems);
                         } else {
                             // Bind the nested value element
                             $modelPropertyValue = $dataProperty->value;
@@ -140,26 +140,24 @@ class ModelBinder
     }
 
     /**
-     * //Binds given data to a predefined model.
+     * Binds an element to an appropriate model based on the element's type.
      *
-     * @param $modularContent
-     * @param $processedItems
-     * @param $itemValue
-     * @param $modelPropertyValue
-     * @param $item
+     * @param $item Content item element to bind
+     * @param null $modularContent JSON response containing nested modular content items
+     * @param null $processedItems collection of already processed items (to avoid infinite loops)
      *
      * @return mixed
      */
-    public function bindProperty($itemValue, $modularContent, $processedItems)
+    public function bindElement($element, $modularContent, $processedItems)
     {
         $result = null;
-        switch ($itemValue->type) {
+        switch ($element->type) {
             case 'asset':
             case 'taxonomy':
             case 'multiple_choice':
                 $knownTypes = array();
-                foreach ($itemValue->value as $knownType) {
-                    $knownTypeClass = $this->typeMapper->getTypeClass($itemValue->type);
+                foreach ($element->value as $knownType) {
+                    $knownTypeClass = $this->typeMapper->getTypeClass($element->type);
                     $knowTypeModel = $this->bindModel($knownTypeClass, $knownType, $modularContent, $processedItems);
                     $knownTypes[] = $knowTypeModel;
                 }
@@ -168,22 +166,29 @@ class ModelBinder
 
             case 'modular_content':
                 if ($modularContent != null) {
-                    $result = $this->bindModularContent($itemValue, $modularContent, $processedItems);
+                    $result = $this->bindModularContent($element, $modularContent, $processedItems);
                 }
                 break;
 
             default:
-                $result = $itemValue->value;
+                $result = $element->value;
                 break;
         }
 
         return $result;
     }
 
-    public function bindModularContent($itemValue, $modularContent, $processedItems)
+    /**
+     * Binds a modular content element to a "strongly" typed model.
+     *
+     * @param $element modular content item element
+     * @param null $modularContent JSON response containing nested modular content items
+     * @param null $processedItems collection of already processed items (to avoid infinite loops)
+     */
+    public function bindModularContent($element, $modularContent, $processedItems)
     {
         $modelModularItems = array();
-        foreach ($itemValue->value as $modularCodename) {
+        foreach ($element->value as $modularCodename) {
             // Try to load the content item from processed items
             if (isset($processedItems[$modularCodename])) {
                 $subItem = $processedItems[$modularCodename];
