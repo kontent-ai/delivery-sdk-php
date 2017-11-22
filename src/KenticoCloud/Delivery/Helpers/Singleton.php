@@ -6,8 +6,7 @@
 namespace KenticoCloud\Delivery\Helpers;
 
 /**
- * Class Singleton
- * @package KenticoCloud\Delivery\Helpers
+ * Class Singleton.
  */
 abstract class Singleton
 {
@@ -20,6 +19,7 @@ abstract class Singleton
 
     /**
      * Get Singleton instance.
+     *
      * @return mixed
      */
     final public static function getInstance()
@@ -28,8 +28,7 @@ abstract class Singleton
 
         $calledClassName = get_called_class();
 
-        if (!isset($aoInstance[$calledClassName]))
-        {
+        if (!isset($aoInstance[$calledClassName])) {
             $aoInstance[$calledClassName] = new $calledClassName();
         }
 
@@ -37,9 +36,9 @@ abstract class Singleton
     }
 
     /**
-     * TODO: PS - do not comment probably
+     * Disable cloning (there is no reason to clone).
      */
-    final private function __clone()
+    private function __clone()
     {
     }
 }

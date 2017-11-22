@@ -137,14 +137,14 @@ class DeliveryClient
         $uri = $this->urlBuilder->getTaxonomiesUrl($params);
         $response = $this->sendRequest($uri);
 
-        $taxonomyFactory = $this->getTaxonomyFactory();
+        $factory = $this->getTaxonomyFactory();
 
         $binder = $this->getModelBinder();
 
         $properties = get_object_vars($response->body);
 
         // Taxonomies
-        $taxonomies = $taxonomyFactory->createTaxonomies($response->body);
+        $taxonomies = $factory->createTaxonomies($response->body);
 
         // Pagination
         $pagination = $binder->bindModel(Pagination::class, $properties[Pagination::PAGINATION_ELEMENT_NAME]);

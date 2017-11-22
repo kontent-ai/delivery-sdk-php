@@ -1,50 +1,53 @@
 <?php
 /**
- * TODO: PS
+ * TODO: PS.
  */
-
 
 namespace KenticoCloud\Delivery\Helpers;
 
 /**
- * Class TextHelper
- * @package KenticoCloud\Delivery\Helpers
+ * Class TextHelper.
  */
 class TextHelper extends Singleton
-{    
-    //http://syframework.alwaysdata.net/decamelize
+{
     /**
-     * TODO: PS
-     * @param $input
-     * @param string $separator
+     * Converts "PascalCase" or "camelCase" text to text where words are delimited by a provided separator.
+     * The algorithm is based on http://syframework.alwaysdata.net/decamelize.
+     *
+     * @param $input text to convert
+     * @param string $separator word delimiter
+     *
      * @return string
      */
-    function decamelize($input, $separator = '_')
+    public function decamelize($input, $separator = '_')
     {
         //TODO: dangerous! there might be more than one underscore!
-        return strtolower(preg_replace(array('/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'), '$1'. $separator .'$2', $input));
+        return strtolower(preg_replace(array('/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'), '$1'.$separator.'$2', $input));
     }
 
-    //http://stackoverflow.com/a/33122760/3363709
-
     /**
-     * TODO: PS
-     * @param $input
-     * @param string $separator
-     * @return mixed
+     * Converts the given text to "PascalCase".
+     * The algorithm is based on http://stackoverflow.com/a/33122760/3363709.
+     *
+     * @param $input text to convert
+     * @param string $separator word delimiter
+     *
+     * @return string
      */
-    function pascalCase($input, $separator = '_')
+    public function pascalCase($input, $separator = '_')
     {
         return str_replace($separator, '', ucwords($input, $separator));
     }
 
     /**
-     * TODO: PS
-     * @param $input
-     * @param string $separator
-     * @return mixed
+     * Converts the given text to "camelCase".
+     *
+     * @param $input text to convert
+     * @param string $separator word delimiter
+     *
+     * @return string
      */
-    function camelCase($input, $separator = '_')
+    public function camelCase($input, $separator = '_')
     {
         return str_replace($separator, '', lcfirst(ucwords($input, $separator)));
     }
