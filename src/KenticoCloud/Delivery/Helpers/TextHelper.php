@@ -1,6 +1,6 @@
 <?php
 /**
- * TODO: PS.
+ * Provides helper methods for operations with texts and strings.
  */
 
 namespace KenticoCloud\Delivery\Helpers;

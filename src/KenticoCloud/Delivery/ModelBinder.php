@@ -114,14 +114,14 @@ class ModelBinder
                     foreach ($dataProperty as $item => $itemValue) {
                         if (isset($itemValue->type)) {
                             // Elements
-                            $modelPropertyValue = $this->bindProperty($modularContent, $processedItems, $itemValue, $modelPropertyValue, $item);
+                            $modelPropertyValue = $this->bindProperty($modelPropertyValue, $item, $itemValue, $modularContent, $processedItems);
                         }
                     }
                 } else {
                     if (isset($dataProperty->value)) {
                         if (isset($dataProperty->type)) {
                             $modelPropertyValue = array();
-                            $resolvedProperty = $this->bindProperty($modularContent, $processedItems, $dataProperty, $modelPropertyValue, $modelProperty);
+                            $resolvedProperty = $this->bindProperty($modelPropertyValue, $modelProperty, $dataProperty, $modularContent, $processedItems);
                             $dataProperty = $resolvedProperty[$modelProperty];
                         } else {
                             $dataProperty = $dataProperty->value;
@@ -138,6 +138,8 @@ class ModelBinder
     }
 
     /**
+     * //Binds given data to a predefined model.
+     *
      * @param $modularContent
      * @param $processedItems
      * @param $itemValue
@@ -146,7 +148,7 @@ class ModelBinder
      *
      * @return mixed
      */
-    public function bindProperty($modularContent, $processedItems, $itemValue, $modelPropertyValue, $item)
+    public function bindProperty($modelPropertyValue, $item, $itemValue, $modularContent, $processedItems)
     {
         switch ($itemValue->type) {
             case 'asset':
@@ -162,25 +164,8 @@ class ModelBinder
                 break;
 
             case 'modular_content':
-                $modelModularItems = array();
                 if ($modularContent != null) {
-                    foreach ($itemValue->value as $modularCodename) {
-                        // Try to load the content item from processed items
-                        if (isset($processedItems[$modularCodename])) {
-                            $subItem = $processedItems[$modularCodename];
-                        } else {
-                            // If not found, recursively load model
-                            if (isset($modularContent->$modularCodename)) {
-                                $class = $this->typeMapper->getTypeClass($modularContent->$modularCodename->system->type);
-                                $subItem = $this->bindModel($class, $modularContent->$modularCodename, $modularContent, $processedItems);
-                                $processedItems[$modularCodename] = $subItem;
-                            } else {
-                                $subItem = null;
-                            }
-                        }
-                        $modelModularItems[$modularCodename] = $subItem;
-                    }
-                    $modelPropertyValue[$item] = $modelModularItems;
+                    $modelPropertyValue[$item] = $this->bindModularContent($itemValue, $modularContent, $processedItems);
                 }
                 break;
 
@@ -190,5 +175,28 @@ class ModelBinder
         }
 
         return $modelPropertyValue;
+    }
+
+    public function bindModularContent($itemValue, $modularContent, $processedItems)
+    {
+        $modelModularItems = array();
+        foreach ($itemValue->value as $modularCodename) {
+            // Try to load the content item from processed items
+            if (isset($processedItems[$modularCodename])) {
+                $subItem = $processedItems[$modularCodename];
+            } else {
+                // If not found, recursively load model
+                if (isset($modularContent->$modularCodename)) {
+                    $class = $this->typeMapper->getTypeClass($modularContent->$modularCodename->system->type);
+                    $subItem = $this->bindModel($class, $modularContent->$modularCodename, $modularContent, $processedItems);
+                    $processedItems[$modularCodename] = $subItem;
+                } else {
+                    $subItem = null;
+                }
+            }
+            $modelModularItems[$modularCodename] = $subItem;
+        }
+
+        return $modelModularItems;
     }
 }
