@@ -96,9 +96,6 @@ class ModelBinder
 
         if (is_object($data)) {
             $dataProperties = get_object_vars($data);
-        } else {
-            // Assume it's an array
-            $dataProperties = $data;
         }
 
         foreach ($modelProperties as $modelProperty => $modelPropertyValue) {
@@ -110,22 +107,29 @@ class ModelBinder
                 $modelPropertyValue = $this->bindModel($type, $dataProperty, $modularContent);
             } else {
                 if (is_array($dataProperty)) {
+                    // There are items to iterate through
                     $modelPropertyValue = array();
                     foreach ($dataProperty as $item => $itemValue) {
                         if (isset($itemValue->type)) {
-                            // Elements
+                            // Bind elements
                             $modelPropertyValue[$item] = $this->bindProperty($itemValue, $modularContent, $processedItems);
                         }
                     }
                 } else {
+                    // There is only one item
                     if (isset($dataProperty->value)) {
+                        // The item contains a value element
                         if (isset($dataProperty->type)) {
-                            $dataProperty = $this->bindProperty($dataProperty, $modularContent, $processedItems);
+                            // The item is an element (complex type that contains a type information)
+                            $modelPropertyValue = $this->bindProperty($dataProperty, $modularContent, $processedItems);
                         } else {
-                            $dataProperty = $dataProperty->value;
+                            // Bind the nested value element
+                            $modelPropertyValue = $dataProperty->value;
                         }
+                    } else {
+                        // There is no object hierarchy, bind it directly
+                        $modelPropertyValue = $dataProperty;
                     }
-                    $modelPropertyValue = $dataProperty;
                 }
             }
 
