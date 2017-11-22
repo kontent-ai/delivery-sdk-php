@@ -6,29 +6,30 @@
 namespace KenticoCloud\Delivery\Models\Shared;
 
 /**
- * Class Pagination
- * @package KenticoCloud\Delivery\Models\Shared
+ * Class Pagination.
  */
 class Pagination
 {
+    const PAGINATION_ELEMENT_NAME = 'pagination';
+
     /**
      * @var int
-     * Gets the requested number of items to skip.
+     *          Gets the requested number of items to skip
      */
     public $skip = null;
     /**
      * @var int
-     * Gets the requested page size.
+     *          Gets the requested page size
      */
     public $limit = null;
     /**
      * @var int
-     * Gets the number of retrieved items.
+     *          Gets the number of retrieved items
      */
     public $count = null;
     /**
      * @var string
-     * Gets the URL of the next page.
+     *             Gets the URL of the next page
      */
     public $nextPage = null;
 }

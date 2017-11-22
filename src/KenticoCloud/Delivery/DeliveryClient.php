@@ -7,10 +7,10 @@ namespace KenticoCloud\Delivery;
 
 use Httpful\Request;
 use Httpful\Http;
+use KenticoCloud\Delivery\Models\Shared\Pagination;
 
 /**
- * Class DeliveryClient
- * @package KenticoCloud\Delivery
+ * Class DeliveryClient.
  */
 class DeliveryClient
 {
@@ -41,15 +41,15 @@ class DeliveryClient
         $response = $this->sendRequest($uri);
 
         $binder = $this->getModelBinder();
-        
+
         $properties = get_object_vars($response->body);
-        
+
         // Items
         $items = $binder->getContentItems($properties['items'], $properties['modular_content']);
 
         // Pagination
-        $pagination = $binder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
-                
+        $pagination = $binder->bindModel(Pagination::class, $properties[Pagination::PAGINATION_ELEMENT_NAME]);
+
         $itemsResponse = new Models\Items\ContentItemsResponse($items, $pagination);
 
         return $itemsResponse;
@@ -77,7 +77,8 @@ class DeliveryClient
     /**
      * Retrieves Content Types.
      *
-     * @param $params QueryParams Specification of parameters for Content Types retrieval.
+     * @param $params queryParams Specification of parameters for Content Types retrieval
+     *
      * @return mixed array of corresponding content type objects
      */
     public function getTypes($params)
@@ -86,16 +87,16 @@ class DeliveryClient
         $response = $this->sendRequest($uri);
 
         $typeFactory = $this->getContentTypeFactory();
-        
+
         $binder = $this->getModelBinder();
 
         $properties = get_object_vars($response->body);
 
         // Bind content types
         $types = $typeFactory->createTypes($properties['types']);
-        
+
         // Pagination
-        $pagination = $binder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
+        $pagination = $binder->bindModel(Pagination::class, $properties[Pagination::PAGINATION_ELEMENT_NAME]);
 
         $typesResponse = new Models\Types\ContentTypesResponse($types, $pagination);
 
@@ -124,12 +125,12 @@ class DeliveryClient
         return $type;
     }
 
-    
     /**
      * Retrieves Taxonomies.
      *
-     * @param $params QueryParams Specification of parameters for Taxonomy retrieval.
-     * @return array of retrieved Taxonomies.
+     * @param $params queryParams Specification of parameters for Taxonomy retrieval
+     *
+     * @return array of retrieved Taxonomies
      */
     public function getTaxonomies($params)
     {
@@ -137,29 +138,29 @@ class DeliveryClient
         $response = $this->sendRequest($uri);
 
         $taxonomyFactory = $this->getTaxonomyFactory();
-        
+
         $binder = $this->getModelBinder();
-        
+
         $properties = get_object_vars($response->body);
-        
+
         // Taxonomies
         $taxonomies = $taxonomyFactory->createTaxonomies($response->body);
-                
+
         // Pagination
-        $pagination = $binder->bindModel(\KenticoCloud\Delivery\Models\Shared\Pagination::class, $properties['pagination']);
-        
+        $pagination = $binder->bindModel(Pagination::class, $properties[Pagination::PAGINATION_ELEMENT_NAME]);
+
         $taxonomiesResponse = new Models\Taxonomies\TaxonomiesResponse($taxonomies, $pagination);
-        
+
         return $taxonomiesResponse;
     }
-
 
     /**
      * Retrieves single taxonomy by its codename.
      *
      * @param $codename string Codename of taxonomy object to be retrieved
+     *
      * @return Taxonomy object Retrieved taxonomy, or null when taxonomy
-     * with given codename does not exist.
+     *                  with given codename does not exist
      */
     public function getTaxonomy($codename)
     {
@@ -178,11 +179,11 @@ class DeliveryClient
         ->method(Http::GET)
         ->mime('json')
         ->expectsJson();
-     
+
         $template->_debug = $this->debugRequests;
 
         if (!is_null($this->previewApiKey)) {
-            $template->addHeader('Authorization', 'Bearer ' . $this->previewApiKey);
+            $template->addHeader('Authorization', 'Bearer '.$this->previewApiKey);
         }
         if ($this->waitForLoadingNewContent) {
             $template->addHeader('X-KC-Wait-For-Loading-New-Content', 'true');
@@ -192,13 +193,13 @@ class DeliveryClient
         Request::ini($template);
     }
 
-
     protected function sendRequest($uri)
-    {        
+    {
         $request = Request::get($uri);
         $response = $request->send();
         $this->lastRequest = $request;
         $this->lastResponse = $response;
+
         return $response;
     }
 
@@ -210,6 +211,7 @@ class DeliveryClient
             }
             $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper);
         }
+
         return $this->modelBinder;
     }
 
@@ -218,6 +220,7 @@ class DeliveryClient
         if ($this->contentTypeFactory == null) {
             $this->contentTypeFactory = new ContentTypeFactory();
         }
+
         return $this->contentTypeFactory;
     }
 
@@ -226,6 +229,7 @@ class DeliveryClient
         if ($this->taxonomyFactory == null) {
             $this->taxonomyFactory = new TaxonomyFactory();
         }
+
         return $this->taxonomyFactory;
     }
 }
