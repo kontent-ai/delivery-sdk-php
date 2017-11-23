@@ -50,7 +50,7 @@ abstract class AbstractSystem
         $this->id = $id;
         $this->name = $name;
         $this->codename = $codename;
-        $this->lastModified = $lastModified;
+        $this->lastModified = new DateTime($lastModified);
     }
 
     /**
@@ -62,26 +62,11 @@ abstract class AbstractSystem
      */
     public function getLastModifiedDateTime($format = null)
     {
-        $dateTime = new DateTime($this->lastModified);
+        $dateTime = $this->lastModified;
         if (!$format) {
             return $dateTime;
         }
 
         return $dateTime->format($format);
-    }
-
-    /**
-     * Sets 'lastModified'.
-     *
-     * @param $value mixed Value representing time to stored to 'lastModified'
-     * property
-     */
-    public function setLastModified($value)
-    {
-        if ($value instanceof DateTime) {
-            $this->lastModified = $value->format(DateTime::ATOM);
-        } else {
-            $this->lastModified = $value;
-        }
     }
 }

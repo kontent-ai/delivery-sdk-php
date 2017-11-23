@@ -27,27 +27,9 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('home');
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
-        $this->assertInternalType('string', $item->system->lastModified);
-        $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());
+        $this->assertInternalType('string', $item->system->getLastModifiedDateTime('Y-m-d'));
+        $this->assertInstanceOf(\DateTime::class, $item->system->lastModified);
         $this->assertEquals('2017-04-04', $item->system->getLastModifiedDateTime('Y-m-d'));
-    }
-
-    public function testSystemDateString()
-    {
-        $system = new \KenticoCloud\Delivery\Models\Items\ContentItemSystem();
-        $system->setLastModified('2017-04-04');
-
-        $this->assertInstanceOf(\DateTime::class, $system->getLastModifiedDateTime());
-        $this->assertEquals('2017-04-04', $system->getLastModifiedDateTime('Y-m-d'));
-    }
-
-    public function testSystemDateTime()
-    {
-        $system = new \KenticoCloud\Delivery\Models\Items\ContentItemSystem();
-        $system->setLastModified(new \DateTime('2017-04-04'));
-
-        $this->assertInstanceOf(\DateTime::class, $system->getLastModifiedDateTime());
-        $this->assertEquals('2017-04-04', $system->getLastModifiedDateTime('Y-m-d'));
     }
 
     public function testWebhooks()
