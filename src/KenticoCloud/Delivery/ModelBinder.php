@@ -92,7 +92,7 @@ class ModelBinder
     {
         $processedItems = $processedItems ?? array();
         $model = new $modelType();
-        $modelProperties = get_object_vars($model);
+        $modelProperties = $this->propertyMapper->getProperties($data, $model);
 
         // Add item to processed items collection to prevent recursion
         if (isset($data->system->codename) && !isset($processedItems[$data->system->codename])) {
@@ -104,20 +104,12 @@ class ModelBinder
         }
 
         foreach ($modelProperties as $modelProperty => $modelPropertyValue) {
-            $dataProperty = $this->propertyMapper->getProperty($dataProperties, $modelType, $modelProperty);
+            $dataProperty = $this->propertyMapper->getProperty($dataProperties, $modelProperty);
             $modelPropertyValue = null;
 
             if ($modelProperty == 'system') {
                 $modelPropertyValue = $this->valueConverter->getValue($modelProperty, $dataProperty);
-            } elseif (is_array($dataProperty)) {
-                // There are items to iterate through
-                $modelPropertyValue = array();
-                foreach ($dataProperty as $itemKey => $itemValue) {
-                    // Bind elements
-                    $modelPropertyValue[$itemKey] = $this->bindElement($itemValue, $modularContent, $processedItems);
-                }
             } else {
-                // There is only one item
                 if (isset($dataProperty->value)) {
                     // The item contains a value element
                     if (isset($dataProperty->type)) {

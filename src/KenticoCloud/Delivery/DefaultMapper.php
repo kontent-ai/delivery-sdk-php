@@ -62,18 +62,29 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      *
      * @return mixed
      */
-    public function getProperty($data, $modelType, $property)
+    public function getProperty($data, $property)
     {
-        if ($property == self::ELEMENTS_ATTRIBUTE_NAME && $modelType == $this->ci) {
-            return get_object_vars($data[self::ELEMENTS_ATTRIBUTE_NAME]);
-        } else {
-            $index = TextHelper::getInstance()->decamelize($property);
-            if (!array_key_exists($index, $data)) {
-                // Custom model, search in elements
-                $data = get_object_vars($data[self::ELEMENTS_ATTRIBUTE_NAME]);
-            }
+        $index = TextHelper::getInstance()->decamelize($property);
+        if (!array_key_exists($index, $data)) {
+            // Custom model, search in elements
+            $data = get_object_vars($data[self::ELEMENTS_ATTRIBUTE_NAME]);
+        }
 
-            return $data[$index];
+        return $data[$index];
+    }
+
+    public function getProperties($data, $model)
+    {
+        if (is_a($model, $this->ci)) {
+            $data = get_object_vars($data);
+            $tmp = $data[self::ELEMENTS_ATTRIBUTE_NAME];
+            $tmp->system = $data['system'];
+            $data = get_object_vars($tmp);
+
+            return $data;
+            //TODO: camelCase the props
+        } else {
+            return get_object_vars($model);
         }
     }
 

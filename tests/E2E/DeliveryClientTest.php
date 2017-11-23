@@ -18,8 +18,8 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('on_roasts');
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
-        $this->assertEquals('On Roasts', $item->elements['title']);
-        $this->assertEquals('on-roasts', $item->elements['url_pattern']);
+        $this->assertEquals('On Roasts', $item->title);
+        $this->assertEquals('on-roasts', $item->url_pattern);
         $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
     }
 
@@ -37,24 +37,24 @@ class DeliveryClientTest extends TestCase
     {
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('brazil_natural_barra_grande');
-        $this->assertInternalType('float', $item->elements['price']);
-        $this->assertEquals(8.5, $item->elements['price']);
+        $this->assertInternalType('float', $item->price);
+        $this->assertEquals(8.5, $item->price);
     }
 
     public function testMultipleChoice()
     {
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('how_to_make_a_cappuccino');
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class, $item->elements['video_host'][0]);
-        $this->assertEquals('YouTube', $item->elements['video_host'][0]->name);
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class, $item->video_host[0]);
+        $this->assertEquals('YouTube', $item->video_host[0]->name);
     }
 
     public function testAssets()
     {
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('home_page_hero_unit');
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\Asset::class, $item->elements['image'][0]);
-        $this->assertEquals('banner-default.jpg', $item->elements['image'][0]->name);
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\Asset::class, $item->image[0]);
+        $this->assertEquals('banner-default.jpg', $item->image[0]->name);
     }
 
     public function testWebhooks()
@@ -167,7 +167,7 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $items = $client->getItems($params);
         foreach ($items->items as $item) {
-            $relatedArticles = $item->elements['related_articles'];
+            $relatedArticles = $item->related_articles;
             foreach ($relatedArticles as $article) {
                 $this->assertNull($article);
             }
@@ -180,7 +180,7 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $items = $client->getItems($params);
         foreach ($items->items as $item) {
-            $relatedArticles = $item->elements['related_articles'];
+            $relatedArticles = $item->related_articles;
             foreach ($relatedArticles as $article) {
                 // All related articles should be resolved
                 $this->assertNotNull($article);
@@ -193,9 +193,9 @@ class DeliveryClientTest extends TestCase
         $params = (new QueryParams())->codename('home');
         $client = new DeliveryClient($this->getProjectId());
         $items = $client->getItems($params);
-        $heroUnit = $items->items['home']->elements['hero_unit']['home_page_hero_unit'];
+        $heroUnit = $items->items['home']->hero_unit['home_page_hero_unit'];
         $this->assertEquals('home_page_hero_unit', $heroUnit->system->codename);
-        $this->assertEquals('Roasting premium coffee', $heroUnit->elements['title']);
+        $this->assertEquals('Roasting premium coffee', $heroUnit->title);
     }
 
     public function testQueryParams()

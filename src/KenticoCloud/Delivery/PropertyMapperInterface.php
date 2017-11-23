@@ -7,16 +7,19 @@ namespace KenticoCloud\Delivery;
 
 /**
  * Interface PropertyMapperInterface serves for mapping model properties to data in JSON responses.
- * @package KenticoCloud\Delivery
  */
 interface PropertyMapperInterface
 {
     /**
      * Returns the correct element from $data based on $modelType and $property.
-     * @param $data Source data (deserialized JSON).
-     * @param $modelType Target model type.
-     * @param $property Target property name.
+     *
+     * @param $data source data (deserialized JSON)
+     * @param $modelType target model type
+     * @param $property target property name
+     *
      * @return mixed
      */
-    public function getProperty($data, $modelType, $property);
+    public function getProperty($data, $property);
+
+    public function getProperties($data, $modelType);
 }
