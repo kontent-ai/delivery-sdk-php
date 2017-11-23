@@ -3,10 +3,7 @@
 namespace KenticoCloud\Tests\E2E;
 
 use KenticoCloud\Delivery\DeliveryClient;
-use KenticoCloud\Delivery\QueryParams;
-use KenticoCloud\Delivery\AbstractTypeMapper;
 use KenticoCloud\Delivery\DefaultMapper;
-
 use PHPUnit\Framework\TestCase;
 
 class TetsMapper extends DefaultMapper
@@ -19,6 +16,7 @@ class TetsMapper extends DefaultMapper
             case 'article':
                 return \KenticoCloud\Tests\E2E\ArticleModel::class;
         }
+
         return parent::getTypeClass($typeName, $elementName, $parentModelType);
     }
 }
@@ -29,7 +27,8 @@ class ModelBindingTest extends TestCase
     {
         $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
         $client = new DeliveryClient($projectId);
-        $client->typeMapper =  new TetsMapper();
+        $client->typeMapper = new TetsMapper();
+
         return $client;
     }
 
@@ -44,7 +43,7 @@ class ModelBindingTest extends TestCase
         // Assert
         $this->assertEquals('On Roasts', $item->title);
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
-        $this->assertEquals('2014-11-07T00:00:00Z', $item->postDate);
+        $this->assertEquals(new \DateTime('2014-11-07T00:00:00Z'), $item->postDate);
         $this->assertCount(2, $item->personas);
         $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\TaxonomyTerm::class, $item->personas[0]);
         $this->assertCount(2, $item->relatedArticles);

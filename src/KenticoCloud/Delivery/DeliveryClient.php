@@ -21,6 +21,7 @@ class DeliveryClient
     protected $waitForLoadingNewContent = false;
     public $typeMapper = null;
     public $propertyMapper = null;
+    public $valueConverter = null;
     public $modelBinder = null;
     protected $contentTypeFactory = null;
     protected $taxonomyFactory = null;
@@ -206,10 +207,10 @@ class DeliveryClient
     protected function getModelBinder()
     {
         if ($this->modelBinder == null) {
-            if ($this->typeMapper == null || $this->propertyMapper == null) {
+            if ($this->typeMapper == null || $this->propertyMapper == null || $this->valueConverter == null) {
                 $defaultMapper = new DefaultMapper();
             }
-            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper);
+            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper);
         }
 
         return $this->modelBinder;

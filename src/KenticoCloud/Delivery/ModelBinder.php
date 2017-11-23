@@ -16,6 +16,7 @@ class ModelBinder
      * @var TypeMapperInterface|null
      */
     protected $typeMapper = null;
+
     /**
      * Serves for mapping model properties to data in JSON responses.
      *
@@ -24,15 +25,23 @@ class ModelBinder
     protected $propertyMapper = null;
 
     /**
+     * Serves for converting simple values to desired types.
+     *
+     * @var ValueConverterInterface|null
+     */
+    protected $valueConverter = null;
+
+    /**
      * ModelBinder constructor.
      *
      * @param TypeMapperInterface     $typeMapper
      * @param PropertyMapperInterface $propertyMapper
      */
-    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper)
+    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter)
     {
         $this->typeMapper = $typeMapper;
         $this->propertyMapper = $propertyMapper;
+        $this->valueConverter = $valueConverter;
     }
 
     /**
@@ -151,6 +160,7 @@ class ModelBinder
             case 'asset':
             case 'taxonomy':
             case 'multiple_choice':
+                // Map well-known types to their models
                 $knownTypes = array();
                 foreach ($element->value as $knownType) {
                     $knownTypeClass = $this->typeMapper->getTypeClass($element->type);
@@ -162,12 +172,14 @@ class ModelBinder
 
             case 'modular_content':
                 if ($modularContent != null) {
+                    // Recursively bind the nested models
                     $result = $this->bindModularContent($element, $modularContent, $processedItems);
                 }
                 break;
 
             default:
-                $result = $element->value;
+                // Use a value converter to get the value in a proper format/type
+                $result = $this->valueConverter->getValue($element->type, $element->value);
                 break;
         }
 

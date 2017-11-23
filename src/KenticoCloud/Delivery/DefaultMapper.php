@@ -11,7 +11,7 @@ use KenticoCloud\Delivery\Helpers\TextHelper;
 /**
  * Class DefaultMapper serves for resolving strong types based on provided information.
  */
-class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
+class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, ValueConverterInterface
 {
     const ELEMENTS_ATTRIBUTE_NAME = 'elements';
 
@@ -20,14 +20,14 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
      *
      * @var string
      */
-    private $ci = \KenticoCloud\Delivery\Models\Items\ContentItem::class;
+    protected $ci = \KenticoCloud\Delivery\Models\Items\ContentItem::class;
 
     /**
      * Content item system element model.
      *
      * @var string
      */
-    private $cis = \KenticoCloud\Delivery\Models\Items\ContentItemSystem::class;
+    protected $cis = \KenticoCloud\Delivery\Models\Items\ContentItemSystem::class;
 
     /**
      * Gets strong type based on provided information.
@@ -55,14 +55,9 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
                 case 'multiple_choice':
                     $type = \KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class;
                     break;
-                case 'date_time':
-                    $type = \DateTime::class;
-                    break;
-                case 'number':
-                    $type = float::class;
-                    break;
                 default:
                     $type = $this->ci;
+                    break;
             }
         }
 
@@ -91,5 +86,30 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
 
             return $data[$index];
         }
+    }
+
+    /**
+     * Converts a given simple value to a specified type.
+     *
+     * @param $type type to convert the value to
+     * @param $value value to convert
+     *
+     * @return mixed
+     */
+    public function getValue($type, $value)
+    {
+        $result = $value;
+        if ($type != null) {
+            switch ($type) {
+                case 'date_time':
+                    $result = new \DateTime($value);
+                    break;
+                case 'number':
+                    $result = (float) $value;
+                    break;
+            }
+        }
+
+        return $result;
     }
 }
