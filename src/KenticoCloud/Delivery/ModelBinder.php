@@ -90,10 +90,6 @@ class ModelBinder
             $processedItems[$data->system->codename] = $model;
         }
 
-        if (is_string($data)) {
-            $data = json_decode($data);
-        }
-
         if (is_object($data)) {
             $dataProperties = get_object_vars($data);
         }

@@ -56,7 +56,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface
                     $type = \KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class;
                     break;
                 case 'date_time':
-                $type = \DateTime::class;
+                    $type = \DateTime::class;
                     break;
                 case 'number':
                     $type = float::class;

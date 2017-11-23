@@ -36,6 +36,7 @@ abstract class Singleton
     }
 
     /**
+     * @codeCoverageIgnore
      * Disable cloning (there is no reason to clone).
      */
     private function __clone()
