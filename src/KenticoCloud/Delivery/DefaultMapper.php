@@ -87,19 +87,19 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      */
     public function getValue($type, $value)
     {
-        $result = $value;
-        if ($type != null) {
-            switch ($type) {
-                case 'system':
-                    $result = new ContentItemSystem($value->id, $value->name, $value->codename, $value->last_modified, $value->type, $value->sitemap_locations, $value->language);
-                    break;
-                case 'date_time':
-                    $result = new \DateTime($value);
-                    break;
-                case 'number':
-                    $result = (float) $value;
-                    break;
-            }
+        switch ($type) {
+            case 'system':
+                $result = new ContentItemSystem($value->id, $value->name, $value->codename, $value->last_modified, $value->type, $value->sitemap_locations, $value->language);
+                break;
+            case 'date_time':
+                $result = new \DateTime($value);
+                break;
+            case 'number':
+                $result = (float) $value;
+                break;
+            default:
+                $result = $value;
+                break;
         }
 
         return $result;

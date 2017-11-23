@@ -8,7 +8,6 @@
 
 🚧 **This is currently a work in progress, and is only a prototype. Not ready for general consumption. Let us know if you want to contribute at DEVELOPERSCOMMUNITY@KENTICO.COM** 🚧 
 
-TODO README
 
 ## Developing on Windows
 Have a look at our cool [tutorials](https://github.com/Kentico/delivery-sdk-php/wiki) on developing PHP on Windows with Visual Studio Code!

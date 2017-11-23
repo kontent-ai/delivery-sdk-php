@@ -26,13 +26,13 @@ class DeliveryClient
     protected $contentTypeFactory = null;
     protected $taxonomyFactory = null;
 
-    public function __construct($projectId, $previewApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null)
+    public function __construct(string $projectId, string $previewApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null)
     {
         $this->previewApiKey = $previewApiKey;
         $this->previewMode = !is_null($previewApiKey);
         $this->urlBuilder = new UrlBuilder($projectId, $this->previewMode);
-        $this->waitForLoadingNewContent = $waitForLoadingNewContent;
-        $this->debugRequests = $debugRequests;
+        $this->waitForLoadingNewContent = $waitForLoadingNewContent ?? $this->waitForLoadingNewContent;
+        $this->debugRequests = $debugRequests ?? $this->debugRequests;
         $this->initRequestTemplate();
     }
 
