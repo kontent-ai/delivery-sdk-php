@@ -49,6 +49,7 @@ class ModelBindingTest extends TestCase
         $this->assertCount(2, $item->relatedArticles);
         $this->assertEquals('Coffee processing techniques', $item->relatedArticles['coffee_processing_techniques']->title);
         $this->assertInstanceOf(\KenticoCloud\Tests\E2E\ArticleModel::class, $item->relatedArticles['coffee_processing_techniques']);
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
     }
 
     public function testHomeModel()

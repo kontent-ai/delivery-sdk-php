@@ -20,6 +20,7 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
         $this->assertEquals('On Roasts', $item->elements['title']);
         $this->assertEquals('on-roasts', $item->elements['url_pattern']);
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
     }
 
     public function testGetHomeItem()
