@@ -19,7 +19,7 @@ class DeliveryClientTest extends TestCase
         $item = $client->getItem('on_roasts');
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
         $this->assertEquals('On Roasts', $item->title);
-        $this->assertEquals('on-roasts', $item->url_pattern);
+        $this->assertEquals('on-roasts', $item->urlPattern);
         $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
     }
 
@@ -45,8 +45,8 @@ class DeliveryClientTest extends TestCase
     {
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('how_to_make_a_cappuccino');
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class, $item->video_host[0]);
-        $this->assertEquals('YouTube', $item->video_host[0]->name);
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class, $item->videoHost[0]);
+        $this->assertEquals('YouTube', $item->videoHost[0]->name);
     }
 
     public function testAssets()
@@ -167,7 +167,7 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $items = $client->getItems($params);
         foreach ($items->items as $item) {
-            $relatedArticles = $item->related_articles;
+            $relatedArticles = $item->relatedArticles;
             foreach ($relatedArticles as $article) {
                 $this->assertNull($article);
             }
@@ -180,7 +180,7 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $items = $client->getItems($params);
         foreach ($items->items as $item) {
-            $relatedArticles = $item->related_articles;
+            $relatedArticles = $item->relatedArticles;
             foreach ($relatedArticles as $article) {
                 // All related articles should be resolved
                 $this->assertNotNull($article);
@@ -193,7 +193,7 @@ class DeliveryClientTest extends TestCase
         $params = (new QueryParams())->codename('home');
         $client = new DeliveryClient($this->getProjectId());
         $items = $client->getItems($params);
-        $heroUnit = $items->items['home']->hero_unit['home_page_hero_unit'];
+        $heroUnit = $items->items['home']->heroUnit['home_page_hero_unit'];
         $this->assertEquals('home_page_hero_unit', $heroUnit->system->codename);
         $this->assertEquals('Roasting premium coffee', $heroUnit->title);
     }

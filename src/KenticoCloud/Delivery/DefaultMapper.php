@@ -76,12 +76,14 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
     {
         if (is_a($model, $this->ci)) {
             // Load all properties from the retireved data (including the system element)
+            $model->system = null;
             $data = get_object_vars($data);
-            $tmp = $data[self::ELEMENTS_ATTRIBUTE_NAME];
-            $tmp->system = $data['system'];
+            foreach ($data[self::ELEMENTS_ATTRIBUTE_NAME] as $elementName => $element) {
+                $camelElement = TextHelper::getInstance()->camelCase($elementName);
+                $model->$camelElement = null;
+            }
 
-            return get_object_vars($tmp);
-            //TODO: camelCase the props
+            return get_object_vars($model);
         } else {
             // Load properties from a strongly-typed model
             return get_object_vars($model);
