@@ -113,10 +113,8 @@ class ModelBinder
                 // There are items to iterate through
                 $modelPropertyValue = array();
                 foreach ($dataProperty as $itemKey => $itemValue) {
-                    if (isset($itemValue->type)) {
-                        // Bind elements
-                        $modelPropertyValue[$itemKey] = $this->bindElement($itemValue, $modularContent, $processedItems);
-                    }
+                    // Bind elements
+                    $modelPropertyValue[$itemKey] = $this->bindElement($itemValue, $modularContent, $processedItems);
                 }
             } else {
                 // There is only one item
