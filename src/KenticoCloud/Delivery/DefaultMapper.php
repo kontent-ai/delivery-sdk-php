@@ -7,6 +7,7 @@
 namespace KenticoCloud\Delivery;
 
 use KenticoCloud\Delivery\Helpers\TextHelper;
+use KenticoCloud\Delivery\Models\Items\ContentItemSystem;
 
 /**
  * Class DefaultMapper serves for resolving strong types based on provided information.
@@ -23,13 +24,6 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
     protected $ci = \KenticoCloud\Delivery\Models\Items\ContentItem::class;
 
     /**
-     * Content item system element model.
-     *
-     * @var string
-     */
-    protected $cis = \KenticoCloud\Delivery\Models\Items\ContentItemSystem::class;
-
-    /**
      * Gets strong type based on provided information.
      *
      * @param $typeName name of the type to get (should be a primary source type resolution)
@@ -38,11 +32,8 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      *
      * @return null|string
      */
-    public function getTypeClass($typeName, $elementName = null, $parentModelType = null)
+    public function getTypeClass($typeName, $elementName = null)
     {
-        if ($elementName === 'system' && $parentModelType == $this->ci) {
-            return $this->cis;
-        }
         $type = null;
         if ($typeName != null) {
             switch ($typeName) {
@@ -101,6 +92,9 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
         $result = $value;
         if ($type != null) {
             switch ($type) {
+                case 'system':
+                    $result = new ContentItemSystem($value->id, $value->name, $value->codename, $value->last_modified, $value->type, $value->sitemap_locations, $value->language);
+                    break;
                 case 'date_time':
                     $result = new \DateTime($value);
                     break;

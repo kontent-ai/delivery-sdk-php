@@ -107,34 +107,31 @@ class ModelBinder
             $dataProperty = $this->propertyMapper->getProperty($dataProperties, $modelType, $modelProperty);
             $modelPropertyValue = null;
 
-            $type = $this->typeMapper->getTypeClass(null, $modelProperty, $modelType);
-            if ($type != null) {
-                $modelPropertyValue = $this->bindModel($type, $dataProperty, $modularContent);
+            if ($modelProperty == 'system') {
+                $modelPropertyValue = $this->valueConverter->getValue($modelProperty, $dataProperty);
+            } elseif (is_array($dataProperty)) {
+                // There are items to iterate through
+                $modelPropertyValue = array();
+                foreach ($dataProperty as $itemKey => $itemValue) {
+                    if (isset($itemValue->type)) {
+                        // Bind elements
+                        $modelPropertyValue[$itemKey] = $this->bindElement($itemValue, $modularContent, $processedItems);
+                    }
+                }
             } else {
-                if (is_array($dataProperty)) {
-                    // There are items to iterate through
-                    $modelPropertyValue = array();
-                    foreach ($dataProperty as $itemKey => $itemValue) {
-                        if (isset($itemValue->type)) {
-                            // Bind elements
-                            $modelPropertyValue[$itemKey] = $this->bindElement($itemValue, $modularContent, $processedItems);
-                        }
+                // There is only one item
+                if (isset($dataProperty->value)) {
+                    // The item contains a value element
+                    if (isset($dataProperty->type)) {
+                        // The item is an element (complex type that contains a type information)
+                        $modelPropertyValue = $this->bindElement($dataProperty, $modularContent, $processedItems);
+                    } else {
+                        // Bind the nested value element
+                        $modelPropertyValue = $dataProperty->value;
                     }
                 } else {
-                    // There is only one item
-                    if (isset($dataProperty->value)) {
-                        // The item contains a value element
-                        if (isset($dataProperty->type)) {
-                            // The item is an element (complex type that contains a type information)
-                            $modelPropertyValue = $this->bindElement($dataProperty, $modularContent, $processedItems);
-                        } else {
-                            // Bind the nested value element
-                            $modelPropertyValue = $dataProperty->value;
-                        }
-                    } else {
-                        // There is no object hierarchy, bind it directly
-                        $modelPropertyValue = $dataProperty;
-                    }
+                    // There is no object hierarchy, bind it directly
+                    $modelPropertyValue = $dataProperty;
                 }
             }
 
