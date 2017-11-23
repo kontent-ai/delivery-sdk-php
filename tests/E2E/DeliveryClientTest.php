@@ -27,9 +27,33 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('home');
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
-        $this->assertInternalType('string', $item->system->getLastModifiedDateTime('Y-m-d'));
+        $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());
         $this->assertInstanceOf(\DateTime::class, $item->system->lastModified);
         $this->assertEquals('2017-04-04', $item->system->getLastModifiedDateTime('Y-m-d'));
+    }
+
+    public function testNumber()
+    {
+        $client = new DeliveryClient($this->getProjectId());
+        $item = $client->getItem('brazil_natural_barra_grande');
+        $this->assertInternalType('float', $item->elements['price']);
+        $this->assertEquals(8.5, $item->elements['price']);
+    }
+
+    public function testMultipleChoice()
+    {
+        $client = new DeliveryClient($this->getProjectId());
+        $item = $client->getItem('how_to_make_a_cappuccino');
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class, $item->elements['video_host'][0]);
+        $this->assertEquals('YouTube', $item->elements['video_host'][0]->name);
+    }
+
+    public function testAssets()
+    {
+        $client = new DeliveryClient($this->getProjectId());
+        $item = $client->getItem('home_page_hero_unit');
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\Asset::class, $item->elements['image'][0]);
+        $this->assertEquals('banner-default.jpg', $item->elements['image'][0]->name);
     }
 
     public function testWebhooks()
@@ -98,7 +122,7 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $taxonomy = $client->getTaxonomy($codename);
 
-        $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomies\Taxonomy::class));
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Taxonomies\Taxonomy::class, $taxonomy);
     }
 
     public function testGetTaxonomy_CodenameManufacturer_HasFourTerms()
@@ -172,12 +196,6 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('home_page_hero_unit', $heroUnit->system->codename);
         $this->assertEquals('Roasting premium coffee', $heroUnit->elements['title']);
     }
-
-    /*public function testAssets()
-    {
-        $client = new DeliveryClient($this->getProjectId());
-        $item = $client->getItem('home_page_hero_unit');
-    }*/
 
     public function testQueryParams()
     {
