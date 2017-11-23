@@ -4,7 +4,6 @@ namespace KenticoCloud\Tests\E2E;
 
 use KenticoCloud\Delivery\DeliveryClient;
 use KenticoCloud\Delivery\QueryParams;
-
 use PHPUnit\Framework\TestCase;
 
 class DeliveryClientTest extends TestCase
@@ -13,7 +12,7 @@ class DeliveryClientTest extends TestCase
     {
         return '975bf280-fd91-488c-994c-2f04416e5ee3';
     }
-    
+
     public function testGetArticleItem()
     {
         $client = new DeliveryClient($this->getProjectId());
@@ -31,6 +30,24 @@ class DeliveryClientTest extends TestCase
         $this->assertInternalType('string', $item->system->lastModified);
         $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());
         $this->assertEquals('2017-04-04', $item->system->getLastModifiedDateTime('Y-m-d'));
+    }
+
+    public function testSystemDateString()
+    {
+        $system = new \KenticoCloud\Delivery\Models\Items\ContentItemSystem();
+        $system->setLastModified('2017-04-04');
+
+        $this->assertInstanceOf(\DateTime::class, $system->getLastModifiedDateTime());
+        $this->assertEquals('2017-04-04', $system->getLastModifiedDateTime('Y-m-d'));
+    }
+
+    public function testSystemDateTime()
+    {
+        $system = new \KenticoCloud\Delivery\Models\Items\ContentItemSystem();
+        $system->setLastModified(new \DateTime('2017-04-04'));
+
+        $this->assertInstanceOf(\DateTime::class, $system->getLastModifiedDateTime());
+        $this->assertEquals('2017-04-04', $system->getLastModifiedDateTime('Y-m-d'));
     }
 
     public function testWebhooks()
@@ -64,15 +81,15 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $types = $client->getTypes($params);
 
-        $this->assertEquals("b2c14f2c-6467-460b-a70b-bca17972a33a", $types->types[0]->system->id);
+        $this->assertEquals('b2c14f2c-6467-460b-a70b-bca17972a33a', $types->types[0]->system->id);
     }
-    
+
     public function testGetContentType()
     {
         $client = new DeliveryClient($this->getProjectId());
         $type = $client->getType('article');
-    
-        $this->assertEquals("b7aa4a53-d9b1-48cf-b7a6-ed0b182c4b89", $type->system->id);
+
+        $this->assertEquals('b7aa4a53-d9b1-48cf-b7a6-ed0b182c4b89', $type->system->id);
     }
 
     public function testGetContentTypesCount()
@@ -86,16 +103,16 @@ class DeliveryClientTest extends TestCase
 
     public function testGetTaxonomy_CodenameNotExist_IsNull()
     {
-        $codename = "XX_manufacturer_XX";
+        $codename = 'XX_manufacturer_XX';
         $client = new DeliveryClient($this->getProjectId());
         $taxonomy = $client->getTaxonomy($codename);
 
-        $this->assertNull($taxonomy, "Taxonomy with codename that does not exist is expected to be null.");
+        $this->assertNull($taxonomy, 'Taxonomy with codename that does not exist is expected to be null.');
     }
 
     public function testGetTaxonomy_CodenameExist_IsTaxonomyObject()
     {
-        $codename = "manufacturer";
+        $codename = 'manufacturer';
         $client = new DeliveryClient($this->getProjectId());
         $taxonomy = $client->getTaxonomy($codename);
 
@@ -104,7 +121,7 @@ class DeliveryClientTest extends TestCase
 
     public function testGetTaxonomy_CodenameManufacturer_HasFourTerms()
     {
-        $codename = "manufacturer";
+        $codename = 'manufacturer';
         $client = new DeliveryClient($this->getProjectId());
         $taxonomy = $client->getTaxonomy($codename);
 
@@ -126,7 +143,7 @@ class DeliveryClientTest extends TestCase
         $item = $client->getItem('amsterdam');
         $this->assertEquals('e844a6aa-4dc4-464f-8ae9-f9f66cc6ab61', $item->system->id);
     }
-    
+
     public function testGetContentItems()
     {
         $params = (new QueryParams())->type('article')->depth(2);
@@ -149,7 +166,7 @@ class DeliveryClientTest extends TestCase
             }
         }
     }
-    
+
     public function testNonZeroDepth()
     {
         $params = (new QueryParams())->type('article')->depth(99);
@@ -179,7 +196,7 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('home_page_hero_unit');
     }*/
- 
+
     public function testQueryParams()
     {
         $params = (new QueryParams())->type('article', 'home')->depth(0)->language('es-ES')->orderDesc('system.name')->limit(2);

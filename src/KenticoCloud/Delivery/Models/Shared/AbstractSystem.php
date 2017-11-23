@@ -5,6 +5,8 @@
 
 namespace KenticoCloud\Delivery\Models\Shared;
 
+use DateTime;
+
 /**
  * Class AbstractSystem.
  */
@@ -52,20 +54,20 @@ abstract class AbstractSystem
     }
 
     /**
-     * Returns 'lastModified' property in a requested format.
+     * Gets strongly typed last modified time stamp in a requested format.
      *
-     * @param $format string in which 'lastModified' property should
-     * be returned
+     * @param null $format
      *
-     * @return string datetime
+     * @return DateTime|string
      */
-    public function getLastModified($format = null)
+    public function getLastModifiedDateTime($format = null)
     {
+        $dateTime = new DateTime($this->lastModified);
         if (!$format) {
-            return $this->lastModified;
+            return $dateTime;
         }
 
-        return date($format, $this->lastModified);
+        return $dateTime->format($format);
     }
 
     /**
@@ -76,9 +78,10 @@ abstract class AbstractSystem
      */
     public function setLastModified($value)
     {
-        if (is_string($value)) {
-            $value = strtotime($value);
+        if ($value instanceof DateTime) {
+            $this->lastModified = $value->format(DateTime::ATOM);
+        } else {
+            $this->lastModified = $value;
         }
-        $this->lastModified = $value;
     }
 }

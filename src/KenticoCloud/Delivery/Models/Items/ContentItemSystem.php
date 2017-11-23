@@ -6,32 +6,31 @@
 namespace KenticoCloud\Delivery\Models\Items;
 
 use KenticoCloud\Delivery\Models\Shared\AbstractSystem;
-use \DateTime;
 
 /**
- * Class ContentItemSystem
- * @package KenticoCloud\Delivery\Models\Items
+ * Class ContentItemSystem.
  */
 class ContentItemSystem extends AbstractSystem
 {
     /**
      * @var null
-     * Gets the codename of the content type, for example "article".
+     *           Gets the codename of the content type, for example "article"
      */
     public $type = null;
     /**
      * @var null
-     * Gets a list of codenames of sitemap items to which the content item is assigned.
+     *           Gets a list of codenames of sitemap items to which the content item is assigned
      */
     public $sitemapLocations = null;
     /**
      * @var null
-     * Gets the language of the content item.
+     *           Gets the language of the content item
      */
     public $language = null;
 
     /**
      * ContentItemSystem constructor.
+     *
      * @param null $id
      * @param null $name
      * @param null $codename
@@ -46,20 +45,5 @@ class ContentItemSystem extends AbstractSystem
         $this->type = $type;
         $this->sitemapLocations = $sitemapLocations;
         $this->language = $language;
-    }
-
-    /**
-     * Gets strongly typed, formatted last modified time stamp.
-     * @param null $format
-     * @return DateTime|string
-     *
-     */
-    public function getLastModifiedDateTime($format = null)
-    {
-        $dateTime = new DateTime($this->lastModified);
-        if (!$format) {
-            return $dateTime;
-        }
-        return $dateTime->format($format);
     }
 }
