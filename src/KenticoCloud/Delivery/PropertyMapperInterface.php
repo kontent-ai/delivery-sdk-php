@@ -21,5 +21,5 @@ interface PropertyMapperInterface
      */
     public function getProperty($data, $property);
 
-    public function getProperties($data, $modelType);
+    public function getModelProperties($data, $model);
 }

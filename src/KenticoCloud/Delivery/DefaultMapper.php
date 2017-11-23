@@ -54,10 +54,9 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
     }
 
     /**
-     * Returns the correct element from $data based on $modelType and $property.
+     * Returns the correct element from $data based on property name.
      *
      * @param $data source data (deserialized JSON)
-     * @param $modelType target model type
      * @param $property target property name
      *
      * @return mixed
@@ -66,24 +65,25 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
     {
         $index = TextHelper::getInstance()->decamelize($property);
         if (!array_key_exists($index, $data)) {
-            // Custom model, search in elements
+            // Search within elements
             $data = get_object_vars($data[self::ELEMENTS_ATTRIBUTE_NAME]);
         }
 
         return $data[$index];
     }
 
-    public function getProperties($data, $model)
+    public function getModelProperties($data, $model)
     {
         if (is_a($model, $this->ci)) {
+            // Load all properties from the retireved data (including the system element)
             $data = get_object_vars($data);
             $tmp = $data[self::ELEMENTS_ATTRIBUTE_NAME];
             $tmp->system = $data['system'];
-            $data = get_object_vars($tmp);
 
-            return $data;
+            return get_object_vars($tmp);
             //TODO: camelCase the props
         } else {
+            // Load properties from a strongly-typed model
             return get_object_vars($model);
         }
     }
