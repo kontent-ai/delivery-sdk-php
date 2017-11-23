@@ -26,7 +26,7 @@ class DeliveryClient
     protected $contentTypeFactory = null;
     protected $taxonomyFactory = null;
 
-    public function __construct($projectId, $previewApiKey = null, $waitForLoadingNewContent = false, $debugRequests = false)
+    public function __construct($projectId, $previewApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null)
     {
         $this->previewApiKey = $previewApiKey;
         $this->previewMode = !is_null($previewApiKey);

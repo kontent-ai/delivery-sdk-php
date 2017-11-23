@@ -158,20 +158,12 @@ class ModelBinder
             case 'taxonomy':
             case 'multiple_choice':
                 // Map well-known types to their models
-                $knownTypes = array();
-                foreach ($element->value as $knownType) {
-                    $knownTypeClass = $this->typeMapper->getTypeClass($element->type);
-                    $knowTypeModel = $this->bindModel($knownTypeClass, $knownType, $modularContent, $processedItems);
-                    $knownTypes[] = $knowTypeModel;
-                }
-                $result = $knownTypes;
+                $result = $this->bindKnownType($element, $modularContent, $processedItems);
                 break;
 
             case 'modular_content':
-                if ($modularContent != null) {
-                    // Recursively bind the nested models
-                    $result = $this->bindModularContent($element, $modularContent, $processedItems);
-                }
+                // Recursively bind the nested models
+                $result = $this->bindModularContent($element, $modularContent, $processedItems);
                 break;
 
             default:
@@ -184,6 +176,25 @@ class ModelBinder
     }
 
     /**
+     * Uses a well-known type to bind the element's data.
+     *
+     * @param $element modular content item element
+     * @param null $modularContent JSON response containing nested modular content items
+     * @param null $processedItems collection of already processed items (to avoid infinite loops)
+     */
+    public function bindKnownType($element, $modularContent, $processedItems)
+    {
+        $knownTypes = array();
+        foreach ($element->value as $knownType) {
+            $knownTypeClass = $this->typeMapper->getTypeClass($element->type);
+            $knowTypeModel = $this->bindModel($knownTypeClass, $knownType, $modularContent, $processedItems);
+            $knownTypes[] = $knowTypeModel;
+        }
+
+        return $knownTypes;
+    }
+
+    /**
      * Binds a modular content element to a "strongly" typed model.
      *
      * @param $element modular content item element
@@ -192,22 +203,25 @@ class ModelBinder
      */
     public function bindModularContent($element, $modularContent, $processedItems)
     {
-        $modelModularItems = array();
-        foreach ($element->value as $modularCodename) {
-            // Try to load the content item from processed items
-            if (isset($processedItems[$modularCodename])) {
-                $subItem = $processedItems[$modularCodename];
-            } else {
-                // If not found, recursively load model
-                if (isset($modularContent->$modularCodename)) {
-                    $class = $this->typeMapper->getTypeClass($modularContent->$modularCodename->system->type);
-                    $subItem = $this->bindModel($class, $modularContent->$modularCodename, $modularContent, $processedItems);
-                    $processedItems[$modularCodename] = $subItem;
+        $modelModularItems = null;
+        if ($modularContent != null) {
+            $modelModularItems = array();
+            foreach ($element->value as $modularCodename) {
+                // Try to load the content item from processed items
+                if (isset($processedItems[$modularCodename])) {
+                    $subItem = $processedItems[$modularCodename];
                 } else {
-                    $subItem = null;
+                    // If not found, recursively load model
+                    if (isset($modularContent->$modularCodename)) {
+                        $class = $this->typeMapper->getTypeClass($modularContent->$modularCodename->system->type);
+                        $subItem = $this->bindModel($class, $modularContent->$modularCodename, $modularContent, $processedItems);
+                        $processedItems[$modularCodename] = $subItem;
+                    } else {
+                        $subItem = null;
+                    }
                 }
+                $modelModularItems[$modularCodename] = $subItem;
             }
-            $modelModularItems[$modularCodename] = $subItem;
         }
 
         return $modelModularItems;

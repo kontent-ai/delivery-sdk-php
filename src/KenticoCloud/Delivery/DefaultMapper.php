@@ -32,22 +32,22 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      */
     public function getTypeClass($typeName)
     {
-        $type = null;
-        if ($typeName != null) {
-            switch ($typeName) {
-                case 'asset':
-                    $type = \KenticoCloud\Delivery\Models\Items\Asset::class;
-                    break;
-                case 'taxonomy':
-                    $type = \KenticoCloud\Delivery\Models\Items\TaxonomyTerm::class;
-                    break;
-                case 'multiple_choice':
-                    $type = \KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class;
-                    break;
-                default:
-                    $type = $this->ci;
-                    break;
-            }
+        switch ($typeName) {
+            case 'asset':
+                $type = \KenticoCloud\Delivery\Models\Items\Asset::class;
+                break;
+            case 'taxonomy':
+                $type = \KenticoCloud\Delivery\Models\Items\TaxonomyTerm::class;
+                break;
+            case 'multiple_choice':
+                $type = \KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class;
+                break;
+            case null:
+                $type = null;
+                break;
+            default:
+                $type = $this->ci;
+                break;
         }
 
         return $type;

@@ -3,30 +3,28 @@
  * Helper class for building url.
  */
 
-
 namespace KenticoCloud\Delivery;
 
-use KenticoCloud\Delivery\QueryParams;
-
 /**
- * Class UrlBuilder
- * @package KenticoCloud\Delivery
+ * Class UrlBuilder.
  */
 class UrlBuilder
 {
     /**
      * Gets or sets the Project identifier.
+     *
      * @var string
      */
     public $projectID = null;
     /**
      * Gets or sets whether the Preview API should be used. If TRUE, <see cref="PreviewApiKey"/> needs to be set as well.
+     *
      * @var bool
      */
     public $usePreviewApi = false;
-	const PREVIEW_ENDPOINT  = 'https://preview-deliver.kenticocloud.com/';
-	const PRODUCTION_ENDPOINT  = 'https://deliver.kenticocloud.com/';
-    
+    const PREVIEW_ENDPOINT = 'https://preview-deliver.kenticocloud.com/';
+    const PRODUCTION_ENDPOINT = 'https://deliver.kenticocloud.com/';
+
     const URL_TEMPLATE_ITEM = '/items/%s';
     const URL_TEMPLATE_ITEMS = '/items';
     const URL_TEMPLATE_TYPE = '/types/%s';
@@ -37,19 +35,22 @@ class UrlBuilder
 
     /**
      * UrlBuilder constructor.
+     *
      * @param $projectID
      * @param false $usePreviewApi
      */
-    public function __construct($projectID, $usePreviewApi = false)
+    public function __construct(string $projectID, bool $usePreviewApi = null)
     {
         $this->projectID = $projectID;
-        $this->usePreviewApi = $usePreviewApi;
+        $this->usePreviewApi = $usePreviewApi ?? $this->usePreviewApi;
     }
 
     /**
      * Get url for specifed item.
+     *
      * @param $codename
      * @param $query
+     *
      * @return string
      */
     public function getItemUrl($codename, $query = null)
@@ -59,7 +60,9 @@ class UrlBuilder
 
     /**
      * Get items by query.
+     *
      * @param null $query
+     *
      * @return string
      */
     public function getItemsUrl($query = null)
@@ -67,49 +70,48 @@ class UrlBuilder
         return $this->buildUrl(self::URL_TEMPLATE_ITEMS, $query);
     }
 
-    
     /**
      * Returns URL to specified Content Type endpoint.
      *
-     * @param $codename string Content Type code name.
-     * @return string URL pointing to specific Content Type endpoint.
+     * @param $codename string Content Type code name
+     *
+     * @return string URL pointing to specific Content Type endpoint
      */
     public function getTypeUrl($codename)
     {
         return $this->buildUrl(sprintf(self::URL_TEMPLATE_TYPE, urlencode($codename)));
     }
 
-
     /**
      * Returns URL to all Content Types endpoint.
      *
-     * @param $query QueryParams Specification of parameters for Content Types request.
-     * @return string URL pointing to Content Types endpoint.
+     * @param $query queryParams Specification of parameters for Content Types request
+     *
+     * @return string URL pointing to Content Types endpoint
      */
     public function getTypesUrl($query = null)
     {
         return $this->buildUrl(self::URL_TEMPLATE_TYPES, $query);
     }
 
-
     /**
      * Returns URL to Taxonomy endopoint.
      *
-     * @param $codename string Codename of specific taxonomy to be retrieved.
-     * @return string URL pointing to Taxonomy endpoint.
+     * @param $codename string Codename of specific taxonomy to be retrieved
+     *
+     * @return string URL pointing to Taxonomy endpoint
      */
     public function getTaxonomyUrl($codename)
     {
         return $this->buildUrl(sprintf(self::URL_TEMPLATE_TAXONOMY, urlencode($codename)));
     }
 
-
     /**
      * Returns URL to all taxonomies endpoint.
      *
-     * @param object QueryParams Specification of parameters for Taxonomies request.
+     * @param object queryParams Specification of parameters for Taxonomies request
      *
-     * @return string URL pointing to all taxonomies endpoint.
+     * @return string URL pointing to all taxonomies endpoint
      */
     public function getTaxonomiesUrl($query)
     {
@@ -119,20 +121,22 @@ class UrlBuilder
     /**
      * Returns URL to content element endpoint.
      *
-     * @param $contentTypeCodename string Codename for specified content type.
-     * @param $contentElementCodename string Codename for specified content element.
-     * @return string URL to content element endpoint.
+     * @param $contentTypeCodename string Codename for specified content type
+     * @param $contentElementCodename string Codename for specified content element
+     *
+     * @return string URL to content element endpoint
      */
     public function getContentElementUrl($contentTypeCodename, $contentElementCodename)
     {
         return $this->buildUrl(sprintf(self::URL_TEMPLATE_ELEMENT, urlencode($contentTypeCodename), urlencode($contentElementCodename)));
     }
 
-
     /**
      * Build url for given endpoint and query.
+     *
      * @param $endpoint
      * @param null $query
+     *
      * @return string
      */
     private function buildUrl($endpoint, $query = null)
@@ -140,10 +144,10 @@ class UrlBuilder
         $segments = array(
             trim($this->usePreviewApi ? self::PREVIEW_ENDPOINT : self::PRODUCTION_ENDPOINT, '/'),
             trim($this->projectID, '/'),
-            trim($endpoint, '/')
+            trim($endpoint, '/'),
         );
         $url = implode('/', $segments);
-        
+
         if (is_a($query, QueryParams::class)) {
             $query = $query->data;
         }
@@ -151,7 +155,7 @@ class UrlBuilder
             $query = http_build_query($query);
         }
         if (is_string($query)) {
-            $url = rtrim($url, '?') . '?' . ltrim($query, '?');
+            $url = rtrim($url, '?').'?'.ltrim($query, '?');
         }
 
         return $url;
