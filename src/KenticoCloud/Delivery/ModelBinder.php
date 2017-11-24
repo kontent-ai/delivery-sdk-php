@@ -92,7 +92,7 @@ class ModelBinder
     {
         $processedItems = $processedItems ?? array();
         $model = new $modelType();
-        $modelProperties = $this->propertyMapper->getModelProperties($data, $model);
+        $modelProperties = $this->propertyMapper->getModelProperties($model, $data);
 
         // Add item to processed items collection to prevent recursion
         if (isset($data->system->codename) && !isset($processedItems[$data->system->codename])) {

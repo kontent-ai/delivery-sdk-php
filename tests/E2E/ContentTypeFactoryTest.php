@@ -1,7 +1,7 @@
 <?php
+
 namespace KenticoCloud\Tests\Unit;
 
-use KenticoCloud\Delivery;
 use PHPUnit\Framework\TestCase;
 use KenticoCloud\Delivery\DeliveryClient;
 use KenticoCloud\Delivery\Models\Types;
@@ -19,6 +19,14 @@ class ContentTypeFactoryTest extends TestCase
         }
     }
 
+    public function testGetElement()
+    {
+        $client = $this->getClient();
+        $actual = $client->getElement('coffee', 'processing');
+
+        $this->assertEquals('Processing', $actual->name);
+    }
+
     public function testCreateTypes_NullResponse_IsEmptyArray()
     {
         $response = null;
@@ -27,7 +35,7 @@ class ContentTypeFactoryTest extends TestCase
 
         $this->assertEquals(array(), $types);
     }
-    
+
     public function testCreateTypes_SingleItemStructure_Matches()
     {
         $client = $this->getClient();
@@ -35,14 +43,14 @@ class ContentTypeFactoryTest extends TestCase
         $actual = $client->getTypes($params)->types;
 
         $contentSystem = new Types\ContentTypeSystem(
-            "b2c14f2c-6467-460b-a70b-bca17972a33a",
-            "About us",
-            "about_us",
-            "2017-08-02T07:33:28.2997578Z"
+            'b2c14f2c-6467-460b-a70b-bca17972a33a',
+            'About us',
+            'about_us',
+            '2017-08-02T07:33:28.2997578Z'
         );
         $contentElements = array(
-            new Types\ContentTypeElement("modular_content", "facts", "Facts"),
-            new Types\ContentTypeElement("url_slug", "url_pattern", "URL pattern")
+            new Types\ContentTypeElement('modular_content', 'facts', 'Facts'),
+            new Types\ContentTypeElement('url_slug', 'url_pattern', 'URL pattern'),
         );
 
         $dummyType = new Types\ContentType();

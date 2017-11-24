@@ -72,7 +72,15 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
         return $data[$index];
     }
 
-    public function getModelProperties($data, $model)
+    /**
+     * Gets an array of properties of a model that need to be filled with data.
+     *
+     * @param $model model to examine
+     * @param $data  source JSON data
+     *
+     * @return array
+     */
+    public function getModelProperties($model, $data)
     {
         if (is_a($model, $this->ci)) {
             // Load all properties from the retireved data (including the system element)

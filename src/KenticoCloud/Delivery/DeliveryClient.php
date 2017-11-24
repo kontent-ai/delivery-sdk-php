@@ -19,13 +19,21 @@ class DeliveryClient
     protected $previewApiKey = null;
     protected $debugRequests = false;
     protected $waitForLoadingNewContent = false;
+    protected $contentTypeFactory = null;
+    protected $taxonomyFactory = null;
     public $typeMapper = null;
     public $propertyMapper = null;
     public $valueConverter = null;
     public $modelBinder = null;
-    protected $contentTypeFactory = null;
-    protected $taxonomyFactory = null;
 
+    /**
+     * Creates a new instance of DeliveryClient.
+     *
+     * @param string $projectId                Kentico Cloud Delivery API Project ID
+     * @param string $previewApiKey            Kentico Cloud Delivery API Preview API key
+     * @param bool   $waitForLoadingNewContent Gets whether you want to wait for updated content. (Useful for webhooks.)
+     * @param bool   $debugRequests
+     */
     public function __construct(string $projectId, string $previewApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null)
     {
         $this->previewApiKey = $previewApiKey;
@@ -36,6 +44,13 @@ class DeliveryClient
         $this->initRequestTemplate();
     }
 
+    /**
+     * Retrieves content items.
+     *
+     * @param $params query parameters adjusting the retrieved data (filtering, sorting and other params)
+     *
+     * @return mixed object with an array of content items and pagination information
+     */
     public function getItems($params)
     {
         $uri = $this->urlBuilder->getItemsUrl($params);
@@ -56,6 +71,14 @@ class DeliveryClient
         return $itemsResponse;
     }
 
+    /**
+     * Retrieves a content item.
+     *
+     * @param string $codename codename of the content item to be retrieved
+     * @param $params query parameters adjusting the retrieved data (filtering, sorting and other params)
+     *
+     * @return mixed a content item
+     */
     public function getItem($codename, $params = null)
     {
         $uri = $this->urlBuilder->getItemUrl($codename, $params);
@@ -76,9 +99,28 @@ class DeliveryClient
     }
 
     /**
+     * Retrieves a single element of a content type.
+     *
+     * @param string $typeCodename    codename of a content type
+     * @param string $elementCodename codename of an element
+     */
+    public function getElement($typeCodename, $elementCodename)
+    {
+        $uri = $this->urlBuilder->getContentElementUrl($typeCodename, $elementCodename);
+        $response = $this->sendRequest($uri);
+
+        $typeFactory = $this->getContentTypeFactory();
+
+        // Bind content type element
+        $element = $typeFactory->createElement($response->body, $elementCodename);
+
+        return $element;
+    }
+
+    /**
      * Retrieves Content Types.
      *
-     * @param $params queryParams Specification of parameters for Content Types retrieval
+     * @param $params Specification of parameters for Content Types retrieval
      *
      * @return mixed array of corresponding content type objects
      */
@@ -105,7 +147,11 @@ class DeliveryClient
     }
 
     /**
-     * Retrieves single content type.
+     * Retrieves a content type.
+     *
+     * @param $codename codename of a content type to be retrieved
+     *
+     * @return content type
      */
     public function getType($codename)
     {
