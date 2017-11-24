@@ -43,6 +43,14 @@ class ContentTypeFactoryTest extends TestCase
         $this->assertNull($actual);
     }
 
+    public function testGetNonExistentTypes()
+    {
+        $params = (new QueryParams())->equals('system.codename', 'non-existent');
+        $client = $this->getClient();
+        $response = $client->getTypes($params);
+        $this->assertEmpty($response->types);
+    }
+
     public function testCreateTypes_NullResponse_IsEmptyArray()
     {
         $response = null;
