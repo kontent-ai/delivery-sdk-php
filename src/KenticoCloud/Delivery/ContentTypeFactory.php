@@ -53,6 +53,9 @@ class ContentTypeFactory
      */
     public function createType($type)
     {
+        if (!isset($type->system)) {
+            return null;
+        }
         // Acquire data for 'system' property
         $system = new Models\Types\ContentTypeSystem(
             $type->system->id,
@@ -99,12 +102,14 @@ class ContentTypeFactory
                 $element->name,
                 $element->taxonomy_group
             );
-        } else {
+        } elseif (isset($element->type)) {
             $newElement = new Models\Types\ContentTypeElement(
                 $element->type,
                 $codename,
                 $element->name
             );
+        } else {
+            $newElement = null;
         }
 
         return $newElement;

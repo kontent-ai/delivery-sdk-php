@@ -10,7 +10,7 @@ use Httpful\Http;
 use KenticoCloud\Delivery\Models\Shared\Pagination;
 
 /**
- * Class DeliveryClient.
+ * Class DeliveryClient - executes requests against the Kentico Cloud Delivery API.
  */
 class DeliveryClient
 {
@@ -32,7 +32,7 @@ class DeliveryClient
      * @param string $projectId                Kentico Cloud Delivery API Project ID
      * @param string $previewApiKey            Kentico Cloud Delivery API Preview API key
      * @param bool   $waitForLoadingNewContent Gets whether you want to wait for updated content. (Useful for webhooks.)
-     * @param bool   $debugRequests
+     * @param bool   $debugRequests            Switches the HTTP client to debug mode
      */
     public function __construct(string $projectId, string $previewApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null)
     {
@@ -159,12 +159,6 @@ class DeliveryClient
         $response = $this->sendRequest($uri);
 
         $typeFactory = $this->getContentTypeFactory();
-
-        $properties = get_object_vars($response->body);
-
-        if (!isset($properties['system']) || !count($properties['system'])) {
-            return null;
-        }
 
         // Bind content type
         $type = $typeFactory->createType($response->body);

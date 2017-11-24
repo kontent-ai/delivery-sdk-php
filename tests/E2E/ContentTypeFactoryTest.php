@@ -27,6 +27,22 @@ class ContentTypeFactoryTest extends TestCase
         $this->assertEquals('Processing', $actual->name);
     }
 
+    public function testGetNonExistentElement()
+    {
+        $client = $this->getClient();
+        $actual = $client->getElement('non-existent', 'processing');
+
+        $this->assertNull($actual);
+    }
+
+    public function testGetNonExistentType()
+    {
+        $client = $this->getClient();
+        $actual = $client->getType('non-existent');
+
+        $this->assertNull($actual);
+    }
+
     public function testCreateTypes_NullResponse_IsEmptyArray()
     {
         $response = null;

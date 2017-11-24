@@ -33,6 +33,21 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('2017-04-04', $item->system->getLastModifiedDateTime('Y-m-d'));
     }
 
+    public function testGetNonExistentItem()
+    {
+        $client = new DeliveryClient($this->getProjectId());
+        $item = $client->getItem('non-existent');
+        $this->assertNull($item);
+    }
+
+    public function testGetNonExistentItems()
+    {
+        $params = (new QueryParams())->equals('system.codename', 'non-existent');
+        $client = new DeliveryClient($this->getProjectId());
+        $response = $client->getItems($params);
+        $this->assertEmpty($response->items);
+    }
+
     public function testNumber()
     {
         $client = new DeliveryClient($this->getProjectId());
