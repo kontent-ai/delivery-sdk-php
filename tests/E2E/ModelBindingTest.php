@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class TetsMapper extends DefaultMapper
 {
-    public function getTypeClass($typeName, $elementName = null, $parentModelType = null)
+    public function getTypeClass($typeName)
     {
         switch ($typeName) {
             case 'home':
@@ -17,7 +17,7 @@ class TetsMapper extends DefaultMapper
                 return \KenticoCloud\Tests\E2E\ArticleModel::class;
         }
 
-        return parent::getTypeClass($typeName, $elementName, $parentModelType);
+        return parent::getTypeClass($typeName);
     }
 }
 
@@ -48,6 +48,7 @@ class ModelBindingTest extends TestCase
         $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\TaxonomyTerm::class, $item->personas[0]);
         $this->assertCount(2, $item->relatedArticles);
         $this->assertEquals('Coffee processing techniques', $item->relatedArticles['coffee_processing_techniques']->title);
+        $this->assertInstanceOf(\KenticoCloud\Tests\E2E\ArticleModel::class, $item);
         $this->assertInstanceOf(\KenticoCloud\Tests\E2E\ArticleModel::class, $item->relatedArticles['coffee_processing_techniques']);
         $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
     }
