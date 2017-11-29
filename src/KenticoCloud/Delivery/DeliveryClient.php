@@ -75,7 +75,7 @@ class DeliveryClient
      *
      * @return mixed object with an array of content items and pagination information
      */
-    public function getItems($params)
+    public function getItems($params = null)
     {
         $uri = $this->urlBuilder->getItemsUrl($params);
         $response = $this->sendRequest($uri);
@@ -148,7 +148,7 @@ class DeliveryClient
      *
      * @return mixed array of corresponding content type objects
      */
-    public function getTypes($params)
+    public function getTypes($params = null)
     {
         $uri = $this->urlBuilder->getTypesUrl($params);
         $response = $this->sendRequest($uri);

@@ -48,6 +48,13 @@ class DeliveryClientTest extends TestCase
         $this->assertEmpty($response->items);
     }
 
+    public function testGetAllItems()
+    {
+        $client = new DeliveryClient($this->getProjectId());
+        $response = $client->getItems();
+        $this->assertNotEmpty($response->items);
+    }
+
     public function testNumber()
     {
         $client = new DeliveryClient($this->getProjectId());
