@@ -6,24 +6,26 @@
 namespace KenticoCloud\Delivery\Models\Items;
 
 /**
- * Class ContentItemElement
- * @package KenticoCloud\Delivery\Models\Items
+ * Class ContentItemElement.
  */
 class ContentItemElement
 {
     /**
+     *  Gets the type of the content element, for example "multiple_choice".
+     *
      * @var string
-     * Gets the type of the content element, for example "multiple_choice".
      */
     public $type = null;
     /**
-     * @var null
      * Gets the value of the content element.
+     *
+     * @var null
      */
     public $value = null;
     /**
-     * @var string
      * Gets the name of the content element.
+     *
+     * @var string
      */
     public $name = null;
 }

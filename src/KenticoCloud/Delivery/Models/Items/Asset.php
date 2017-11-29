@@ -1,45 +1,47 @@
 <?php
 /**
- * Represents a digital asset, such as a document or image.
+ * Represents a digital asset, such as a document or an image.
  */
 
 namespace KenticoCloud\Delivery\Models\Items;
 
-use KenticoCloud\Delivery\Models\ContentItemElement;
-
 /**
- * Class Asset
- * @package KenticoCloud\Delivery\Models\Items *
+ * Class Asset.
  */
 class Asset
 {
     /**
-     * @var string
      * Gets the name of the asset.
+     *
+     * @var string
      */
     public $name = null;
-    
+
     /**
-     * @var string
      * Gets the media type of the asset, for example "image/jpeg".
+     *
+     * @var string
      */
     public $type = null;
 
     /**
-     * @var int
      * Gets the asset size in bytes.
+     *
+     * @var int
      */
     public $size = null;
 
     /**
-     * @var string
      * Gets the description of the asset.
+     *
+     * @var string
      */
     public $description = null;
 
     /**
-     * @var string
      * Gets the URL of the asset.
+     *
+     * @var string
      */
     public $url = null;
 }

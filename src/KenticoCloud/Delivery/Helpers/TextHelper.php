@@ -1,6 +1,6 @@
 <?php
 /**
- * Provides helper methods for operations with texts and strings.
+ * Provides helper methods for operations upon texts and strings.
  */
 
 namespace KenticoCloud\Delivery\Helpers;

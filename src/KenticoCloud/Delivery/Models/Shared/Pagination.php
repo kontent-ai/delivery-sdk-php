@@ -13,23 +13,29 @@ class Pagination
     const PAGINATION_ELEMENT_NAME = 'pagination';
 
     /**
+     * Gets the requested number of items to skip.
+     *
      * @var int
-     *          Gets the requested number of items to skip
      */
     public $skip = null;
     /**
+     * Gets the requested page size.
+     *
      * @var int
-     *          Gets the requested page size
      */
     public $limit = null;
+
     /**
+     * Gets the number of retrieved items.
+     *
      * @var int
-     *          Gets the number of retrieved items
      */
     public $count = null;
+
     /**
+     * Gets the URL of the next page.
+     *
      * @var string
-     *             Gets the URL of the next page
      */
     public $nextPage = null;
 }

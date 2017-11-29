@@ -1,6 +1,6 @@
 <?php
 /**
- * Ensure singleton instance for successors.
+ * Ensures a singleton instance for successors.
  */
 
 namespace KenticoCloud\Delivery\Helpers;
@@ -18,7 +18,7 @@ abstract class Singleton
     }
 
     /**
-     * Get Singleton instance.
+     * Get a singleton instance.
      *
      * @return mixed
      */

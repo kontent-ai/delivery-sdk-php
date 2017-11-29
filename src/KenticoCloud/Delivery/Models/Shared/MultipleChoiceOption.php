@@ -6,27 +6,29 @@
 namespace KenticoCloud\Delivery\Models\Shared;
 
 /**
- * Class MultipleChoiceOption
- * @package KenticoCloud\Delivery\Models\Shared
+ * Class MultipleChoiceOption.
  */
 class MultipleChoiceOption
 {
     /**
-     * @var string
      * Gets the name of the selected option.
+     *
+     * @var string
      */
     public $name = null;
+
     /**
-     * @var string
      * Gets the codename of the selected option.
+     *
+     * @var string
      */
     public $codename = null;
 
     /**
-     * MultipleChoiceOption constructor.
+     * Initializes a new instance of the MultipleChoiceOption class.
+     *
      * @param $name
      * @param $codename
-     * Initializes a new instance of the MultipleChoiceOption class.
      */
     public function __construct($name, $codename)
     {

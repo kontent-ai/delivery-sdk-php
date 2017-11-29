@@ -5,26 +5,25 @@
 
 namespace KenticoCloud\Delivery\Models\Types;
 
-use \KenticoCloud\Delivery\Models;
-
 /**
- * Class TaxonomyTypeElement
- * @package KenticoCloud\Delivery\Models\Types
+ * Class TaxonomyTypeElement.
  */
 class TaxonomyTypeElement extends ContentTypeElement
 {
     /**
-     * Taxonomy Group
+     * Taxonomy Group.
+     *
      * @var string
      */
     public $taxonomyGroup = null;
 
     /**
      * TaxonomyTypeElement constructor.
-     * @param $type
-     * @param $codename
-     * @param $name
-     * @param $taxonomy_group
+     *
+     * @param $type type of a content type element
+     * @param $codename code name of a content type element
+     * @param $name display name of a content type element
+     * @param $taxonomy_group corresponding taxonomy group (type)
      */
     public function __construct($type, $codename, $name, $taxonomyGroup)
     {

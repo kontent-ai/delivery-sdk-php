@@ -1,6 +1,6 @@
 <?php
 /**
- * Facilitates binding of JSON responses to defined models.
+ * Facilitates binding of JSON responses to defined content item models.
  */
 
 namespace KenticoCloud\Delivery;

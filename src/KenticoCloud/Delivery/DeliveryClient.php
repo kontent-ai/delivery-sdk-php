@@ -21,9 +21,33 @@ class DeliveryClient
     protected $waitForLoadingNewContent = false;
     protected $contentTypeFactory = null;
     protected $taxonomyFactory = null;
+
+    /**
+     * Gets or sets TypeMapperInterface which serves for resolving strong types based on provided information.
+     *
+     * @var TypeMapperInterface
+     */
     public $typeMapper = null;
+
+    /**
+     * Gets or sets PropertyMapperInterface which serves for mapping model properties to data in JSON responses.
+     *
+     * @var PropertyMapperInterface
+     */
     public $propertyMapper = null;
+
+    /**
+     * Gets or sets ValueConverterInterface which serves for converting simple values to desired types.
+     *
+     * @var ValueConverterInterface
+     */
     public $valueConverter = null;
+
+    /**
+     * Gets or sets ModelBinder which serves for binding of JSON responses to defined content item models.
+     *
+     * @var ModelBinder
+     */
     public $modelBinder = null;
 
     /**

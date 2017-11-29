@@ -18,18 +18,21 @@ abstract class AbstractSystem
      * @var null
      */
     public $id = null;
+
     /**
      * Gets and sets object's display name.
      *
      * @var null
      */
     public $name = null;
+
     /**
      * Gets and sets object's code name.
      *
      * @var null
      */
     public $codename = null;
+
     /**
      * Gets and sets object's last modified timestamp.
      *
@@ -40,10 +43,10 @@ abstract class AbstractSystem
     /**
      * AbstractSystem constructor.
      *
-     * @param $id
-     * @param $name
-     * @param $codename
-     * @param $lastModified
+     * @param $id identifier of a given entity
+     * @param $name display name of a given entity
+     * @param $codename code name of a given entity
+     * @param $lastModified last modified time stamp of a given entity
      */
     public function __construct($id, $name, $codename, $lastModified)
     {
@@ -56,7 +59,7 @@ abstract class AbstractSystem
     /**
      * Gets strongly typed last modified time stamp in a requested format.
      *
-     * @param null $format
+     * @param null $format dateTime formatting string
      *
      * @return DateTime|string
      */

@@ -6,19 +6,21 @@
 namespace KenticoCloud\Delivery\Models\Items;
 
 /**
- * Class MultipleChoiceOption
- * @package KenticoCloud\Delivery\Models\Items
+ * Class MultipleChoiceOption.
  */
 class MultipleChoiceOption
 {
     /**
-     * @var string
      * Gets the name of the multiple choice option.
+     *
+     * @var string
      */
     public $name = null;
+
     /**
-     * @var string
      * Gets the codename of the multiple choice option.
+     *
+     * @var string
      */
     public $codename = null;
 }

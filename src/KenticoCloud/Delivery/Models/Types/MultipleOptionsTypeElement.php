@@ -5,26 +5,27 @@
 
 namespace KenticoCloud\Delivery\Models\Types;
 
-use \KenticoCloud\Delivery\Models;
+use KenticoCloud\Delivery\Models;
 
 /**
- * Class MultipleOptionsTypeElement
- * @package KenticoCloud\Delivery\Models\Types
+ * Class MultipleOptionsTypeElement.
  */
 class MultipleOptionsTypeElement extends ContentTypeElement
 {
     /**
      * Represents an option of a Multiple choice element.
+     *
      * @var Models\Shared\MultipleChoiceOption
      */
     public $options = null;
 
     /**
      * MultipleOptionsTypeElement constructor.
-     * @param $type
-     * @param $codename
-     * @param $name
-     * @param $options
+     *
+     * @param $type type of a content type element
+     * @param $codename code name of the element
+     * @param $name display name of the element
+     * @param $options array with multiple options
      */
     public function __construct($type, $codename, $name, $options)
     {
