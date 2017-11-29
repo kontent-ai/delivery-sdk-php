@@ -83,6 +83,18 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
+     * Specifies the content elements to retrieve.
+     *
+     * @param $elementCodenames content elements to be retrieved
+     */
+    public function elements($elementCodenames)
+    {
+        $this->data['elements'] = implode(',', is_array($elementCodenames) ? $elementCodenames : array($elementCodenames));
+
+        return $this;
+    }
+
+    /**
      * Specifies that content items should be sorted ascendingly by $element.
      *
      * @param $element The codename of a content element or system attribute, for example elements.title or system.name.

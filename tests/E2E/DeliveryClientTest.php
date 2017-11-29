@@ -42,9 +42,8 @@ class DeliveryClientTest extends TestCase
 
     public function testGetNonExistentItems()
     {
-        $params = (new QueryParams())->equals('system.codename', 'non-existent');
         $client = new DeliveryClient($this->getProjectId());
-        $response = $client->getItems($params);
+        $response = $client->getItems((new QueryParams())->equals('system.codename', 'non-existent'));
         $this->assertEmpty($response->items);
     }
 
@@ -175,12 +174,14 @@ class DeliveryClientTest extends TestCase
 
     public function testGetContentItems()
     {
-        $params = (new QueryParams())->type('article')->depth(2);
+        $params = (new QueryParams())->type('article')->depth(2)->elements(array('personas'));
         $client = new DeliveryClient($this->getProjectId());
         $items = $client->getItems($params);
 
         $this->assertGreaterThan(1, $items->pagination->count);
         $this->assertGreaterThan(1, count($items->items));
+        $this->assertFalse(property_exists($items->items['on_roasts'], 'title'));
+        $this->assertTrue($items->items['on_roasts']->personas !== null);
     }
 
     public function testZeroDepth()
