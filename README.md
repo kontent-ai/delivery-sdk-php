@@ -65,6 +65,100 @@ $response = $client->getItems((new QueryParams())
   ->orderAsc('elements.product_name'));
 ```
 
+## Previewing unpublished content
+
+To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kentico Cloud project has its own Preview API key. 
+
+```php
+// Note: Within a single project, we recommend that you work with only
+// either the production or preview Delivery API, not both.
+$client = new DeliveryClient('YOUR_PROJECT_ID', 'YOUR_PREVIEW_API_KEY');
+```
+
+For more details, see [Previewing unpublished content using the Delivery API](https://developer.kenticocloud.com/docs/preview-content-via-api).
+
+
+## Response structure
+
+For full description of single and multiple content item JSON response formats, see our [API reference](https://developer.kenticocloud.com/reference#response-structure).
+
+### Single content item response
+
+When retrieving a single content item, you get an instance of the `ContentItem` class. This class contains a 'system' property (with metadata about the content item, such as code name, display name, type, or sitemap location) and respective content item's elements projected as [camelCase](https://en.wikipedia.org/wiki/Camel_case) properties.
+
+![Single item](https://i.imgur.com/Og3CaW0.png)
+
+### Multiple content items response
+
+When retrieving a list of content items, you get an instance of the `ContentItemsResponse`. This class represents the JSON response from the Delivery API endpoint and contains:
+
+* `Pagination` property with information about the following:
+  * `Skip`: requested number of content items to skip
+  * `Limit`: requested page size
+  * `Count`: the total number of retrieved content items
+  * `NextPageUrl`: the URL of the next page
+* An array of the requested [content items](#single-content-item-response)
+
+### Properties and their types
+* All properties are named in the [camelCase](https://en.wikipedia.org/wiki/Camel_case) style.
+* If a property contains a collection of objects, it's typed as an array which is indexed by:
+  * codenames, if the contained entities have a code name
+  * numbers, if they don't have code names. We use zero-based indexing.
+* If a property references modular content items (property is of the modular content type), the references are replaced with the respective [content items](#single-content-item-response) themselves.
+* If a property is of asset, multiple choice option, or taxonomy group type, it's resolved to respective well-known models from the `KenticoCloud\Delivery\Models\Items` namespace.
+* All timestamps are typed as `\DateTime`.
+* All numbers are typed as `float`.
+
+### Mapping custom models
+
+It's possible to instruct the SDK to fill and return your own predefined models. To do that you have to implement:
+
+- `TypeMapperInterface` (required) - to provide mapping of Kentico Cloud content types to your models
+- `PropertyMapperInterface` (optional) - to change the default behavior of property mapping (the default property translation works like this: 'content_type' -> 'contentType')
+- `ValueConverterInterface` (optional) - to change the way content element types are mapped to PHP types
+
+The default implementation of all the three interfaces can be found in a class called [`DefaultMapper`](https://github.com/Kentico/delivery-sdk-php/blob/master/src/KenticoCloud/Delivery/DefaultMapper.php).
+
+Example:
+
+```php
+class TetsMapper extends DefaultMapper
+{
+    public function getTypeClass($typeName)
+    {
+        switch ($typeName) {
+            case 'home':
+                return \KenticoCloud\Tests\E2E\HomeModel::class;
+            case 'article':
+                return \KenticoCloud\Tests\E2E\ArticleModel::class;
+        }
+
+        return parent::getTypeClass($typeName);
+    }
+}
+...
+
+public function testMethod()
+{
+    $client = new DeliveryClient('975bf280-fd91-488c-994c-2f04416e5ee3');
+    $client->typeMapper = new TetsMapper();
+    $item = $client->getItem('on_roasts');
+    $this->assertInstanceOf(\KenticoCloud\Tests\E2E\ArticleModel::class, $item); // Passes
+}
+
+```
+
+The `ArticleModel` can then look like this (and contain only the properties you need to work with):
+
+```php
+class ArticleModel
+{
+    public $system = null;
+    public $title = null;
+    public $urlPattern = null;
+}
+```
+
 
 ## Feedback & Contributing
 
