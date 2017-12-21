@@ -21,7 +21,7 @@ class TextHelper extends Singleton
      */
     public function decamelize($input, $separator = '_')
     {
-        return strtolower(preg_replace(array('/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'), '$1'.$separator.'$2', $input));
+        return strtolower(preg_replace(array('/([a-z\d])([A-Z])/', '/([^'.$separator.'])([A-Z][a-z])/'), '$1'.$separator.'$2', $input));
     }
 
     /**

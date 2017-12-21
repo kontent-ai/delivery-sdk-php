@@ -18,4 +18,10 @@ class TextHelperTest extends TestCase
         $camelCase = TextHelper::getInstance()->camelCase('Camel_Case', '_');
         $this->assertEquals('camelCase', $camelCase);
     }
+
+    public function testDecamelize()
+    {
+        $decamelized = TextHelper::getInstance()->decamelize('camelCase', '*');
+        $this->assertEquals('camel*case', $decamelized);
+    }
 }
