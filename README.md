@@ -82,6 +82,21 @@ $response = $client->getItems((new QueryParams())
   ->orderAsc('elements.product_name'));
 ```
 
+### Getting localized items
+
+The language selection is just a matter of specifying one additional filtering parameter to the query.
+
+```php
+// Retrieves a list of the specified elements from the first 10 content items of
+// the 'brewer' content type, ordered by the 'product_name' element value
+$response = $client->getItems((new QueryParams())
+  ->language('es-ES')
+  ->equals('system.type', 'brewer')
+  ->elements(array('image', 'price', 'product_status','processing'))
+  ->limit(10)
+  ->orderAsc('elements.product_name'));
+```
+
 ## Previewing unpublished content
 
 To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kentico Cloud project has its own Preview API key. 
