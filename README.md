@@ -97,6 +97,19 @@ $response = $client->getItems((new QueryParams())
   ->orderAsc('elements.product_name'));
 ```
 
+### Working with taxonomies
+
+The language selection is just a matter of specifying one additional filtering parameter to the query.
+
+```php
+// Retrieves a list of the specified taxonomy groups.
+$response = $client->getTaxonomies((new QueryParams())
+  ->limit(3);
+
+// Retrieves a specific taxonomy group.
+$response = $client->getTaxonomy('persona');
+```
+
 ## Previewing unpublished content
 
 To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kentico Cloud project has its own Preview API key. 
