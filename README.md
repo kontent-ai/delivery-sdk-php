@@ -209,6 +209,10 @@ class ArticleModel
 
 Check out the [contributing](https://github.com/Kentico/delivery-sdk-php/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
 
+1. Clone the repository
+2. Run `composer install` to install dependencies
+3. Run `phpunit` to verify that everything works as expected
+
 ### Developing on Windows
 Have a look at our cool [tutorial](https://github.com/Kentico/delivery-sdk-php/wiki) on developing PHP on Windows with Visual Studio Code!
 

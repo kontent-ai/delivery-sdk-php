@@ -4,7 +4,6 @@ namespace KenticoCloud\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use KenticoCloud\Delivery\DeliveryClient;
-use KenticoCloud\Delivery\Models\Types;
 use KenticoCloud\Delivery\QueryParams;
 
 class ContentTypeFactoryTest extends TestCase
@@ -72,27 +71,10 @@ class ContentTypeFactoryTest extends TestCase
         $client = $this->getClient();
         $params = (new QueryParams())->limit(1);
         $actual = $client->getTypes($params)->types;
-        //$actual[0]->system->lastModified = new \DateTime('2017-01-01'); // Omit date
 
-        $contentSystem = new Types\ContentTypeSystem(
-            'b2c14f2c-6467-460b-a70b-bca17972a33a',
-            'About us',
-            'about_us',
-            '2017-01-01'
-        );
-        $contentSystem->lastModified = $actual[0]->system->lastModified;
-
-        $contentElements = array(
-            new Types\ContentTypeElement('modular_content', 'facts', 'Facts'),
-            new Types\ContentTypeElement('url_slug', 'url_pattern', 'URL pattern'),
-        );
-
-        $dummyType = new Types\ContentType();
-        $dummyType->system = $contentSystem;
-        $dummyType->elements = $contentElements;
-        $expected = array($dummyType);
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals('About us', $actual[0]->system->name);
+        $this->assertGreaterThan(0, count($actual[0]->elements));
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Types\ContentTypeElement::class, array_pop($actual[0]->elements));
     }
 
     public function testCreateTypes_FullTypeResponse_ContainsXObjects()
