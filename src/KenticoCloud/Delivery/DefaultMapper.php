@@ -63,13 +63,33 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      */
     public function getProperty($data, $property)
     {
-        $index = TextHelper::getInstance()->decamelize($property);
-        if (!array_key_exists($index, $data)) {
+        $property = TextHelper::getInstance()->decamelize($property);
+        if (!array_key_exists($property, $data)) {
             // Search within elements
             $data = get_object_vars($data[self::ELEMENTS_ATTRIBUTE_NAME]);
         }
 
-        return $data[$index];
+        return $this->findProperty($property, $data);
+    }
+
+    public function findProperty($index, $data)
+    {
+        $result = array_filter(
+            $data,
+            function ($arrKey) use ($index) {
+                // Apply the property transformation to the array key
+                $arrKey = TextHelper::getInstance()->camelCase($arrKey);
+                $arrKey = TextHelper::getInstance()->decamelize($arrKey);
+                // See if the key matches with the searched property
+                return $arrKey == $index;
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+        if (count($result) > 1) {
+            throw new Exception('More than one property found! Please adjust the property mapper.');
+        }
+        // Return the first (and only) item in the array
+        return array_pop($result);
     }
 
     /**

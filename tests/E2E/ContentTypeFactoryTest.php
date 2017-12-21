@@ -72,13 +72,16 @@ class ContentTypeFactoryTest extends TestCase
         $client = $this->getClient();
         $params = (new QueryParams())->limit(1);
         $actual = $client->getTypes($params)->types;
+        //$actual[0]->system->lastModified = new \DateTime('2017-01-01'); // Omit date
 
         $contentSystem = new Types\ContentTypeSystem(
             'b2c14f2c-6467-460b-a70b-bca17972a33a',
             'About us',
             'about_us',
-            '2017-08-02T07:33:28.2997578Z'
+            '2017-01-01'
         );
+        $contentSystem->lastModified = $actual[0]->system->lastModified;
+
         $contentElements = array(
             new Types\ContentTypeElement('modular_content', 'facts', 'Facts'),
             new Types\ContentTypeElement('url_slug', 'url_pattern', 'URL pattern'),

@@ -30,7 +30,7 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
         $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());
         $this->assertInstanceOf(\DateTime::class, $item->system->lastModified);
-        $this->assertEquals('2017-04-04', $item->system->getLastModifiedDateTime('Y-m-d'));
+        $this->assertRegExp('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $item->system->getLastModifiedDateTime('Y-m-d'));
     }
 
     public function testGetNonExistentItem()
