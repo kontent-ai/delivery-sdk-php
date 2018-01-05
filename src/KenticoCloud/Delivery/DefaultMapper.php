@@ -78,16 +78,13 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
             case 0:
                 // Search within elements
                 return $this->getProperty($data[self::ELEMENTS_ATTRIBUTE_NAME], $property);
-                break;
 
             case 1:
                 // Return the first (and only) item in the array
-                return array_pop($result);
-                break;
+                return array_pop($result);            
 
             default:
                 throw new Exception('More than one property found! Please adjust the property mapper.');
-                break;
         }
     }
 
