@@ -13,10 +13,6 @@
 
 The Kentico Cloud Delivery PHP SDK is a client library used for retrieving content from Kentico Cloud. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico-cloud/delivery-sdk-php). The library currently supports only PHP 7 and above.
 
-## Prerequisites
-
-To retrieve content from a Kentico Cloud project via the Delivery API, you first need to activate the API for the project. See our documentation on how you can [activate the Delivery API](https://developer.kenticocloud.com/docs/using-delivery-api#section-enabling-the-delivery-api-for-your-projects).
-
 ## Installation
 
 The best way to install the client is through a dependency manager called [Composer](https://getcomposer.org/):
