@@ -44,6 +44,13 @@ class DeliveryClient
     public $valueConverter = null;
 
     /**
+     * Gets or sets ComplexValueConverterInterface which serves for converting simple values to desired types.
+     *
+     * @var ComplexValueConverterInterface
+     */
+    public $complexValueConverter = null;
+
+    /**
      * Gets or sets ModelBinder which serves for binding of JSON responses to defined content item models.
      *
      * @var ModelBinder
@@ -274,7 +281,7 @@ class DeliveryClient
             if ($this->typeMapper == null || $this->propertyMapper == null || $this->valueConverter == null) {
                 $defaultMapper = new DefaultMapper();
             }
-            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper);
+            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper, $this->complexValueConverter ?? $defaultMapper);
         }
 
         return $this->modelBinder;

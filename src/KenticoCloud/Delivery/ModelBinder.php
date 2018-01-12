@@ -24,7 +24,7 @@ class ModelBinder
      */
     protected $propertyMapper = null;
 
-    /**
+/**
      * Serves for converting simple values to desired types.
      *
      * @var ValueConverterInterface|null
@@ -32,16 +32,24 @@ class ModelBinder
     protected $valueConverter = null;
 
     /**
+     *  Serves for converting complex values to desired types.
+     * 
+     * @var ComplexValueConverterInterface|null
+     */
+    protected $complexValueConverter = null;
+
+    /**
      * ModelBinder constructor.
      *
      * @param TypeMapperInterface     $typeMapper
      * @param PropertyMapperInterface $propertyMapper
      */
-    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter)
+    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter, ComplexValueConverterInterface $complexValueConverter)
     {
         $this->typeMapper = $typeMapper;
         $this->propertyMapper = $propertyMapper;
         $this->valueConverter = $valueConverter;
+        $this->complexValueConverter = $complexValueConverter;
     }
 
     /**
@@ -155,8 +163,11 @@ class ModelBinder
                 // Recursively bind the nested models
                 $result = $this->bindModularContent($element, $modularContent, $processedItems);
                 break;
-
-            default:
+            case 'rich_text':
+                $result = $this->complexValueConverter->getComplexValue($element, $modularContent, $processedItems);
+                // Recursively bind the nested models                
+                break;
+            default:                         
                 // Use a value converter to get the value in a proper format/type
                 $result = $this->valueConverter->getValue($element->type, $element->value);
                 break;

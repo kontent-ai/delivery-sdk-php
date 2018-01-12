@@ -12,7 +12,7 @@ use KenticoCloud\Delivery\Models\Items\ContentItemSystem;
 /**
  * Class DefaultMapper serves for resolving strong types based on provided information.
  */
-class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, ValueConverterInterface
+class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, ValueConverterInterface, ComplexValueConverterInterface
 {
     const ELEMENTS_ATTRIBUTE_NAME = 'elements';
 
@@ -140,5 +140,19 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
         }
 
         return $result;
+    }
+
+    /**
+     * Converts a given complex value to a specified type.
+     *
+     * @param $element modular content item element
+     * @param null $modularContent JSON response containing nested modular content items
+     * @param null $processedItems collection of already processed items (to avoid infinite loops)
+     *
+     * @return mixed
+     */
+    public function getComplexValue($element, $modularContent, $processedItems)
+    {
+        return $element->value;
     }
 }
