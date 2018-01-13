@@ -36,7 +36,7 @@ class Term
      *
      * @param $name display name of taxonomy term
      * @param $codename code name of taxonomy term
-     * @param $terms nested taxonomy terms
+     * @param $terms array of taxonomy terms
      */
     public function __construct($name, $codename, $terms)
     {

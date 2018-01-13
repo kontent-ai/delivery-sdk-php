@@ -96,4 +96,29 @@ class TaxnomyFactoryTest extends TestCase
 
         $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomies\Taxonomy::class));
     }
+
+    public function testCreateTaxonomy_SingleTaxonomyResponse_NestedTaxonomyStructureIsCreated()
+    {
+        $client = $this->getClient();
+        $codename = "manufacturer";
+        $taxonomy = $client->getTaxonomy($codename);
+
+        // Assert that Manufacturer is composed of Aerobie,
+        // Chemex, Espro and Hario terms.
+        $expectedTaxonomy = new Taxonomies\Taxonomy();
+        $expectedTaxonomy->system = new Taxonomies\TaxonomySystem(
+            "4ce421e9-c403-eee8-fdc2-74f09392a749",
+            "Manufacturer",
+            "manufacturer",
+            "2017-09-07T08:15:22.7215324Z"
+        );
+        $expectedTaxonomy->terms = array(
+            new Taxonomies\Term("Aerobie","aerobie", array()),
+            new Taxonomies\Term("Chemex","chemex", array()),
+            new Taxonomies\Term("Espro","espro", array()),
+            new Taxonomies\Term("Hario","hario", array())
+        );
+
+        $this->assertEquals($expectedTaxonomy, $taxonomy, "Retrieved nested taxonomy is not the same as the expected one.");
+    }
 }

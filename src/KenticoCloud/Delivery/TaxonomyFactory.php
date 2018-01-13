@@ -79,16 +79,7 @@ class TaxonomyFactory
         );
 
         // Iterate over 'terms' and prepare content for 'terms' property
-        $terms = array();
-        foreach ($taxonomyItem->terms as $term) {
-            $termsItem = new Models\Taxonomies\Term(
-                $term->name,
-                $term->codename,
-                $term->terms
-            );
-            $terms[] = $termsItem;
-        }
-        
+        $terms = $this->prepareTerms($taxonomyItem->terms);
         $newTaxonomy = new Models\Taxonomies\Taxonomy();
         $newTaxonomy->system = $system;
         $newTaxonomy->terms = $terms;
@@ -96,6 +87,39 @@ class TaxonomyFactory
         return $newTaxonomy;
     }
 
+
+    /**
+     * Prepares possibly recursive Taxonomy structure.
+     *
+     * @param $terms array of _Terms_.
+     * @return array of Term objects.
+     */
+    private function prepareTerms($terms)
+    {
+        $compositeTerms = array();
+
+        foreach ($terms as $term) {
+
+            if (!empty($term->terms))
+            {
+                // Recursively prepare terms
+                $craftedTerms = $this->prepareTerms($term->terms);
+            }
+            else
+            {
+                $craftedTerms = $term->terms;
+            }
+
+            $termsItem = new Models\Taxonomies\Term(
+                $term->name,
+                $term->codename,
+                $craftedTerms
+            );
+            $compositeTerms[] = $termsItem;
+        }
+
+        return $compositeTerms;
+    }
 
     /**
      * Checks whether response parameter is invalid.
