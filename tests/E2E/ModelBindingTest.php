@@ -4,9 +4,11 @@ namespace KenticoCloud\Tests\E2E;
 
 use KenticoCloud\Delivery\DeliveryClient;
 use KenticoCloud\Delivery\DefaultMapper;
+use KenticoCloud\Delivery\ContentLinkUrlResolverInterface;
+
 use PHPUnit\Framework\TestCase;
 
-class TetsMapper extends DefaultMapper
+class TestMapper extends DefaultMapper
 {
     public function getTypeClass($typeName)
     {
@@ -21,13 +23,22 @@ class TetsMapper extends DefaultMapper
     }
 }
 
+class CustomContentLinkUrlResolver implements ContentLinkUrlResolverInterface
+{
+    public function resolveLinkUrl($link)
+    {
+        return "/custom/$link->urlSlug";
+    }
+}
+
 class ModelBindingTest extends TestCase
 {
     public function getClient()
     {
         $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
         $client = new DeliveryClient($projectId);
-        $client->typeMapper = new TetsMapper();
+        $client->typeMapper = new TestMapper();
+        $client->contentLinkUrlResolver = new CustomContentLinkUrlResolver();        
 
         return $client;
     }
@@ -51,6 +62,22 @@ class ModelBindingTest extends TestCase
         $this->assertInstanceOf(\KenticoCloud\Tests\E2E\ArticleModel::class, $item);
         $this->assertInstanceOf(\KenticoCloud\Tests\E2E\ArticleModel::class, $item->relatedArticles['coffee_processing_techniques']);
         $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
+    }
+
+    /**
+     * @group linktest
+     */
+    public function testGetArticleWithLinks_LinksUrlResolved()
+    {
+        $client = $this->getClient();
+
+        $item = $client->getItem('coffee_processing_techniques');
+
+        $this->assertEquals('117cdfae-52cf-4885-b271-66aef6825612', $item->system->id);
+        $this->assertEquals('Coffee processing techniques', $item->title);
+        $this->assertEquals('coffee-processing-techniques', $item->urlPattern);
+        $this->assertContains('<a data-item-id="80c7074b-3da1-4e1d-882b-c5716ebb4d25" href="/custom/kenya-gakuyuni-aa">Kenya Gakuyuni AA</a>', $item->bodyCopy);
+        $this->assertContains('<a data-item-id="0c9a11bb-6fc3-409c-b3cb-f0b797e15489" href="/custom/brazil-natural-barra-grande">Brazil Natural Barra Grande</a>', $item->bodyCopy);        
     }
 
     public function testHomeModel()

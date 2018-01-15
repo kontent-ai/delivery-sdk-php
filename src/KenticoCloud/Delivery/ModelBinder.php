@@ -4,6 +4,8 @@
  */
 
 namespace KenticoCloud\Delivery;
+use KenticoCloud\Delivery\Models\Items\ContentLink;
+use PHPHtmlParser\Dom;
 
 /**
  * Class ModelBinder.
@@ -32,11 +34,11 @@ class ModelBinder
     protected $valueConverter = null;
 
     /**
-     *  Serves for converting complex values to desired types.
+     *  Serves for converting links to desired types.
      * 
-     * @var ComplexValueConverterInterface|null
+     * @var ContentLinkUrlResolverInterface|null
      */
-    protected $complexValueConverter = null;
+    protected $contentLinkUrlResolver = null;
 
     /**
      * ModelBinder constructor.
@@ -44,12 +46,12 @@ class ModelBinder
      * @param TypeMapperInterface     $typeMapper
      * @param PropertyMapperInterface $propertyMapper
      */
-    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter, ComplexValueConverterInterface $complexValueConverter)
+    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter, ContentLinkUrlResolverInterface $contentLinkUrlResolver)
     {
         $this->typeMapper = $typeMapper;
         $this->propertyMapper = $propertyMapper;
         $this->valueConverter = $valueConverter;
-        $this->complexValueConverter = $complexValueConverter;
+        $this->contentLinkUrlResolver = $contentLinkUrlResolver;
     }
 
     /**
@@ -164,7 +166,7 @@ class ModelBinder
                 $result = $this->bindModularContent($element, $modularContent, $processedItems);
                 break;
             case 'rich_text':
-                $result = $this->complexValueConverter->getComplexValue($element, $modularContent, $processedItems);
+                $result = $this->getComplexValue($element, $modularContent, $processedItems);
                 // Recursively bind the nested models                
                 break;
             default:                         
@@ -175,6 +177,45 @@ class ModelBinder
 
         return $result;
     }
+
+    /**
+     * Converts a given complex value to a specified type.
+     *
+     * @param $element modular content item element
+     * @param null $modularContent JSON response containing nested modular content items
+     * @param null $processedItems collection of already processed items (to avoid infinite loops)
+     *
+     * @return mixed
+     */
+    private function getComplexValue($element, $modularContent, $processedItems)
+    {   
+        $result = $this->resolveLinksUrls($element->value, $element->links);
+        return $result;     
+    }
+
+    /**
+     * Resolve all link urls detected in input html.
+     * 
+     * @var string $input Input html containing links.
+     * @var mixed $links Link contexts using for link resolution.
+     */
+    private function resolveLinksUrls($input, $links)
+    {
+        $dom = new Dom;
+        $dom->load($input);
+        $linksElements = $dom->find('a[data-item-id]');
+        $elementLinksMetadata = get_object_vars($links);
+        
+        foreach ($linksElements as $linkElement)
+        {
+            $elementId = $linkElement->getAttribute('data-item-id');
+            $contentLink = new ContentLink($elementId,$elementLinksMetadata[$elementId]);
+            $resolvedLink = $this->contentLinkUrlResolver->resolveLinkUrl($contentLink);
+            $linkElement->setAttribute('href', $resolvedLink);
+        } 
+        return (string)$dom;
+    }
+
 
     /**
      * Uses a well-known type to bind the element's data.

@@ -23,6 +23,19 @@ class DeliveryClientTest extends TestCase
         $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
     }
 
+    public function testGetArticleWithLinksItem()
+    {
+        $client = new DeliveryClient($this->getProjectId());
+        $item = $client->getItem('coffee_processing_techniques');
+        $this->assertEquals('117cdfae-52cf-4885-b271-66aef6825612', $item->system->id);
+        $this->assertEquals('Coffee processing techniques', $item->title);
+        $this->assertEquals('coffee-processing-techniques', $item->urlPattern);
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
+        $this->assertContains('<a data-item-id="80c7074b-3da1-4e1d-882b-c5716ebb4d25" href="">Kenya Gakuyuni AA</a>', $item->bodyCopy);
+        $this->assertContains('<a data-item-id="0c9a11bb-6fc3-409c-b3cb-f0b797e15489" href="">Brazil Natural Barra Grande</a>', $item->bodyCopy);        
+    }
+
     public function testGetHomeItem()
     {
         $client = new DeliveryClient($this->getProjectId());

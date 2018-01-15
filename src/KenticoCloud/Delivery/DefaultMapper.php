@@ -12,7 +12,7 @@ use KenticoCloud\Delivery\Models\Items\ContentItemSystem;
 /**
  * Class DefaultMapper serves for resolving strong types based on provided information.
  */
-class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, ValueConverterInterface, ComplexValueConverterInterface
+class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, ValueConverterInterface, ContentLinkUrlResolverInterface
 {
     const ELEMENTS_ATTRIBUTE_NAME = 'elements';
 
@@ -140,19 +140,17 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
         }
 
         return $result;
-    }
+    }    
 
     /**
-     * Converts a given complex value to a specified type.
+     * Returns a URL of the linked content item.
      *
-     * @param $element modular content item element
-     * @param null $modularContent JSON response containing nested modular content items
-     * @param null $processedItems collection of already processed items (to avoid infinite loops)
+     * @param KenticoCloud\Delivery\Models\Items\ContentLink $link The link to a content item that needs to be resolved.
      *
-     * @return mixed
+     * @return string
      */
-    public function getComplexValue($element, $modularContent, $processedItems)
+    public function resolveLinkUrl($link)
     {
-        return $element->value;
+        return "";
     }
 }
