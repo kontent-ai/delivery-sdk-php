@@ -149,7 +149,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      *
      * @return string
      */
-    public function resolveLinkUrl($link = "")
+    public function resolveLinkUrl($link)
     {
         return "";
     }
