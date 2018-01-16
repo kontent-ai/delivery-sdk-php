@@ -43,8 +43,10 @@ class ModelBinder
     /**
      * ModelBinder constructor.
      *
-     * @param TypeMapperInterface     $typeMapper
+     * @param TypeMapperInterface $typeMapper
      * @param PropertyMapperInterface $propertyMapper
+     * @param ValueConverterInterface $valueConverter
+     * @param ContentLinkUrlResolverInterface $contentLinkUrlResolver
      */
     public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter, ContentLinkUrlResolverInterface $contentLinkUrlResolver)
     {
