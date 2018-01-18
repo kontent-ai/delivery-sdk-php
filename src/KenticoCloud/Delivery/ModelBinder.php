@@ -4,6 +4,7 @@
  */
 
 namespace KenticoCloud\Delivery;
+
 use KenticoCloud\Delivery\Models\Items\ContentLink;
 use PHPHtmlParser\Dom;
 
@@ -26,7 +27,7 @@ class ModelBinder
      */
     protected $propertyMapper = null;
 
-/**
+    /**
      * Serves for converting simple values to desired types.
      *
      * @var ValueConverterInterface|null
@@ -35,7 +36,7 @@ class ModelBinder
 
     /**
      *  Serves for converting links to desired types.
-     * 
+     *
      * @var ContentLinkUrlResolverInterface|null
      */
     protected $contentLinkUrlResolver = null;
@@ -43,9 +44,9 @@ class ModelBinder
     /**
      * ModelBinder constructor.
      *
-     * @param TypeMapperInterface $typeMapper
-     * @param PropertyMapperInterface $propertyMapper
-     * @param ValueConverterInterface $valueConverter
+     * @param TypeMapperInterface             $typeMapper
+     * @param PropertyMapperInterface         $propertyMapper
+     * @param ValueConverterInterface         $valueConverter
      * @param ContentLinkUrlResolverInterface $contentLinkUrlResolver
      */
     public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter, ContentLinkUrlResolverInterface $contentLinkUrlResolver)
@@ -162,16 +163,15 @@ class ModelBinder
                 // Map well-known types to their models
                 $result = $this->bindKnownType($element, $modularContent, $processedItems);
                 break;
-
             case 'modular_content':
                 // Recursively bind the nested models
                 $result = $this->bindModularContent($element, $modularContent, $processedItems);
                 break;
             case 'rich_text':
+                // Resolve nested artifacts in rich-text elements
                 $result = $this->getComplexValue($element);
-                // Recursively bind the nested models                
                 break;
-            default:                         
+            default:
                 // Use a value converter to get the value in a proper format/type
                 $result = $this->valueConverter->getValue($element->type, $element->value);
                 break;
@@ -188,41 +188,38 @@ class ModelBinder
      * @return mixed
      */
     private function getComplexValue($element)
-    {   
+    {
         $result = $this->resolveLinksUrls($element->value, $element->links);
-        return $result;     
+
+        return $result;
     }
 
     /**
      * Resolve all link urls detected in input html.
-     * 
-     * @var string $input Input html containing links.
-     * @var mixed $links Link contexts using for link resolution.
+     *
+     * @var string input html containing links
+     * @var mixed  $links link contexts using for link resolution
      */
     private function resolveLinksUrls($input, $links)
     {
-        $dom = new Dom;
+        $dom = new Dom();
         $dom->load($input);
         $linksElements = $dom->find('a[data-item-id]');
         $elementLinksMetadata = get_object_vars($links);
-        
-        foreach ($linksElements as $linkElement)
-        {
+
+        foreach ($linksElements as $linkElement) {
             $elementId = $linkElement->getAttribute('data-item-id');
-            if(array_key_exists ($elementId, $elementLinksMetadata))
-            {
-                $contentLink = new ContentLink($elementId,$elementLinksMetadata[$elementId]);
+            if (array_key_exists($elementId, $elementLinksMetadata)) {
+                $contentLink = new ContentLink($elementId, $elementLinksMetadata[$elementId]);
                 $resolvedLink = $this->contentLinkUrlResolver->resolveLinkUrl($contentLink);
-            }
-            else
-            {
-                $resolvedLink = $this->contentLinkUrlResolver->ResolveBrokenLinkUrl($contentLink);                
+            } else {
+                $resolvedLink = $this->contentLinkUrlResolver->ResolveBrokenLinkUrl($contentLink);
             }
             $linkElement->setAttribute('href', $resolvedLink);
-        } 
-        return (string)$dom;
-    }
+        }
 
+        return (string) $dom;
+    }
 
     /**
      * Uses a well-known type to bind the element's data.
