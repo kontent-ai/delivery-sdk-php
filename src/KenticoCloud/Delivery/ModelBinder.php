@@ -168,7 +168,7 @@ class ModelBinder
                 $result = $this->bindModularContent($element, $modularContent, $processedItems);
                 break;
             case 'rich_text':
-                $result = $this->getComplexValue($element, $modularContent, $processedItems);
+                $result = $this->getComplexValue($element);
                 // Recursively bind the nested models                
                 break;
             default:                         
@@ -183,13 +183,11 @@ class ModelBinder
     /**
      * Converts a given complex value to a specified type.
      *
-     * @param $element modular content item element
-     * @param null $modularContent JSON response containing nested modular content items
-     * @param null $processedItems collection of already processed items (to avoid infinite loops)
+     * @param mixed $element modular content item element
      *
      * @return mixed
      */
-    private function getComplexValue($element, $modularContent, $processedItems)
+    private function getComplexValue($element)
     {   
         $result = $this->resolveLinksUrls($element->value, $element->links);
         return $result;     
@@ -211,8 +209,15 @@ class ModelBinder
         foreach ($linksElements as $linkElement)
         {
             $elementId = $linkElement->getAttribute('data-item-id');
-            $contentLink = new ContentLink($elementId,$elementLinksMetadata[$elementId]);
-            $resolvedLink = $this->contentLinkUrlResolver->resolveLinkUrl($contentLink);
+            if(array_key_exists ($elementId, $elementLinksMetadata))
+            {
+                $contentLink = new ContentLink($elementId,$elementLinksMetadata[$elementId]);
+                $resolvedLink = $this->contentLinkUrlResolver->resolveLinkUrl($contentLink);
+            }
+            else
+            {
+                $resolvedLink = $this->contentLinkUrlResolver->ResolveBrokenLinkUrl($contentLink);                
+            }
             $linkElement->setAttribute('href', $resolvedLink);
         } 
         return (string)$dom;

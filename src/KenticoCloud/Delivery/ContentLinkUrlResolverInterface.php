@@ -20,4 +20,12 @@ interface ContentLinkUrlResolverInterface
      * @return string
      */
     public function resolveLinkUrl($link);
+
+
+    /**
+     * Returns a URL of the linked content item that is not available.
+     *
+     * @return string
+     */
+    public function resolveBrokenLinkUrl();
 }

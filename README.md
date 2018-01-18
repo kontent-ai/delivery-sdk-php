@@ -157,6 +157,8 @@ It's possible to instruct the SDK to fill and return your own predefined models.
 - `TypeMapperInterface` (required) - to provide mapping of Kentico Cloud content types to your models
 - `PropertyMapperInterface` (optional) - to change the default behavior of property mapping (the default property translation works like this: 'content_type' -> 'contentType')
 - `ValueConverterInterface` (optional) - to change the way content element types are mapped to PHP types
+- `ContentLinkUrlResolverInterface` (optional) - to change the way how the links in rich text elements are resolved. See [Resolving links to content items
+](https://github.com/Kentico/delivery-sdk-php/wiki/Resolving-links-to-content-items).
 
 The default implementation of all the three interfaces can be found in a class called [`DefaultMapper`](https://github.com/Kentico/delivery-sdk-php/blob/master/src/KenticoCloud/Delivery/DefaultMapper.php).
 

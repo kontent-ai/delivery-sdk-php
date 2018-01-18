@@ -29,6 +29,11 @@ class CustomContentLinkUrlResolver implements ContentLinkUrlResolverInterface
     {
         return "/custom/$link->urlSlug";
     }
+
+    public function resolveBrokenLinkUrl()
+    {
+        return "/404";
+    }
 }
 
 class ModelBindingTest extends TestCase

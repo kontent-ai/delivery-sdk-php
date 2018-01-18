@@ -151,6 +151,16 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      */
     public function resolveLinkUrl($link)
     {
+        return $link->urlSlug;
+    }
+
+    /**
+     * Returns a URL of the linked content item that is not available.
+     *
+     * @return string
+     */
+    public function resolveBrokenLinkUrl()
+    {
         return "";
     }
 }
