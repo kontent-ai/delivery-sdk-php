@@ -25,7 +25,8 @@
     ],
     "require": {
         "php": "^7.0",
-        "nategood/httpful": "^0.2.20"
+        "nategood/httpful": "^0.2.20",
+        "paquettg/php-html-parser": "^1.7"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "2.*",

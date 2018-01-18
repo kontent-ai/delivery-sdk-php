@@ -1,0 +1,32 @@
+{
+    "system": {
+        "id": "00000000-0000-0000-0000-000000000001",
+        "name": "Fake item 1",
+        "codename": "fake_item_1",
+        "language": "en-US",
+        "type": "fakeType1",
+        "sitemap_locations": [],
+        "last_modified": "2018-01-01T00:00:00.0000000Z"
+    },
+    "elements": {
+        "body_copy": {
+            "type": "rich_text",
+            "name": "Body Copy",
+            "images": {},
+            "links": {
+                "00000000-0000-0000-0000-000000000002": {
+                    "codename": "link_1",
+                    "type": "fakeType2",
+                    "url_slug": "link-1"
+                },
+                "00000000-0000-0000-0000-000000000003": {
+                    "codename": "link_2",
+                    "type": "fakeType3",
+                    "url_slug": "link-2"
+                }
+            },
+            "modular_content": [],
+            "value": "<h1>HTML Ipsum Presents</h1><p><strong>Pellentesque habitant morbi tristique</strong><a data-item-id=\"00000000-0000-0000-0000-000000000002\" href=\"\">Link 1<\/a> senectus et netus et malesuada fames ac turpis egestas. Vestibulum <a data-item-id=\"FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF\" href=\"\">404</a> tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper <a data-item-id=\"00000000-0000-0000-0000-000000000003\" href=\"\">Link 2<\/a> . <em>Aenean ultricies mi vitae est.</em></p>"
+        }
+    }
+}
