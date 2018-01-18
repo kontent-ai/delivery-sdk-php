@@ -151,7 +151,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      */
     public function resolveLinkUrl($link)
     {
-        return $link->urlSlug;
+        return "/$link->urlSlug";
     }
 
     /**

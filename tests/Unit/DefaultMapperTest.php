@@ -31,7 +31,7 @@ class DefaultMapperTest extends TestCase
         $result = $mapper->resolveLinkUrl($link);
         
         $this->assertTrue(is_string($result));
-        $this->assertEquals($linkUrlSlug, $result);
+        $this->assertEquals('/'.$linkUrlSlug, $result);
     }
     
     public function test_ResolveBrokenLinkUrl_ReturnEmptySting()
