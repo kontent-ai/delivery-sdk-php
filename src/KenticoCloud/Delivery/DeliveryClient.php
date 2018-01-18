@@ -44,6 +44,13 @@ class DeliveryClient
     public $valueConverter = null;
 
     /**
+     * Gets or sets ContentLinkUrlResolverInterface resolve links URLs.
+     *
+     * @var ContentLinkUrlResolverInterface
+     */
+    public $contentLinkUrlResolver = null;
+
+    /**
      * Gets or sets ModelBinder which serves for binding of JSON responses to defined content item models.
      *
      * @var ModelBinder
@@ -271,10 +278,10 @@ class DeliveryClient
     protected function getModelBinder()
     {
         if ($this->modelBinder == null) {
-            if ($this->typeMapper == null || $this->propertyMapper == null || $this->valueConverter == null) {
+            if ($this->typeMapper == null || $this->propertyMapper == null || $this->valueConverter == null || $this->contentLinkUrlResolver == null) {
                 $defaultMapper = new DefaultMapper();
             }
-            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper);
+            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper, $this->contentLinkUrlResolver ?? $defaultMapper);
         }
 
         return $this->modelBinder;

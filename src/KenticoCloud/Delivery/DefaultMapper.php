@@ -12,7 +12,7 @@ use KenticoCloud\Delivery\Models\Items\ContentItemSystem;
 /**
  * Class DefaultMapper serves for resolving strong types based on provided information.
  */
-class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, ValueConverterInterface
+class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, ValueConverterInterface, ContentLinkUrlResolverInterface
 {
     const ELEMENTS_ATTRIBUTE_NAME = 'elements';
 
@@ -140,5 +140,27 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
         }
 
         return $result;
+    }    
+
+    /**
+     * Returns a URL of the linked content item.
+     *
+     * @param KenticoCloud\Delivery\Models\Items\ContentLink $link The link to a content item that needs to be resolved.
+     *
+     * @return string
+     */
+    public function resolveLinkUrl($link)
+    {
+        return "/$link->urlSlug";
+    }
+
+    /**
+     * Returns a URL of the linked content item that is not available.
+     *
+     * @return string
+     */
+    public function resolveBrokenLinkUrl()
+    {
+        return "";
     }
 }
