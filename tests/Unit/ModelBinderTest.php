@@ -39,4 +39,22 @@ class ModelBinderTest extends TestCase
         $this->assertContains('<a data-item-id="00000000-0000-0000-0000-000000000003" href="/custom/link-2">Link 2</a>', $model->bodyCopy);        
         $this->assertContains('<a data-item-id="FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF" href="/404">404</a>', $model->bodyCopy);        
     }
+
+    /**
+     * @group modularContent
+     */
+    public function test_BindModel_ModularContentCorrectlyResolved()
+    {
+        $defaultMapper = new DefaultMapper();
+
+        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper, $defaultMapper);
+
+        $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingInlineModularContent.json');
+        $data = json_decode($itemJson);
+
+        $model = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
+
+        $this->assertContains('<div>modular_item_1</div>', $model->bodyCopy);
+        $this->assertContains('<div>modular_item_2</div>', $model->bodyCopy);      
+    }
 } 
