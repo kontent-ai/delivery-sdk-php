@@ -108,11 +108,11 @@ class TaxonomyFactory
                 $craftedTerms = $term->terms;
             }
 
-            $termsItem = new Models\Taxonomies\Term(
-                $term->name,
-                $term->codename,
-                $craftedTerms
-            );
+            $termsItem = new Models\Taxonomies\Term();
+            $termsItem->name = $name;
+            $termsItem->codename = $codename;
+            $termsItem->terms = $craftedTerms;
+            
             $compositeTerms[] = $termsItem;
         }
 

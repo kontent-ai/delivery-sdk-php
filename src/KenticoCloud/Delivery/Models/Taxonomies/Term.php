@@ -32,16 +32,10 @@ class Term
     public $terms = array();
 
     /**
-     * Taxonomy term constructor.
-     *
-     * @param $name display name of taxonomy term
-     * @param $codename string code name of taxonomy term
-     * @param $terms Term array Taxonomy terms
+     * Taxonomy term empty constructor.
+     * 
+     * Constructor used when Taxonomy term is supposed to be created
+     * but not loaded with data.
      */
-    public function __construct($name, $codename, $terms)
-    {
-        $this->name = $name;
-        $this->codename = $codename;
-        $this->terms = $terms;
-    }
+    public function __construct() {}
 }
