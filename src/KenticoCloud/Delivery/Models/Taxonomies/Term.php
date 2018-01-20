@@ -29,14 +29,14 @@ class Term
      *
      * @var null
      */
-    public $terms = null;
+    public $terms = array();
 
     /**
      * Taxonomy term constructor.
      *
      * @param $name display name of taxonomy term
-     * @param $codename code name of taxonomy term
-     * @param $terms array of taxonomy terms
+     * @param $codename string code name of taxonomy term
+     * @param $terms Term array Taxonomy terms
      */
     public function __construct($name, $codename, $terms)
     {

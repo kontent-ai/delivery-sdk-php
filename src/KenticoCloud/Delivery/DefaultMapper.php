@@ -37,7 +37,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
                 $type = \KenticoCloud\Delivery\Models\Items\Asset::class;
                 break;
             case 'taxonomy':
-                $type = \KenticoCloud\Delivery\Models\Items\TaxonomyTerm::class;
+                $type = \KenticoCloud\Delivery\Models\Taxonomies\Term::class;
                 break;
             case 'multiple_choice':
                 $type = \KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class;

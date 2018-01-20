@@ -29,7 +29,7 @@ class TaxonomyFactory
      * See call to _createTaxonomy()_ method.
      *
      * @param $response object response body for taxonomies request.
-     * @return array of Taxonomy objects, or single Taxonomy object.
+     * @return Taxonomy array of Taxonomy objects, or single Taxonomy object.
      */
     public function createTaxonomies($response)
     {
@@ -91,8 +91,8 @@ class TaxonomyFactory
     /**
      * Prepares possibly recursive Taxonomy structure.
      *
-     * @param $terms array of _Terms_.
-     * @return array of Term objects.
+     * @param $terms Terms array of terms.
+     * @return Term array of Term objects.
      */
     private function prepareTerms($terms)
     {
@@ -100,13 +100,11 @@ class TaxonomyFactory
 
         foreach ($terms as $term) {
 
-            if (!empty($term->terms))
-            {
+            if (!empty($term->terms) && $term->terms != null) {
                 // Recursively prepare terms
                 $craftedTerms = $this->prepareTerms($term->terms);
             }
-            else
-            {
+            else {
                 $craftedTerms = $term->terms;
             }
 
