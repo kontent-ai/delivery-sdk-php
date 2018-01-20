@@ -109,10 +109,10 @@ class TaxonomyFactory
             }
 
             $termsItem = new Models\Taxonomies\Term();
-            $termsItem->name = $name;
-            $termsItem->codename = $codename;
+            $termsItem->name = $term->name;
+            $termsItem->codename = $term->codename;
             $termsItem->terms = $craftedTerms;
-            
+
             $compositeTerms[] = $termsItem;
         }
 
