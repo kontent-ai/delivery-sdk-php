@@ -61,7 +61,7 @@ class ModelBindingTest extends TestCase
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
         $this->assertEquals(new \DateTime('2014-11-07T00:00:00Z'), $item->postDate);
         $this->assertCount(2, $item->personas);
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Taxonomies\Term::class, $item->personas[0]);
+        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\TaxonomyTerm::class, $item->personas[0]);
         $this->assertCount(2, $item->relatedArticles);
         $this->assertEquals('Coffee processing techniques', $item->relatedArticles['coffee_processing_techniques']->title);
         $this->assertInstanceOf(\KenticoCloud\Tests\E2E\ArticleModel::class, $item);
