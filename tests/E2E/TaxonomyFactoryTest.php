@@ -41,20 +41,23 @@ class TaxnomyFactoryTest extends TestCase
             "2017-09-07T08:15:22.7215324Z"
         );
 
-        $termsArray = array(
-            new Taxonomies\Term(
-                "Aerobie", "aerobie", array()
-            ),
-            new Taxonomies\Term(
-                "Chemex", "chemex", array()
-            ),
-            new Taxonomies\Term(
-                "Espro", "espro", array()
-            ),
-            new Taxonomies\Term(
-                "Hario", "hario", array()
-            )
-        );
+        $term1 = new Taxonomies\Term();
+        $term1->name = "Aerobie";
+        $term1->codename = "aerobie";
+
+        $term2 = new Taxonomies\Term();
+        $term2->name = "Chemex";
+        $term2->codename = "chemex";
+
+        $term3 = new Taxonomies\Term();
+        $term3->name = "Espro";
+        $term3->codename = "espro";
+
+        $term4 = new Taxonomies\Term();
+        $term4->name = "Hario";
+        $term4->codename = "hario";
+
+        $termsArray = array($term1, $term2, $term3, $term4);
 
         $dummyTaxonomy = new Taxonomies\Taxonomy();
         $dummyTaxonomy->system = $taxonomySystem;
@@ -95,5 +98,41 @@ class TaxnomyFactoryTest extends TestCase
         $taxonomy = $client->getTaxonomy($codename);
 
         $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomies\Taxonomy::class));
+    }
+
+    public function testCreateTaxonomy_SingleTaxonomyResponse_NestedTaxonomyStructureIsCreated()
+    {
+        $client = $this->getClient();
+        $codename = "manufacturer";
+        $taxonomy = $client->getTaxonomy($codename);
+
+        // Assert that Manufacturer is composed of Aerobie,
+        // Chemex, Espro and Hario terms.
+        $expectedTaxonomy = new Taxonomies\Taxonomy();
+        $expectedTaxonomy->system = new Taxonomies\TaxonomySystem(
+            "4ce421e9-c403-eee8-fdc2-74f09392a749",
+            "Manufacturer",
+            "manufacturer",
+            "2017-09-07T08:15:22.7215324Z"
+        );
+
+        $term1 = new Taxonomies\Term();
+        $term1->name = "Aerobie";
+        $term1->codename = "aerobie";
+
+        $term2 = new Taxonomies\Term();
+        $term2->name = "Chemex";
+        $term2->codename = "chemex";
+
+        $term3 = new Taxonomies\Term();
+        $term3->name = "Espro";
+        $term3->codename = "espro";
+
+        $term4 = new Taxonomies\Term();
+        $term4->name = "Hario";
+        $term4->codename = "hario";
+
+        $expectedTaxonomy->terms = array($term1, $term2, $term3, $term4);
+        $this->assertEquals($expectedTaxonomy, $taxonomy, "Retrieved nested taxonomy is not the same as the expected one.");
     }
 }
