@@ -29,7 +29,9 @@ class ModelBinderTest extends TestCase
         $contentLinkUrlResolver
             ->method('resolveBrokenLinkUrl')
             ->willReturn("/404");
-        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper, $contentLinkUrlResolver, $defaultMapper);
+        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
+        $modelBinder->contentLinkUrlResolver = $contentLinkUrlResolver;
+        $modelBinder->inlineModularContentResolver = $defaultMapper;
 
         $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingBrokenAndNonbrokenLinks.json');
         $data = json_decode($itemJson);
@@ -45,7 +47,9 @@ class ModelBinderTest extends TestCase
     {
         $defaultMapper = new DefaultMapper();
 
-        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper, $defaultMapper, $defaultMapper);
+        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
+        $modelBinder->contentLinkUrlResolver = $defaultMapper;
+        $modelBinder->inlineModularContentResolver = $defaultMapper;
 
         $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingInlineModularContent.json');
         $data = json_decode($itemJson);
@@ -59,15 +63,18 @@ class ModelBinderTest extends TestCase
     public function test_BindModel_MockImplementation_InlineModularContentResolved()
     {
         $defaultMapper = new DefaultMapper();
-        $contentLinkUrlResolver = $this->createMock(InlineModularContentResolverInterface::class);
-        $contentLinkUrlResolver
+        $inlineModularContentResolver = $this->createMock(InlineModularContentResolverInterface::class);
+        $inlineModularContentResolver
         ->expects($this->exactly(3))
         ->method('resolveInlineModularContent')
         ->will($this->returnCallback(function($input, $item){
             return '<div>'.$item->system->name.'</div>';
         }));
 
-        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper, $defaultMapper, $contentLinkUrlResolver);
+        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
+        $modelBinder->contentLinkUrlResolver = $defaultMapper;
+        $modelBinder->inlineModularContentResolver = $inlineModularContentResolver;
+
         $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingInlineModularContent.json');
         $data = json_decode($itemJson);
 
@@ -75,5 +82,7 @@ class ModelBinderTest extends TestCase
 
         $this->assertContains('<div>Modular item 1</div>', $model->bodyCopy);
         $this->assertContains('<div>Modular item 2</div>', $model->bodyCopy);
+        $this->assertContains('<object type="application/kenticocloud" data-type="noitem" data-codename="modular_item_1"></object>', $model->bodyCopy);        
+        $this->assertContains('<object type="text/xml" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);        
     }
 } 

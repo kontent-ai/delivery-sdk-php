@@ -288,7 +288,9 @@ class DeliveryClient
             if ($this->typeMapper == null || $this->propertyMapper == null || $this->valueConverter == null || $this->contentLinkUrlResolver == null) {
                 $defaultMapper = new DefaultMapper();
             }
-            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper, $this->contentLinkUrlResolver ?? $defaultMapper, $this->inlineModularContentResolver ?? $defaultMapper);
+            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper);
+            $this->modelBinder->contentLinkUrlResolver = $this->contentLinkUrlResolver ?? $defaultMapper;
+            $this->modelBinder->inlineModularContentResolver = $this->inlineModularContentResolver ?? $defaultMapper;
         }
 
         return $this->modelBinder;

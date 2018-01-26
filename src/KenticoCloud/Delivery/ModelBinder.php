@@ -54,17 +54,27 @@ class ModelBinder
      * @param TypeMapperInterface                   $typeMapper
      * @param PropertyMapperInterface               $propertyMapper
      * @param ValueConverterInterface               $valueConverter
-     * @param ContentLinkUrlResolverInterface       $contentLinkUrlResolver
-     * @param InlineModularContentResolverInterface $inlineModularContentResolver     * 
      * 
      */
-    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter, ContentLinkUrlResolverInterface $contentLinkUrlResolver, InlineModularContentResolverInterface $inlineModularContentResolver)
+    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter)
     {
         $this->typeMapper = $typeMapper;
         $this->propertyMapper = $propertyMapper;
         $this->valueConverter = $valueConverter;
-        $this->contentLinkUrlResolver = $contentLinkUrlResolver;
-        $this->inlineModularContentResolver = $inlineModularContentResolver;
+    }
+
+    /**
+     * Setter used for rich text resolvers.
+     */
+    public function __set($property, $value) {
+        switch ($property) {
+            case 'contentLinkUrlResolver':
+                $this->contentLinkUrlResolver = $value;
+                break;
+            case 'inlineModularContentResolver':
+                $this->inlineModularContentResolver = $value;
+                break;
+        }
     }
 
     /**
@@ -215,6 +225,10 @@ class ModelBinder
      */
     private function resolveLinksUrls($input, $links)
     {
+        if(empty($this->contentLinkUrlResolver)){
+            return $input;
+        }
+
         $parser = new HtmlDomParser();
         $dom = $parser->str_get_html($input);
 
@@ -222,7 +236,7 @@ class ModelBinder
         $elementLinksMetadata = get_object_vars($links);
 
         foreach ($linksElements as $linkElement) {
-            $elementId = $linkElement->getAttribute('data-item-id');
+            $elementId = $linkElement->getAttribute('data-item-id');            
             if (array_key_exists($elementId, $elementLinksMetadata)) {
                 $contentLink = new ContentLink($elementId, $elementLinksMetadata[$elementId]);
                 $resolvedLink = $this->contentLinkUrlResolver->resolveLinkUrl($contentLink);
@@ -244,6 +258,10 @@ class ModelBinder
      */
     private function resolveInlineModularContent($input, $modularContent, $processedItems)
     {
+        if(empty($this->inlineModularContentResolver)){
+            return $input;
+        }
+
         $parser = new HtmlDomParser();
         $dom = $parser->str_get_html($input);
 
@@ -268,7 +286,7 @@ class ModelBinder
         if($modularItem->getAttribute('data-type') != 'item'){
             return $modularItem->outertext;
         }    
-                
+
         $itemCodeName = $modularItem->getAttribute('data-codename');
         $modularContentArray = get_object_vars($modularContent);
         $modularData = array_merge($modularContentArray, $processedItems);
