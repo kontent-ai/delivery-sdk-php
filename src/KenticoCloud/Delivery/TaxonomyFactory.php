@@ -29,7 +29,7 @@ class TaxonomyFactory
      * See call to _createTaxonomy()_ method.
      *
      * @param $response object response body for taxonomies request.
-     * @return array of Taxonomy objects, or single Taxonomy object.
+     * @return Taxonomy array of Taxonomy objects, or single Taxonomy object.
      */
     public function createTaxonomies($response)
     {
@@ -79,16 +79,7 @@ class TaxonomyFactory
         );
 
         // Iterate over 'terms' and prepare content for 'terms' property
-        $terms = array();
-        foreach ($taxonomyItem->terms as $term) {
-            $termsItem = new Models\Taxonomies\Term(
-                $term->name,
-                $term->codename,
-                $term->terms
-            );
-            $terms[] = $termsItem;
-        }
-        
+        $terms = $this->prepareTerms($taxonomyItem->terms);
         $newTaxonomy = new Models\Taxonomies\Taxonomy();
         $newTaxonomy->system = $system;
         $newTaxonomy->terms = $terms;
@@ -96,6 +87,37 @@ class TaxonomyFactory
         return $newTaxonomy;
     }
 
+
+    /**
+     * Prepares possibly recursive Taxonomy structure.
+     *
+     * @param $terms Terms array of terms.
+     * @return Term array of Term objects.
+     */
+    private function prepareTerms($terms)
+    {
+        $compositeTerms = array();
+
+        foreach ($terms as $term) {
+
+            if (!empty($term->terms) && $term->terms != null) {
+                // Recursively prepare terms
+                $craftedTerms = $this->prepareTerms($term->terms);
+            }
+            else {
+                $craftedTerms = $term->terms;
+            }
+
+            $termsItem = new Models\Taxonomies\Term();
+            $termsItem->name = $term->name;
+            $termsItem->codename = $term->codename;
+            $termsItem->terms = $craftedTerms;
+
+            $compositeTerms[] = $termsItem;
+        }
+
+        return $compositeTerms;
+    }
 
     /**
      * Checks whether response parameter is invalid.
