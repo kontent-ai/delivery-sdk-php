@@ -1,14 +1,12 @@
 <?php
 /**
- * Interface InlineModularContentResolverInterface resolve links URLs.
+ * Interface InlineModularContentResolverInterface resolve inline modular content.
  */
 
 namespace KenticoCloud\Delivery;
 
-use KenticoCloud\Delivery\Models\Items\ContentLink;
-
 /**
- * Interface InlineModularContentResolverInterface resolve links URLs.
+ * Interface InlineModularContentResolverInterface resolve inline modular content.
  */
 interface InlineModularContentResolverInterface
 {

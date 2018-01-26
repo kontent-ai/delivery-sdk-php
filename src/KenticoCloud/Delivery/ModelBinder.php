@@ -74,6 +74,8 @@ class ModelBinder
             case 'inlineModularContentResolver':
                 $this->inlineModularContentResolver = $value;
                 break;
+            default:
+                return;
         }
     }
 
