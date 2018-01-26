@@ -56,7 +56,7 @@ class ModelBinderTest extends TestCase
         $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_2"></object>', $model->bodyCopy);      
     }
 
-    public function test_BindModel_MocImplementation_InlineModularContentResolved()
+    public function test_BindModel_MockImplementation_InlineModularContentResolved()
     {
         $defaultMapper = new DefaultMapper();
         $contentLinkUrlResolver = $this->createMock(InlineModularContentResolverInterface::class);

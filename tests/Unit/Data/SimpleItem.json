@@ -1,0 +1,18 @@
+{
+    "system": {
+        "id": "00000000-0000-0000-0000-000000000002",
+        "name": "Modular item 1",
+        "codename": "modular_item_1",
+        "language": "en-US",
+        "type": "fake_type_2",
+        "sitemap_locations": [],
+        "last_modified": "2018-01-01T00:00:00.0000000Z"
+    },
+    "elements": {
+        "modular_item_1_data": {
+            "type": "text",
+            "name": "Data field",
+            "value": "Modular item 1 data."
+        }
+    }
+}

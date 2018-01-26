@@ -174,7 +174,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      */
     public function resolveInlineModularContent($input, $item)
     {
-        if(strpos($input, $item->system->codename) !== false){
+        if(isset($item) && strpos($input, $item->system->codename) !== false){
             return $input;
         }
 

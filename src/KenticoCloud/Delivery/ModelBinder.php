@@ -215,7 +215,8 @@ class ModelBinder
      */
     private function resolveLinksUrls($input, $links)
     {
-        $dom = HtmlDomParser::str_get_html($input);
+        $parser = new HtmlDomParser();
+        $dom = $parser->str_get_html($input);
 
         $linksElements = $dom->find('a[data-item-id]');
         $elementLinksMetadata = get_object_vars($links);
@@ -235,31 +236,47 @@ class ModelBinder
     }
 
     /**
-     * Resolve all link urls detected in input html.
+     * Resolve all modular items detected in input html.
      *
-     * @var string input html containing links
+     * @var string input html containing modular items
      * @param mixed|null $modularContent JSON response containing nested modular content items
      * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
      */
     private function resolveInlineModularContent($input, $modularContent, $processedItems)
     {
-        $dom = HtmlDomParser::str_get_html($input);
+        $parser = new HtmlDomParser();
+        $dom = $parser->str_get_html($input);
 
         // Not possible to use multiple attribute selectors
         $modularItems = $dom->find('object[type=application/kenticocloud]');
         foreach ($modularItems as $modularItem) {
-            if($modularItem->getAttribute('data-type') != 'item'){
-                break;
-            }            
-            $itemCodeName = $modularItem->getAttribute('data-codename');
-            $modularContentArray = get_object_vars($modularContent);
-            $modularData = array_merge($modularContentArray, $processedItems);
-            if(isset($modularData[$itemCodeName])){
-                $modularItem->outertext = $this->inlineModularContentResolver->resolveInlineModularContent($modularItem->outertext, $modularData[$itemCodeName]);
-            }
+            $modularItem->outertext = $this->resolveModularItem($modularItem, $modularContent, $processedItems);
         }
 
         return (string)$dom;
+    }
+
+    /**
+     * Resolve modular item in input html.
+     *
+     * @var string input html containing modular item
+     * @param mixed|null $modularContent JSON response containing nested modular content items
+     * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
+     */
+    private function resolveModularItem($modularItem, $modularContent, $processedItems)
+    {
+        if($modularItem->getAttribute('data-type') != 'item'){
+            return $modularItem->outertext;
+        }    
+                
+        $itemCodeName = $modularItem->getAttribute('data-codename');
+        $modularContentArray = get_object_vars($modularContent);
+        $modularData = array_merge($modularContentArray, $processedItems);
+        if(isset($modularData[$itemCodeName])){
+            $modularItem->outertext = $this->inlineModularContentResolver->resolveInlineModularContent($modularItem->outertext, $modularData[$itemCodeName]);
+        }
+
+        return $modularItem->outertext;
     }
 
     /**
