@@ -45,8 +45,8 @@
         "modular_item_2": {
             "system": {
                 "id": "00000000-0000-0000-0000-000000000003",
-                "name": "Modular item 1",
-                "codename": "modular_item_1",
+                "name": "Modular item 2",
+                "codename": "modular_item_2",
                 "language": "en-US",
                 "type": "fake_type_3",
                 "sitemap_locations": [],

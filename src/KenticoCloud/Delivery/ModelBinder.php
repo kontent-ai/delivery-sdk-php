@@ -42,19 +42,29 @@ class ModelBinder
     protected $contentLinkUrlResolver = null;
 
     /**
+     *  Serves for converting links to desired types.
+     *
+     * @var InlineModularContentResolverInterface|null
+     */
+    protected $inlineModularContentResolver = null;
+
+    /**
      * ModelBinder constructor.
      *
-     * @param TypeMapperInterface             $typeMapper
-     * @param PropertyMapperInterface         $propertyMapper
-     * @param ValueConverterInterface         $valueConverter
-     * @param ContentLinkUrlResolverInterface $contentLinkUrlResolver
+     * @param TypeMapperInterface                   $typeMapper
+     * @param PropertyMapperInterface               $propertyMapper
+     * @param ValueConverterInterface               $valueConverter
+     * @param ContentLinkUrlResolverInterface       $contentLinkUrlResolver
+     * @param InlineModularContentResolverInterface $inlineModularContentResolver     * 
+     * 
      */
-    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter, ContentLinkUrlResolverInterface $contentLinkUrlResolver)
+    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter, ContentLinkUrlResolverInterface $contentLinkUrlResolver, InlineModularContentResolverInterface $inlineModularContentResolver)
     {
         $this->typeMapper = $typeMapper;
         $this->propertyMapper = $propertyMapper;
         $this->valueConverter = $valueConverter;
         $this->contentLinkUrlResolver = $contentLinkUrlResolver;
+        $this->inlineModularContentResolver = $inlineModularContentResolver;
     }
 
     /**
@@ -216,7 +226,7 @@ class ModelBinder
                 $contentLink = new ContentLink($elementId, $elementLinksMetadata[$elementId]);
                 $resolvedLink = $this->contentLinkUrlResolver->resolveLinkUrl($contentLink);
             } else {
-                $resolvedLink = $this->contentLinkUrlResolver->ResolveBrokenLinkUrl($contentLink);
+                $resolvedLink = $this->contentLinkUrlResolver->resolveBrokenLinkUrl($contentLink);
             }
             $linkElement->href = $resolvedLink;
         }
@@ -242,7 +252,11 @@ class ModelBinder
                 break;
             }            
             $itemCodeName = $modularItem->getAttribute('data-codename');
-            $modularItem->outertext = "<div>$itemCodeName</div>";
+            $modularContentArray = get_object_vars($modularContent);
+            $modularData = array_merge($modularContentArray, $processedItems);
+            if(isset($modularData[$itemCodeName])){
+                $modularItem->outertext = $this->inlineModularContentResolver->resolveInlineModularContent($modularItem->outertext, $modularData[$itemCodeName]);
+            }
         }
 
         return (string)$dom;
