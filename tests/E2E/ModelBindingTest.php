@@ -69,9 +69,6 @@ class ModelBindingTest extends TestCase
         $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
     }
 
-    /**
-     * @group linktest
-     */
     public function testGetArticleWithLinks_LinksUrlResolved()
     {
         $client = $this->getClient();

@@ -51,6 +51,13 @@ class DeliveryClient
     public $contentLinkUrlResolver = null;
 
     /**
+     *  Serves for converting inline modular content to desired html.
+     *
+     * @var InlineModularContentResolverInterface|null
+     */
+    public $inlineModularContentResolver = null;
+
+    /**
      * Gets or sets ModelBinder which serves for binding of JSON responses to defined content item models.
      *
      * @var ModelBinder
@@ -119,7 +126,7 @@ class DeliveryClient
 
         $properties = get_object_vars($response->body);
 
-        if (!isset($properties['item']) || !count($properties['item'])) {
+        if (!isset($properties['item']) || !count(get_object_vars($properties['item']))) {
             return null;
         }
 
@@ -281,7 +288,9 @@ class DeliveryClient
             if ($this->typeMapper == null || $this->propertyMapper == null || $this->valueConverter == null || $this->contentLinkUrlResolver == null) {
                 $defaultMapper = new DefaultMapper();
             }
-            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper, $this->contentLinkUrlResolver ?? $defaultMapper);
+            $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper);
+            $this->modelBinder->contentLinkUrlResolver = $this->contentLinkUrlResolver ?? $defaultMapper;
+            $this->modelBinder->inlineModularContentResolver = $this->inlineModularContentResolver ?? $defaultMapper;
         }
 
         return $this->modelBinder;

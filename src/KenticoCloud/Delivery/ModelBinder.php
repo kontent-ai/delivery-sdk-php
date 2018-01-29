@@ -6,7 +6,7 @@
 namespace KenticoCloud\Delivery;
 
 use KenticoCloud\Delivery\Models\Items\ContentLink;
-use PHPHtmlParser\Dom;
+use Sunra\PhpSimple\HtmlDomParser;
 
 /**
  * Class ModelBinder.
@@ -42,19 +42,41 @@ class ModelBinder
     protected $contentLinkUrlResolver = null;
 
     /**
+     *  Serves for converting links to desired types.
+     *
+     * @var InlineModularContentResolverInterface|null
+     */
+    protected $inlineModularContentResolver = null;
+
+    /**
      * ModelBinder constructor.
      *
-     * @param TypeMapperInterface             $typeMapper
-     * @param PropertyMapperInterface         $propertyMapper
-     * @param ValueConverterInterface         $valueConverter
-     * @param ContentLinkUrlResolverInterface $contentLinkUrlResolver
+     * @param TypeMapperInterface                   $typeMapper
+     * @param PropertyMapperInterface               $propertyMapper
+     * @param ValueConverterInterface               $valueConverter
+     * 
      */
-    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter, ContentLinkUrlResolverInterface $contentLinkUrlResolver)
+    public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter)
     {
         $this->typeMapper = $typeMapper;
         $this->propertyMapper = $propertyMapper;
         $this->valueConverter = $valueConverter;
-        $this->contentLinkUrlResolver = $contentLinkUrlResolver;
+    }
+
+    /**
+     * Setter used for rich text resolvers.
+     */
+    public function __set($property, $value) {
+        switch ($property) {
+            case 'contentLinkUrlResolver':
+                $this->contentLinkUrlResolver = $value;
+                break;
+            case 'inlineModularContentResolver':
+                $this->inlineModularContentResolver = $value;
+                break;
+            default:
+                return;
+        }
     }
 
     /**
@@ -169,7 +191,7 @@ class ModelBinder
                 break;
             case 'rich_text':
                 // Resolve nested artifacts in rich-text elements
-                $result = $this->getComplexValue($element);
+                $result = $this->getComplexValue($element, $modularContent, $processedItems);
                 break;
             default:
                 // Use a value converter to get the value in a proper format/type
@@ -184,12 +206,15 @@ class ModelBinder
      * Converts a given complex value to a specified type.
      *
      * @param mixed $element modular content item element
+     * @param mixed|null $modularContent JSON response containing nested modular content items
+     * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
      *
      * @return mixed
      */
-    private function getComplexValue($element)
+    private function getComplexValue($element, $modularContent, $processedItems)
     {
         $result = $this->resolveLinksUrls($element->value, $element->links);
+        $result = $this->resolveInlineModularContent($result, $modularContent, $processedItems);
 
         return $result;
     }
@@ -202,23 +227,76 @@ class ModelBinder
      */
     private function resolveLinksUrls($input, $links)
     {
-        $dom = new Dom();
-        $dom->load($input);
+        if(empty($this->contentLinkUrlResolver)){
+            return $input;
+        }
+
+        $parser = new HtmlDomParser();
+        $dom = $parser->str_get_html($input);
+
         $linksElements = $dom->find('a[data-item-id]');
         $elementLinksMetadata = get_object_vars($links);
 
         foreach ($linksElements as $linkElement) {
-            $elementId = $linkElement->getAttribute('data-item-id');
+            $elementId = $linkElement->getAttribute('data-item-id');            
             if (array_key_exists($elementId, $elementLinksMetadata)) {
                 $contentLink = new ContentLink($elementId, $elementLinksMetadata[$elementId]);
                 $resolvedLink = $this->contentLinkUrlResolver->resolveLinkUrl($contentLink);
             } else {
-                $resolvedLink = $this->contentLinkUrlResolver->ResolveBrokenLinkUrl($contentLink);
+                $resolvedLink = $this->contentLinkUrlResolver->resolveBrokenLinkUrl($contentLink);
             }
-            $linkElement->setAttribute('href', $resolvedLink);
+            $linkElement->href = $resolvedLink;
         }
 
         return (string) $dom;
+    }
+
+    /**
+     * Resolve all modular items detected in input html.
+     *
+     * @var string input html containing modular items
+     * @param mixed|null $modularContent JSON response containing nested modular content items
+     * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
+     */
+    private function resolveInlineModularContent($input, $modularContent, $processedItems)
+    {
+        if(empty($this->inlineModularContentResolver)){
+            return $input;
+        }
+
+        $parser = new HtmlDomParser();
+        $dom = $parser->str_get_html($input);
+
+        // Not possible to use multiple attribute selectors
+        $modularItems = $dom->find('object[type=application/kenticocloud]');
+        foreach ($modularItems as $modularItem) {
+            $modularItem->outertext = $this->resolveModularItem($modularItem, $modularContent, $processedItems);
+        }
+
+        return (string)$dom;
+    }
+
+    /**
+     * Resolve modular item in input html.
+     *
+     * @var string input html containing modular item
+     * @param mixed|null $modularContent JSON response containing nested modular content items
+     * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
+     */
+    private function resolveModularItem($modularItem, $modularContent, $processedItems)
+    {
+        if($modularItem->getAttribute('data-type') != 'item'){
+            return $modularItem->outertext;
+        }    
+
+        $itemCodeName = $modularItem->getAttribute('data-codename');
+        $modularContentArray = get_object_vars($modularContent);
+        $modularData = array_merge($modularContentArray, $processedItems);
+        if(isset($modularData[$itemCodeName])){
+            $modularItem->outertext = $this->inlineModularContentResolver->resolveInlineModularContent($modularItem->outertext, $modularData[$itemCodeName]);
+        }
+
+        return $modularItem->outertext;
     }
 
     /**
