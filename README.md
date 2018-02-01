@@ -33,7 +33,7 @@ or adjusting your `composer.json` file:
 
 Writing object-oriented applications requires one PHP source file per class definition. One of the biggest annoyances is having to write a long list of needed includes at the beginning of each script (one for each class).
 
-Since SDK is using [Composer](https://getcomposer.org/) dependency manager and specify autoload information, Composer generates a [vendor/autoload.php](https://getcomposer.org/doc/01-basic-usage.md#autoloading) file. You can simply include this file and start using the classes that those libraries provide without any extra work:
+Since the SDK uses [Composer](https://getcomposer.org/) dependency manager and specifies autoload information, Composer generates a [vendor/autoload.php](https://getcomposer.org/doc/01-basic-usage.md#autoloading) file. You can simply include this file and start using the namespaces that those libraries offer without any extra work:
 
 ```
 require __DIR__ . '/vendor/autoload.php';
