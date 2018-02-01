@@ -14,7 +14,7 @@ use KenticoCloud\Delivery\Models\Shared\Pagination;
  */
 class DeliveryClient
 {
-    private $sdkVersion = '0.9.5';
+    private $sdkVersion = '0.9.6';
 
     private $urlBuilder = null;
     private $previewMode = false;
@@ -270,7 +270,7 @@ class DeliveryClient
             $template->addHeader('X-KC-Wait-For-Loading-New-Content', 'true');
         }
 
-        $template->addHeader('X-KC-SDKID:', "packagist.org;kentico-cloud/delivery-sdk-php;{$this->sdkVersion}");
+        $template->addHeader('X-KC-SDKID', "packagist.org;kentico-cloud/delivery-sdk-php;{$this->sdkVersion}");
 
         // Set an HTTP request template
         Request::ini($template);
