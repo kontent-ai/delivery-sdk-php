@@ -6,9 +6,6 @@
 [![Forums](https://img.shields.io/badge/chat-on%20forums-orange.svg)](https://forums.kenticocloud.com)
 [![Docs](https://img.shields.io/badge/documentation-API--Reference-green.svg)](https://kentico.github.io/phpsdk/index.html)
 
-🚧 **This project is in BETA. Let us know if you want to help us test or contribute otherwise at DEVELOPERSCOMMUNITY@KENTICO.COM** 🚧 
-
-
 ## Summary
 
 The Kentico Cloud Delivery PHP SDK is a client library used for retrieving content from Kentico Cloud. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico-cloud/delivery-sdk-php). The library currently supports only PHP 7 and above.
