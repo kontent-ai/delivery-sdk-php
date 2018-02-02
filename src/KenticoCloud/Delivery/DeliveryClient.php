@@ -14,7 +14,7 @@ use KenticoCloud\Delivery\Models\Shared\Pagination;
  */
 class DeliveryClient
 {
-    private $sdkVersion = '0.9.6';
+    private $sdkVersion = '1.0.0';
 
     private $urlBuilder = null;
     private $previewMode = false;
