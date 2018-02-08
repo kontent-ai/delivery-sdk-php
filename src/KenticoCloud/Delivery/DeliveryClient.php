@@ -8,17 +8,21 @@ namespace KenticoCloud\Delivery;
 use Httpful\Request;
 use Httpful\Http;
 use KenticoCloud\Delivery\Models\Shared\Pagination;
+use InvalidArgumentException;
+
 
 /**
  * Class DeliveryClient - executes requests against the Kentico Cloud Delivery API.
  */
 class DeliveryClient
 {
-    private $sdkVersion = '1.0.0';
+    private $sdkVersion = '1.1.0';
 
     private $urlBuilder = null;
     private $previewMode = false;
+    private $securedMode = false;
     protected $previewApiKey = null;
+    protected $securedProductionApiKey = null;
     protected $debugRequests = false;
     protected $waitForLoadingNewContent = false;
     protected $contentTypeFactory = null;
@@ -71,14 +75,17 @@ class DeliveryClient
      *
      * @param string $projectId                Kentico Cloud Delivery API Project ID
      * @param string $previewApiKey            Kentico Cloud Delivery API Preview API key
+     * @param string $securedProductionApiKey  Kentico Cloud Delivery API Secured production API key 
      * @param bool   $waitForLoadingNewContent Gets whether you want to wait for updated content. (Useful for webhooks.)
      * @param bool   $debugRequests            Switches the HTTP client to debug mode
      */
-    public function __construct(string $projectId, string $previewApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null)
+    public function __construct(string $projectId, string $previewApiKey = null, string $securedProductionApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null)
     {
         $this->previewApiKey = $previewApiKey;
         $this->previewMode = !is_null($previewApiKey);
         $this->urlBuilder = new UrlBuilder($projectId, $this->previewMode);
+        $this->securedProductionApiKey = $securedProductionApiKey;
+        $this->securedMode = !is_null($securedProductionApiKey);
         $this->waitForLoadingNewContent = $waitForLoadingNewContent ?? $this->waitForLoadingNewContent;
         $this->debugRequests = $debugRequests ?? $this->debugRequests;
         $this->initRequestTemplate();
@@ -256,6 +263,11 @@ class DeliveryClient
 
     protected function initRequestTemplate()
     {
+        if($this->previewMode && $this->securedMode)
+        {
+            throw new InvalidArgumentException('Preview API key and Secured production API key must not be configured at the same time.');
+        }
+
         $template = Request::init()
         ->method(Http::GET)
         ->mime('json')
@@ -263,8 +275,11 @@ class DeliveryClient
 
         $template->_debug = $this->debugRequests;
 
-        if (!is_null($this->previewApiKey)) {
+        if ($this->previewMode) {
             $template->addHeader('Authorization', 'Bearer '.$this->previewApiKey);
+        }
+        if ($this->securedMode) {
+            $template->addHeader('Authorization', 'Bearer '.$this->securedProductionApiKey);
         }
         if ($this->waitForLoadingNewContent) {
             $template->addHeader('X-KC-Wait-For-Loading-New-Content', 'true');

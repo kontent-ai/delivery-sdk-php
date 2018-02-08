@@ -53,6 +53,7 @@ $client = new DeliveryClient('975bf280-fd91-488c-994c-2f04416e5ee3');
 There are some other optional parameters that you can use during the `DeliveryClient` instantiation.
 
 * `$previewApiKey` – sets the Delivery Preview API key. The client will automatically start using the preview endpoint for querying. See [previewing unpublished content](#previewing-unpublished-content).
+* `$securedProductionApiKey` – sets the production Delivery API key (do not combine it with the Delivery Preview API key)
 * `$waitForLoadingNewContent` – makes the client instance wait while fetching updated content, useful when acting upon [webhook calls](https://developer.kenticocloud.com/docs/webhooks#section-requesting-new-content).
 * `$debugRequests` – switches the HTTP client to debug mode
 
