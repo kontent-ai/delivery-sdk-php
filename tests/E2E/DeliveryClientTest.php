@@ -93,7 +93,7 @@ class DeliveryClientTest extends TestCase
 
     public function testWebhooks()
     {
-        $client = new DeliveryClient($this->getProjectId(), null, true);
+        $client = new DeliveryClient($this->getProjectId(), null, null, true);
         $item = $client->getItem('home');
         $this->assertArrayHasKey('X-KC-Wait-For-Loading-New-Content', $client->lastRequest->headers);
     }
