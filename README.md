@@ -41,7 +41,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kentico Cloud projects.
 
-To create an instance of the class, you need to provide a [project ID](https://developer.kenticocloud.com/docs/using-delivery-api#section-getting-project-id).
+To create an instance of the class, you need to provide a [project ID](https://developer.kenticocloud.com/v1/docs/getting-content#section-getting-content-items).
 
 ```php
 use KenticoCloud\Delivery\DeliveryClient;
@@ -75,7 +75,7 @@ $items = $client->getItems();
 
 ### Filtering retrieved data
 
-The SDK supports full scale of the API querying and filtering capabilities as described in the [API reference](https://developer.kenticocloud.com/reference#filtering-content-items).
+The SDK supports full scale of the API querying and filtering capabilities as described in the [API reference](https://developer.kenticocloud.com/reference#content-filtering).
 
 ```php
 // Retrieves a list of the specified elements from the first 10 content items of
@@ -130,7 +130,7 @@ For more details, see [Previewing unpublished content using the Delivery API](ht
 
 ## Response structure
 
-For full description of single and multiple content item JSON response formats, see our [API reference](https://developer.kenticocloud.com/reference#response-structure).
+For full description of single and multiple content item JSON response formats, see our [API reference](https://developer.kenticocloud.com/reference#listing-response).
 
 ### Single content item response
 
