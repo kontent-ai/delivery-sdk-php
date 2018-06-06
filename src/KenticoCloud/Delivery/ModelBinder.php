@@ -51,10 +51,9 @@ class ModelBinder
     /**
      * ModelBinder constructor.
      *
-     * @param TypeMapperInterface                   $typeMapper
-     * @param PropertyMapperInterface               $propertyMapper
-     * @param ValueConverterInterface               $valueConverter
-     * 
+     * @param TypeMapperInterface     $typeMapper
+     * @param PropertyMapperInterface $propertyMapper
+     * @param ValueConverterInterface $valueConverter
      */
     public function __construct(TypeMapperInterface $typeMapper, PropertyMapperInterface $propertyMapper, ValueConverterInterface $valueConverter)
     {
@@ -66,7 +65,8 @@ class ModelBinder
     /**
      * Setter used for rich text resolvers.
      */
-    public function __set($property, $value) {
+    public function __set($property, $value)
+    {
         switch ($property) {
             case 'contentLinkUrlResolver':
                 $this->contentLinkUrlResolver = $value;
@@ -205,7 +205,7 @@ class ModelBinder
     /**
      * Converts a given complex value to a specified type.
      *
-     * @param mixed $element modular content item element
+     * @param mixed      $element        modular content item element
      * @param mixed|null $modularContent JSON response containing nested modular content items
      * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
      *
@@ -227,7 +227,7 @@ class ModelBinder
      */
     private function resolveLinksUrls($input, $links)
     {
-        if(empty($this->contentLinkUrlResolver)){
+        if (empty($this->contentLinkUrlResolver)) {
             return $input;
         }
 
@@ -238,12 +238,12 @@ class ModelBinder
         $elementLinksMetadata = get_object_vars($links);
 
         foreach ($linksElements as $linkElement) {
-            $elementId = $linkElement->getAttribute('data-item-id');            
+            $elementId = $linkElement->getAttribute('data-item-id');
             if (array_key_exists($elementId, $elementLinksMetadata)) {
                 $contentLink = new ContentLink($elementId, $elementLinksMetadata[$elementId]);
                 $resolvedLink = $this->contentLinkUrlResolver->resolveLinkUrl($contentLink);
             } else {
-                $resolvedLink = $this->contentLinkUrlResolver->resolveBrokenLinkUrl($contentLink);
+                $resolvedLink = $this->contentLinkUrlResolver->resolveBrokenLinkUrl();
             }
             $linkElement->href = $resolvedLink;
         }
@@ -255,12 +255,13 @@ class ModelBinder
      * Resolve all modular items detected in input html.
      *
      * @var string input html containing modular items
+     *
      * @param mixed|null $modularContent JSON response containing nested modular content items
      * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
      */
     private function resolveInlineModularContent($input, $modularContent, $processedItems)
     {
-        if(empty($this->inlineModularContentResolver)){
+        if (empty($this->inlineModularContentResolver)) {
             return $input;
         }
 
@@ -273,26 +274,27 @@ class ModelBinder
             $modularItem->outertext = $this->resolveModularItem($modularItem, $modularContent, $processedItems);
         }
 
-        return (string)$dom;
+        return (string) $dom;
     }
 
     /**
      * Resolve modular item in input html.
      *
      * @var string input html containing modular item
+     *
      * @param mixed|null $modularContent JSON response containing nested modular content items
      * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
      */
     private function resolveModularItem($modularItem, $modularContent, $processedItems)
     {
-        if($modularItem->getAttribute('data-type') != 'item'){
+        if ($modularItem->getAttribute('data-type') != 'item') {
             return $modularItem->outertext;
-        }    
+        }
 
         $itemCodeName = $modularItem->getAttribute('data-codename');
         $modularContentArray = get_object_vars($modularContent);
         $modularData = array_merge($modularContentArray, $processedItems);
-        if(isset($modularData[$itemCodeName])){
+        if (isset($modularData[$itemCodeName])) {
             $modularItem->outertext = $this->inlineModularContentResolver->resolveInlineModularContent($modularItem->outertext, $modularData[$itemCodeName]);
         }
 

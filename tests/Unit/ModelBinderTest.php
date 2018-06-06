@@ -2,33 +2,27 @@
 
 namespace KenticoCloud\Tests\Unit;
 
-use KenticoCloud\Delivery\{
-    TypeMapperInterface,
-    ContentLinkUrlResolverInterface, 
-    InlineModularContentResolverInterface,
-    ModelBinder,
-    DefaultMapper
-};
-
+use KenticoCloud\Delivery\ContentLinkUrlResolverInterface;
+use KenticoCloud\Delivery\InlineModularContentResolverInterface;
+use KenticoCloud\Delivery\ModelBinder;
+use KenticoCloud\Delivery\DefaultMapper;
 use PHPUnit\Framework\TestCase;
-
-
 
 class ModelBinderTest extends TestCase
 {
     public function test_BindModel_LinksCorrectlyResolved()
-    {  
+    {
         $defaultMapper = new DefaultMapper();
 
         $contentLinkUrlResolver = $this->createMock(ContentLinkUrlResolverInterface::class);
         $contentLinkUrlResolver
             ->method('resolveLinkUrl')
-            ->will($this->returnCallback(function($link){
-                return "/custom/" . $link->urlSlug;
+            ->will($this->returnCallback(function ($link) {
+                return '/custom/'.$link->urlSlug;
             }));
         $contentLinkUrlResolver
             ->method('resolveBrokenLinkUrl')
-            ->willReturn("/404");
+            ->willReturn('/404');
         $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
         $modelBinder->contentLinkUrlResolver = $contentLinkUrlResolver;
         $modelBinder->inlineModularContentResolver = $defaultMapper;
@@ -38,9 +32,12 @@ class ModelBinderTest extends TestCase
 
         $model = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Items\ContentItem::class, $data);
 
+        // Test content links
         $this->assertContains('<a data-item-id="00000000-0000-0000-0000-000000000002" href="/custom/link-1">Link 1</a>', $model->bodyCopy);
-        $this->assertContains('<a data-item-id="00000000-0000-0000-0000-000000000003" href="/custom/link-2">Link 2</a>', $model->bodyCopy);        
-        $this->assertContains('<a data-item-id="FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF" href="/404">404</a>', $model->bodyCopy);        
+        $this->assertContains('<a data-item-id="00000000-0000-0000-0000-000000000003" href="/custom/link-2">Link 2</a>', $model->bodyCopy);
+
+        // Test broken links
+        $this->assertContains('<a data-item-id="FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF" href="/404">404</a>', $model->bodyCopy);
     }
 
     public function test_BindModel_DefaultImplementation_InlineModularContentNotChanged()
@@ -57,7 +54,7 @@ class ModelBinderTest extends TestCase
         $model = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
 
         $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);
-        $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_2"></object>', $model->bodyCopy);      
+        $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_2"></object>', $model->bodyCopy);
     }
 
     public function test_BindModel_MockImplementation_InlineModularContentResolved()
@@ -67,7 +64,7 @@ class ModelBinderTest extends TestCase
         $inlineModularContentResolver
         ->expects($this->exactly(3))
         ->method('resolveInlineModularContent')
-        ->will($this->returnCallback(function($input, $item){
+        ->will($this->returnCallback(function ($input, $item) {
             return '<div>'.$item->system->name.'</div>';
         }));
 
@@ -82,7 +79,7 @@ class ModelBinderTest extends TestCase
 
         $this->assertContains('<div>Modular item 1</div>', $model->bodyCopy);
         $this->assertContains('<div>Modular item 2</div>', $model->bodyCopy);
-        $this->assertContains('<object type="application/kenticocloud" data-type="noitem" data-codename="modular_item_1"></object>', $model->bodyCopy);        
-        $this->assertContains('<object type="text/xml" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);        
+        $this->assertContains('<object type="application/kenticocloud" data-type="noitem" data-codename="modular_item_1"></object>', $model->bodyCopy);
+        $this->assertContains('<object type="text/xml" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);
     }
-} 
+}
