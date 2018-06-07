@@ -56,6 +56,7 @@ There are some other optional parameters that you can use during the `DeliveryCl
 * `$securedProductionApiKey` – sets the production Delivery API key (do not combine it with the Delivery Preview API key)
 * `$waitForLoadingNewContent` – makes the client instance wait while fetching updated content, useful when acting upon [webhook calls](https://developer.kenticocloud.com/docs/webhooks#section-requesting-new-content).
 * `$debugRequests` – switches the HTTP client to debug mode
+* `$retryAttempts` – number of times the client will retry to connect to the Kentico Cloud API on failures per request
 
 
 Once you create a `DeliveryClient`, you can start querying your project repository by calling methods on the client instance. See [Basic querying](#basic-querying) for details.

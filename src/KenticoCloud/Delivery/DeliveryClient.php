@@ -9,24 +9,25 @@ use Httpful\Request;
 use Httpful\Http;
 use KenticoCloud\Delivery\Models\Shared\Pagination;
 use InvalidArgumentException;
-
+use Exception;
 
 /**
  * Class DeliveryClient - executes requests against the Kentico Cloud Delivery API.
  */
 class DeliveryClient
 {
-    private $sdkVersion = '1.1.0';
+    private $sdkVersion = '1.2.0';
 
     private $urlBuilder = null;
     private $previewMode = false;
     private $securedMode = false;
     protected $previewApiKey = null;
     protected $securedProductionApiKey = null;
-    protected $debugRequests = false;
     protected $waitForLoadingNewContent = false;
     protected $contentTypeFactory = null;
     protected $taxonomyFactory = null;
+    protected $debugRequests = false;
+    protected $retryAttempts = 0;
 
     /**
      * Gets or sets TypeMapperInterface which serves for resolving strong types based on provided information.
@@ -75,11 +76,12 @@ class DeliveryClient
      *
      * @param string $projectId                Kentico Cloud Delivery API Project ID
      * @param string $previewApiKey            Kentico Cloud Delivery API Preview API key
-     * @param string $securedProductionApiKey  Kentico Cloud Delivery API Secured production API key 
+     * @param string $securedProductionApiKey  Kentico Cloud Delivery API Secured production API key
      * @param bool   $waitForLoadingNewContent Gets whether you want to wait for updated content. (Useful for webhooks.)
      * @param bool   $debugRequests            Switches the HTTP client to debug mode
+     * @param int    $retryAttempts            Number of times the client will retry to connect to the Kentico Cloud API on failures per request
      */
-    public function __construct(string $projectId, string $previewApiKey = null, string $securedProductionApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null)
+    public function __construct(string $projectId, string $previewApiKey = null, string $securedProductionApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null, int $retryAttempts = null)
     {
         $this->previewApiKey = $previewApiKey;
         $this->previewMode = !is_null($previewApiKey);
@@ -88,6 +90,7 @@ class DeliveryClient
         $this->securedMode = !is_null($securedProductionApiKey);
         $this->waitForLoadingNewContent = $waitForLoadingNewContent ?? $this->waitForLoadingNewContent;
         $this->debugRequests = $debugRequests ?? $this->debugRequests;
+        $this->retryAttempts = $retryAttempts ?? $this->retryAttempts;
         $this->initRequestTemplate();
     }
 
@@ -263,8 +266,7 @@ class DeliveryClient
 
     protected function initRequestTemplate()
     {
-        if($this->previewMode && $this->securedMode)
-        {
+        if ($this->previewMode && $this->securedMode) {
             throw new InvalidArgumentException('Preview API key and Secured production API key must not be configured at the same time.');
         }
 
@@ -291,14 +293,27 @@ class DeliveryClient
         Request::ini($template);
     }
 
-    protected function sendRequest($uri)
+    protected function sendRequest(string $uri, int $attemptNumber = 0)
     {
         $request = Request::get($uri);
-        $response = $request->send();
-        $this->lastRequest = $request;
-        $this->lastResponse = $response;
+        try {
+            $response = $request->send();
+            $this->lastRequest = $request;
+            $this->lastResponse = $response;
 
-        return $response;
+            return $response;
+        } catch (Exception $e) {
+            if ($attemptNumber < $this->retryAttempts) {
+                $nextAttemptNumber = $attemptNumber + 1;
+                // Perform a binary exponential backoff
+                $wait = 100 * pow(2, $nextAttemptNumber);
+                usleep($wait * 1000);
+
+                return $this->sendRequest($uri, $nextAttemptNumber);
+            } else {
+                throw $e;
+            }
+        }
     }
 
     protected function getModelBinder()
