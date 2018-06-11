@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/delivery-sdk-php)
 [![Forums](https://img.shields.io/badge/chat-on%20forums-orange.svg)](https://forums.kenticocloud.com)
 [![Docs](https://img.shields.io/badge/documentation-API--Reference-green.svg)](https://kentico.github.io/phpsdk/index.html)
-[![Analytics](https://ga-beacon.appspot.com/UA-69014260-4/Kentico/delivery-sdk-php)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-69014260-4/Kentico/delivery-sdk-php?pixel)](https://github.com/igrigorik/ga-beacon)
 
 ## Summary
 
