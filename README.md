@@ -5,7 +5,6 @@
 [![Code Climate](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/delivery-sdk-php)
 [![Forums](https://img.shields.io/badge/chat-on%20forums-orange.svg)](https://forums.kenticocloud.com)
 [![Docs](https://img.shields.io/badge/documentation-API--Reference-green.svg)](https://kentico.github.io/phpsdk/index.html)
-[![Analytics](https://ga-beacon.appspot.com/UA-69014260-4/Kentico/delivery-sdk-php?pixel)](https://github.com/igrigorik/ga-beacon)
 
 ## Summary
 
@@ -234,3 +233,5 @@ We would like to express our thanks to the following people who contributed and 
 - [Stephen Rushing](https://github.com/stephenr85/) - [eSiteful](http://www.esiteful.com/home) - [ORIGINAL WORK](https://github.com/stephenr85/KenticoCloud.Deliver.PHP)
 
 Would you like to become a hero too? Pick an [issue](https://github.com/Kentico/delivery-sdk-php/issues) and send us a pull request!
+
+![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/delivery-sdk-php?pixel)
