@@ -44,9 +44,9 @@ class ModelBinder
     /**
      *  Serves for converting links to desired types.
      *
-     * @var InlineModularContentResolverInterface|null
+     * @var InlineLinkedItemsResolverInterface|null
      */
-    protected $inlineModularContentResolver = null;
+    protected $inlineLinkedItemsResolver = null;
 
     /**
      * ModelBinder constructor.
@@ -71,8 +71,8 @@ class ModelBinder
             case 'contentLinkUrlResolver':
                 $this->contentLinkUrlResolver = $value;
                 break;
-            case 'inlineModularContentResolver':
-                $this->inlineModularContentResolver = $value;
+            case 'inlineLinkedItemsResolver':
+                $this->inlineLinkedItemsResolver = $value;
                 break;
             default:
                 return;
@@ -80,35 +80,35 @@ class ModelBinder
     }
 
     /**
-     * Instantiates models for given content items and resolves modular content as nested models.
+     * Instantiates models for given content items and resolves linked items as nested models.
      *
      * @param $contentItems
-     * @param null $modularContent
+     * @param null $linkedItems
      *
      * @return array
      */
-    public function getContentItems($contentItems, $modularContent = null)
+    public function getContentItems($contentItems, $linkedItems = null)
     {
         $arr = array();
         foreach ($contentItems as $item) {
-            $arr[$item->system->codename] = $this->getContentItem($item, $modularContent);
+            $arr[$item->system->codename] = $this->getContentItem($item, $linkedItems);
         }
 
         return $arr;
     }
 
     /**
-     * Instantiates model for a given content item and resolves modular content as nested models.
+     * Instantiates model for a given content item and resolves linked items as nested models.
      *
      * @param $item
-     * @param null $modularContent
+     * @param null $linkedItems
      *
      * @return array
      */
-    public function getContentItem($item, $modularContent = null)
+    public function getContentItem($item, $linkedItems = null)
     {
         $class = $this->typeMapper->getTypeClass($item->system->type);
-        $contentItem = $this->bindModel($class, $item, $modularContent);
+        $contentItem = $this->bindModel($class, $item, $linkedItems);
 
         return $contentItem;
     }
@@ -118,12 +118,12 @@ class ModelBinder
      *
      * @param $modelType "strong" type of predefined model to bind the $data to
      * @param $data JSON response containing content items
-     * @param null $modularContent JSON response containing nested modular content items
+     * @param null $linkedItems JSON response containing nested linked items
      * @param null $processedItems collection of already processed items (to avoid infinite loops)
      *
      * @return mixed
      */
-    public function bindModel($modelType, $data, $modularContent = null, $processedItems = null)
+    public function bindModel($modelType, $data, $linkedItems = null, $processedItems = null)
     {
         $processedItems = $processedItems ?? array();
         $model = new $modelType();
@@ -149,7 +149,7 @@ class ModelBinder
                     // The item contains a value element
                     if (isset($dataProperty->type)) {
                         // The item is an element (complex type that contains a type information)
-                        $modelPropertyValue = $this->bindElement($dataProperty, $modularContent, $processedItems);
+                        $modelPropertyValue = $this->bindElement($dataProperty, $linkedItems, $processedItems);
                     } else {
                         // Bind the nested value element
                         $modelPropertyValue = $dataProperty->value;
@@ -170,12 +170,12 @@ class ModelBinder
      * Binds an element to an appropriate model based on the element's type.
      *
      * @param $item Content item element to bind
-     * @param null $modularContent JSON response containing nested modular content items
+     * @param null $linkedItems JSON response containing nested linked items
      * @param null $processedItems collection of already processed items (to avoid infinite loops)
      *
      * @return mixed
      */
-    public function bindElement($element, $modularContent, $processedItems)
+    public function bindElement($element, $linkedItems, $processedItems)
     {
         $result = null;
         switch ($element->type) {
@@ -183,15 +183,15 @@ class ModelBinder
             case 'taxonomy':
             case 'multiple_choice':
                 // Map well-known types to their models
-                $result = $this->bindKnownType($element, $modularContent, $processedItems);
+                $result = $this->bindKnownType($element, $linkedItems, $processedItems);
                 break;
             case 'modular_content':
                 // Recursively bind the nested models
-                $result = $this->bindModularContent($element, $modularContent, $processedItems);
+                $result = $this->bindLinkedItems($element, $linkedItems, $processedItems);
                 break;
             case 'rich_text':
                 // Resolve nested artifacts in rich-text elements
-                $result = $this->getComplexValue($element, $modularContent, $processedItems);
+                $result = $this->getComplexValue($element, $linkedItems, $processedItems);
                 break;
             default:
                 // Use a value converter to get the value in a proper format/type
@@ -205,16 +205,16 @@ class ModelBinder
     /**
      * Converts a given complex value to a specified type.
      *
-     * @param mixed      $element        modular content item element
-     * @param mixed|null $modularContent JSON response containing nested modular content items
+     * @param mixed      $element  linked items element
+     * @param mixed|null $linkedItems JSON response containing nested linked items
      * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
      *
      * @return mixed
      */
-    private function getComplexValue($element, $modularContent, $processedItems)
+    private function getComplexValue($element, $linkedItems, $processedItems)
     {
         $result = $this->resolveLinksUrls($element->value, $element->links);
-        $result = $this->resolveInlineModularContent($result, $modularContent, $processedItems);
+        $result = $this->resolveInlineLinkedItems($result, $linkedItems, $processedItems);
 
         return $result;
     }
@@ -252,16 +252,16 @@ class ModelBinder
     }
 
     /**
-     * Resolve all modular items detected in input html.
+     * Resolve all linked items detected in input html.
      *
-     * @var string input html containing modular items
+     * @var string input html containing linked items
      *
-     * @param mixed|null $modularContent JSON response containing nested modular content items
+     * @param mixed|null $linkedItems JSON response containing nested linked items
      * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
      */
-    private function resolveInlineModularContent($input, $modularContent, $processedItems)
+    private function resolveInlineLinkedItems($input, $linkedItems, $processedItems)
     {
-        if (empty($this->inlineModularContentResolver)) {
+        if (empty($this->inlineLinkedItemsResolver)) {
             return $input;
         }
 
@@ -269,51 +269,51 @@ class ModelBinder
         $dom = $parser->str_get_html($input);
 
         // Not possible to use multiple attribute selectors
-        $modularItems = $dom->find('object[type=application/kenticocloud]');
-        foreach ($modularItems as $modularItem) {
-            $modularItem->outertext = $this->resolveModularItem($modularItem, $modularContent, $processedItems);
+        $linkedItems = $dom->find('object[type=application/kenticocloud]');
+        foreach ($linkedItems as $linkedItem) {
+            $linkedItem->outertext = $this->resolveLinkedItem($linkedItem, $linkedItems, $processedItems);
         }
 
         return (string) $dom;
     }
 
     /**
-     * Resolve modular item in input html.
+     * Resolve linked item in input html.
      *
-     * @var string input html containing modular item
+     * @var string input html containing linked item
      *
-     * @param mixed|null $modularContent JSON response containing nested modular content items
+     * @param mixed|null $linkedItems JSON response containing nested linked items
      * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
      */
-    private function resolveModularItem($modularItem, $modularContent, $processedItems)
+    private function resolveLinkedItem($linkedItem, $linkedItems, $processedItems)
     {
-        if ($modularItem->getAttribute('data-type') != 'item') {
-            return $modularItem->outertext;
+        if ($linkedItem->getAttribute('data-type') != 'item') {
+            return $linkedItem->outertext;
         }
 
-        $itemCodeName = $modularItem->getAttribute('data-codename');
-        $modularContentArray = get_object_vars($modularContent);
-        $modularData = array_merge($modularContentArray, $processedItems);
-        if (isset($modularData[$itemCodeName])) {
-            $modularItem->outertext = $this->inlineModularContentResolver->resolveInlineModularContent($modularItem->outertext, $modularData[$itemCodeName]);
+        $itemCodeName = $linkedItem->getAttribute('data-codename');
+        $linkedItemsArray = get_object_vars($linkedItems);
+        $linkedItemData = array_merge($linkedItemsArray, $processedItems);
+        if (isset($linkedItemData[$itemCodeName])) {
+            $linkedItem->outertext = $this->inlineLinkedItemsResolver->resolveInlineLinkedItems($linkedItem->outertext, $linkedItemData[$itemCodeName]);
         }
 
-        return $modularItem->outertext;
+        return $linkedItem->outertext;
     }
 
     /**
      * Uses a well-known type to bind the element's data.
      *
-     * @param $element modular content item element
-     * @param null $modularContent JSON response containing nested modular content items
+     * @param $element linked items element
+     * @param null $linkedItems JSON response containing nested linked items
      * @param null $processedItems collection of already processed items (to avoid infinite loops)
      */
-    public function bindKnownType($element, $modularContent, $processedItems)
+    public function bindKnownType($element, $linkedItems, $processedItems)
     {
         $knownTypes = array();
         foreach ($element->value as $knownType) {
             $knownTypeClass = $this->typeMapper->getTypeClass($element->type);
-            $knowTypeModel = $this->bindModel($knownTypeClass, $knownType, $modularContent, $processedItems);
+            $knowTypeModel = $this->bindModel($knownTypeClass, $knownType, $linkedItems, $processedItems);
             $knownTypes[] = $knowTypeModel;
         }
 
@@ -321,35 +321,35 @@ class ModelBinder
     }
 
     /**
-     * Binds a modular content element to a "strongly" typed model.
+     * Binds a linked items element to a "strongly" typed model.
      *
-     * @param $element modular content item element
-     * @param null $modularContent JSON response containing nested modular content items
+     * @param $element linked items element
+     * @param null $linkedItems JSON response containing nested linked items
      * @param null $processedItems collection of already processed items (to avoid infinite loops)
      */
-    public function bindModularContent($element, $modularContent, $processedItems)
+    public function bindLinkedItems($element, $linkedItems, $processedItems)
     {
-        $modelModularItems = null;
-        if ($modularContent != null) {
-            $modelModularItems = array();
-            foreach ($element->value as $modularCodename) {
+        $modelLinkedItems = null;
+        if ($linkedItems != null) {
+            $modelLinkedItems = array();
+            foreach ($element->value as $linkedItemCodename) {
                 // Try to load the content item from processed items
-                if (isset($processedItems[$modularCodename])) {
-                    $subItem = $processedItems[$modularCodename];
+                if (isset($processedItems[$linkedItemCodename])) {
+                    $subItem = $processedItems[$linkedItemCodename];
                 } else {
                     // If not found, recursively load model
-                    if (isset($modularContent->$modularCodename)) {
-                        $class = $this->typeMapper->getTypeClass($modularContent->$modularCodename->system->type);
-                        $subItem = $this->bindModel($class, $modularContent->$modularCodename, $modularContent, $processedItems);
-                        $processedItems[$modularCodename] = $subItem;
+                    if (isset($linkedItems->$linkedItemCodename)) {
+                        $class = $this->typeMapper->getTypeClass($linkedItems->$linkedItemCodename->system->type);
+                        $subItem = $this->bindModel($class, $linkedItems->$linkedItemCodename, $linkedItems, $processedItems);
+                        $processedItems[$linkedItemCodename] = $subItem;
                     } else {
                         $subItem = null;
                     }
                 }
-                $modelModularItems[$modularCodename] = $subItem;
+                $modelLinkedItems[$linkedItemCodename] = $subItem;
             }
         }
 
-        return $modelModularItems;
+        return $modelLinkedItems;
     }
 }

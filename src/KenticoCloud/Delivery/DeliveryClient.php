@@ -16,7 +16,7 @@ use Exception;
  */
 class DeliveryClient
 {
-    private $sdkVersion = '1.2.0';
+    private $sdkVersion = '2.0.0';
 
     private $urlBuilder = null;
     private $previewMode = false;
@@ -58,11 +58,11 @@ class DeliveryClient
     public $contentLinkUrlResolver = null;
 
     /**
-     *  Serves for converting inline modular content to desired html.
+     *  Serves for converting inline linked items to desired html.
      *
-     * @var InlineModularContentResolverInterface|null
+     * @var InlineLinkedItemsResolverInterface|null
      */
-    public $inlineModularContentResolver = null;
+    public $inlineLinkedItemsResolver = null;
 
     /**
      * Gets or sets ModelBinder which serves for binding of JSON responses to defined content item models.
@@ -324,7 +324,7 @@ class DeliveryClient
             }
             $this->modelBinder = new ModelBinder($this->typeMapper ?? $defaultMapper, $this->propertyMapper ?? $defaultMapper, $this->valueConverter ?? $defaultMapper);
             $this->modelBinder->contentLinkUrlResolver = $this->contentLinkUrlResolver ?? $defaultMapper;
-            $this->modelBinder->inlineModularContentResolver = $this->inlineModularContentResolver ?? $defaultMapper;
+            $this->modelBinder->inlineLinkedItemsResolver = $this->inlineLinkedItemsResolver ?? $defaultMapper;
         }
 
         return $this->modelBinder;

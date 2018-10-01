@@ -12,7 +12,7 @@ use KenticoCloud\Delivery\Models\Items\ContentItemSystem;
 /**
  * Class DefaultMapper serves for resolving strong types based on provided information.
  */
-class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, ValueConverterInterface, ContentLinkUrlResolverInterface, InlineModularContentResolverInterface
+class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, ValueConverterInterface, ContentLinkUrlResolverInterface, InlineLinkedItemsResolverInterface
 {
     const ELEMENTS_ATTRIBUTE_NAME = 'elements';
 
@@ -165,14 +165,14 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
     }
 
     /**
-     * Return resolved inline modular content item.
+     * Return resolved inline linked item.
      * 
-     * @param string $input input html of inline modular content.
-     * @param mixed $item data for inline modular content.
+     * @param string $input input html of inline linked items.
+     * @param mixed $item data for inline linked items.
      * 
      * @return string
      */
-    public function resolveInlineModularContent($input, $item)
+    public function resolveInlineLinkedItems($input, $item)
     {
         if(isset($item) && strpos($input, $item->system->codename) !== false){
             return $input;

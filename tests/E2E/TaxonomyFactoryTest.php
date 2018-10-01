@@ -38,7 +38,7 @@ class TaxnomyFactoryTest extends TestCase
             "4ce421e9-c403-eee8-fdc2-74f09392a749",
             "Manufacturer",
             "manufacturer",
-            "2017-09-07T08:15:22.7215324Z"
+            "2017-09-07T08:15:22.7210000Z"
         );
 
         $term1 = new Taxonomies\Term();
@@ -113,7 +113,7 @@ class TaxnomyFactoryTest extends TestCase
             "4ce421e9-c403-eee8-fdc2-74f09392a749",
             "Manufacturer",
             "manufacturer",
-            "2017-09-07T08:15:22.7215324Z"
+            "2017-09-07T08:15:22.7210000Z"
         );
 
         $term1 = new Taxonomies\Term();

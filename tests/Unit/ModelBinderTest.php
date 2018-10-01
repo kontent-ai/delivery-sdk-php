@@ -3,7 +3,7 @@
 namespace KenticoCloud\Tests\Unit;
 
 use KenticoCloud\Delivery\ContentLinkUrlResolverInterface;
-use KenticoCloud\Delivery\InlineModularContentResolverInterface;
+use KenticoCloud\Delivery\InlineLinkedItemsResolverInterface;
 use KenticoCloud\Delivery\ModelBinder;
 use KenticoCloud\Delivery\DefaultMapper;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +25,7 @@ class ModelBinderTest extends TestCase
             ->willReturn('/404');
         $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
         $modelBinder->contentLinkUrlResolver = $contentLinkUrlResolver;
-        $modelBinder->inlineModularContentResolver = $defaultMapper;
+        $modelBinder->inlineLinkedItemsResolver = $defaultMapper;
 
         $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingBrokenAndNonbrokenLinks.json');
         $data = json_decode($itemJson);
@@ -40,15 +40,15 @@ class ModelBinderTest extends TestCase
         $this->assertContains('<a data-item-id="FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF" href="/404">404</a>', $model->bodyCopy);
     }
 
-    public function test_BindModel_DefaultImplementation_InlineModularContentNotChanged()
+    public function test_BindModel_DefaultImplementation_InlineLinkedItemsNotChanged()
     {
         $defaultMapper = new DefaultMapper();
 
         $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
         $modelBinder->contentLinkUrlResolver = $defaultMapper;
-        $modelBinder->inlineModularContentResolver = $defaultMapper;
+        $modelBinder->inlineLinkedItemsResolver = $defaultMapper;
 
-        $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingInlineModularContent.json');
+        $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingInlineLinkedItems.json');
         $data = json_decode($itemJson);
 
         $model = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
@@ -57,22 +57,22 @@ class ModelBinderTest extends TestCase
         $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_2"></object>', $model->bodyCopy);
     }
 
-    public function test_BindModel_MockImplementation_InlineModularContentResolved()
+    public function test_BindModel_MockImplementation_InlineLinkedItemsResolved()
     {
         $defaultMapper = new DefaultMapper();
-        $inlineModularContentResolver = $this->createMock(InlineModularContentResolverInterface::class);
-        $inlineModularContentResolver
+        $inlineLinkedItemsResolver = $this->createMock(InlineLinkedItemsResolverInterface::class);
+        $inlineLinkedItemsResolver
         ->expects($this->exactly(3))
-        ->method('resolveInlineModularContent')
+        ->method('resolveInlineLinkedItems')
         ->will($this->returnCallback(function ($input, $item) {
             return '<div>'.$item->system->name.'</div>';
         }));
 
         $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
         $modelBinder->contentLinkUrlResolver = $defaultMapper;
-        $modelBinder->inlineModularContentResolver = $inlineModularContentResolver;
+        $modelBinder->inlineLinkedItemsResolver = $inlineLinkedItemsResolver;
 
-        $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingInlineModularContent.json');
+        $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingInlineLinkedItems.json');
         $data = json_decode($itemJson);
 
         $model = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);

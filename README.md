@@ -155,7 +155,7 @@ When retrieving a list of content items, you get an instance of the `ContentItem
 * If a property contains a collection of objects, it's typed as an array which is indexed by:
   * codenames, if the contained entities have a code name
   * numbers, if they don't have code names. We use zero-based indexing.
-* If a property references modular content items (property is of the modular content type), the references are replaced with the respective [content items](#single-content-item-response) themselves.
+* If a property references linked items (property is of the linked item type), the references are replaced with the respective [content items](#single-content-item-response) themselves.
 * If a property is of asset, multiple choice option, or taxonomy group type, it's resolved to respective well-known models from the `KenticoCloud\Delivery\Models\Items` namespace.
 * All timestamps are typed as `\DateTime`.
 * All numbers are typed as `float`.
@@ -168,7 +168,7 @@ It's possible to instruct the SDK to fill and return your own predefined models.
 - `PropertyMapperInterface` (optional) - to change the default behavior of property mapping (the default property translation works like this: 'content_type' -> 'contentType')
 - `ValueConverterInterface` (optional) - to change the way content element types are mapped to PHP types
 - `ContentLinkUrlResolverInterface` (optional) - to change the way the links in rich text elements are resolved see [Resolving links to content items](https://github.com/Kentico/delivery-sdk-php/wiki/Resolving-links-to-content-items).
-- `InlineModularContentResolverInterface` (optional) - to change the way the inline modular items in rich text elements are resolved see [Modular content items resolving in Rich text](https://github.com/Kentico/delivery-sdk-php/wiki/Modular-content-items-resolving-in-Rich-text).
+- `InlineLinkedItemsResolverInterface` (optional) - to change the way the inline linked items in rich text elements are resolved see [Linked content items resolving in Rich text](https://github.com/Kentico/delivery-sdk-php/wiki/Linked-content-items-resolving-in-Rich-text).
 
 The default implementation of all the interfaces can be found in a class called [`DefaultMapper`](https://github.com/Kentico/delivery-sdk-php/blob/master/src/KenticoCloud/Delivery/DefaultMapper.php).
 

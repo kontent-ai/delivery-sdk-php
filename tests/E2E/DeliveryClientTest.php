@@ -224,7 +224,7 @@ class DeliveryClientTest extends TestCase
         }
     }
 
-    public function testModularContentResolution()
+    public function testLinkedItemsResolution()
     {
         $params = (new QueryParams())->codename('home');
         $client = new DeliveryClient($this->getProjectId());
