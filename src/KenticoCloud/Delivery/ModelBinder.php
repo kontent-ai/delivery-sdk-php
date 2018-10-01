@@ -256,10 +256,10 @@ class ModelBinder
      *
      * @var string input html containing linked items
      *
-     * @param mixed|null $linkedItems JSON response containing nested linked items
+     * @param mixed|null $linkedItemsData JSON response containing nested linked items
      * @param mixed|null $processedItems collection of already processed items (to avoid infinite loops)
      */
-    private function resolveInlineLinkedItems($input, $linkedItems, $processedItems)
+    private function resolveInlineLinkedItems($input, $linkedItemsData, $processedItems)
     {
         if (empty($this->inlineLinkedItemsResolver)) {
             return $input;
@@ -271,7 +271,7 @@ class ModelBinder
         // Not possible to use multiple attribute selectors
         $linkedItems = $dom->find('object[type=application/kenticocloud]');
         foreach ($linkedItems as $linkedItem) {
-            $linkedItem->outertext = $this->resolveLinkedItem($linkedItem, $linkedItems, $processedItems);
+            $linkedItem->outertext = $this->resolveLinkedItem($linkedItem, $linkedItemsData, $processedItems);
         }
 
         return (string) $dom;
