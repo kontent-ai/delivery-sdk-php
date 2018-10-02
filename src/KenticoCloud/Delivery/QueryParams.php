@@ -15,9 +15,9 @@ class QueryParams implements \ArrayAccess
     public $data = array();
 
     /**
-     * Specifies the maximum level of recursion when retrieving modular content items. If not specified, the default depth is one level.
+     * Specifies the maximum level of recursion when retrieving linked items. If not specified, the default depth is one level.
      *
-     * @param int $depth the maximum level of recursion to use when retrieving modular content items
+     * @param int $depth the maximum level of recursion to use when retrieving linked items
      *
      * @return $this
      */
@@ -138,7 +138,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * Represents a filter that matches a content item if the specified content element or system attribute has a value that contains all the specified values.
-     * This filter is applicable to array values only, such as sitemap location or value of Modular content, Taxonomy and Multiple choice content elements.
+     * This filter is applicable to array values only, such as sitemap location or value of Linked Items, Taxonomy and Multiple choice content elements.
      *
      * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
      * @param $values the filter values
@@ -154,7 +154,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * Represents a filter that matches a content item if the specified content element or system attribute has a value that contains any of the specified values.
-     * This filter is applicable to array values only, such as sitemap location or value of Modular content, Taxonomy and Multiple choice content elements.
+     * This filter is applicable to array values only, such as sitemap location or value of Linked Items, Taxonomy and Multiple choice content elements.
      *
      * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
      * @param $values the filter values
@@ -185,7 +185,7 @@ class QueryParams implements \ArrayAccess
 
     /**
      * Represents a filter that matches a content item if the specified content element or system attribute has a value that contains the specified value.
-     * This filter is applicable to array values only, such as sitemap location or value of Modular content, Taxonomy and Multiple choice content elements.
+     * This filter is applicable to array values only, such as sitemap location or value of Linked Items, Taxonomy and Multiple choice content elements.
      *
      * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
      * @param $value the filter value

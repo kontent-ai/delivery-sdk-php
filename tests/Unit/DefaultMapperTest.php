@@ -43,23 +43,23 @@ class DefaultMapperTest extends TestCase
         $this->assertEmpty($result);
     }
 
-    public function test_ResolveInlineModularContent_ItemNull_returnEmptyString()
+    public function test_ResolveInlineLinkedItems_ItemNull_returnEmptyString()
     {
         $mapper = new DefaultMapper();
         $input = '<object type=\"application/kenticocloud\" data-type=\"item\" data-codename=\"modular_item_1\"></object>';
-        $result = $mapper->resolveInlineModularContent($input, null); 
+        $result = $mapper->resolveInlineLinkedItems($input, null); 
         
         $this->assertTrue(is_string($result));
         $this->assertEmpty($result);
     }
 
-    public function test_ResolveInlineModularContent_ItemValid_returnInput()
+    public function test_ResolveInlineLinkedItems_ItemValid_returnInput()
     {
         $mapper = new DefaultMapper();
         $input = '<object type=\"application/kenticocloud\" data-type=\"item\" data-codename=\"modular_item_1\"></object>';
         $itemJson = file_get_contents('./tests/Unit/Data/SimpleItem.json');
         $item = json_decode($itemJson);
-        $result = $mapper->resolveInlineModularContent($input, $item); 
+        $result = $mapper->resolveInlineLinkedItems($input, $item); 
         
         $this->assertTrue(is_string($result));
         $this->assertEquals($input, $result);
