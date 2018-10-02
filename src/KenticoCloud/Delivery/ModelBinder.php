@@ -287,17 +287,14 @@ class ModelBinder
      */
     private function resolveLinkedItem($linkedItem, $linkedItems, $processedItems)
     {
-        if ($linkedItem->getAttribute('data-type') != 'item') {
-            return $linkedItem->outertext;
+        if ($linkedItem->getAttribute('data-type') == 'item' || $linkedItem->getAttribute('data-type') == 'component') {
+            $itemCodeName = $linkedItem->getAttribute('data-codename');
+            $linkedItemsArray = get_object_vars($linkedItems);
+            $linkedItemData = array_merge($linkedItemsArray, $processedItems);
+            if (isset($linkedItemData[$itemCodeName])) {
+                $linkedItem->outertext = $this->inlineLinkedItemsResolver->resolveInlineLinkedItems($linkedItem->outertext, $linkedItemData[$itemCodeName]);
+            }
         }
-
-        $itemCodeName = $linkedItem->getAttribute('data-codename');
-        $linkedItemsArray = get_object_vars($linkedItems);
-        $linkedItemData = array_merge($linkedItemsArray, $processedItems);
-        if (isset($linkedItemData[$itemCodeName])) {
-            $linkedItem->outertext = $this->inlineLinkedItemsResolver->resolveInlineLinkedItems($linkedItem->outertext, $linkedItemData[$itemCodeName]);
-        }
-
         return $linkedItem->outertext;
     }
 
