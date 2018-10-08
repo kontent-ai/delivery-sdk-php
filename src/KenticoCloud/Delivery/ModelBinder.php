@@ -287,7 +287,7 @@ class ModelBinder
      */
     private function resolveLinkedItem($linkedItem, $linkedItems, $processedItems)
     {
-        if ($linkedItem->getAttribute('data-type') == 'item' || $linkedItem->getAttribute('data-type') == 'component') {
+        if ($linkedItem->getAttribute('data-type') == 'item') {
             $itemCodeName = $linkedItem->getAttribute('data-codename');
             $linkedItemsArray = get_object_vars($linkedItems);
             $linkedItemData = array_merge($linkedItemsArray, $processedItems);
