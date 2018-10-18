@@ -78,9 +78,9 @@ class DeliveryClientTest extends TestCase
     public function testMultipleChoice()
     {
         $client = new DeliveryClient($this->getProjectId());
-        $item = $client->getItem('how_to_make_a_cappuccino');
+        $item = $client->getItem('the_coffee_story');
         $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class, $item->videoHost[0]);
-        $this->assertEquals('YouTube', $item->videoHost[0]->name);
+        $this->assertEquals('Vimeo', $item->videoHost[0]->name);
     }
 
     public function testAssets()
