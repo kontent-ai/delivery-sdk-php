@@ -10,6 +10,9 @@
 
 The Kentico Cloud Delivery PHP SDK is a client library used for retrieving content from Kentico Cloud. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico-cloud/delivery-sdk-php). The library currently supports only PHP 7 and above.
 
+## Sample site
+Check out a sample site running on Laravel utilizing this SDK here: https://github.com/Kentico/kentico-cloud-sample-app-php 
+
 ## Installation
 
 The best way to install the client is through a dependency manager called [Composer](https://getcomposer.org/):
@@ -222,10 +225,10 @@ Check out the [contributing](https://github.com/Kentico/delivery-sdk-php/blob/ma
 3. Run `phpunit` to verify that everything works as expected
 
 ### Developing on Windows
-Have a look at our cool [tutorial](https://github.com/Kentico/delivery-sdk-php/wiki) on developing PHP on Windows with Visual Studio Code!
+Have a look at our cool [tutorial](https://github.com/Kentico/delivery-sdk-php/wiki/Developing-PHP-in-Visual-Studio-Code-for-Dummies) on developing PHP on Windows with Visual Studio Code!
 
 ### Developing on Linux
-Do you prefer penguins? Check out the [tutorial](https://github.com/Kentico/delivery-sdk-php/wiki/Configuring-PHP-Storm-on-Linux) on developing PHP on Linux with PhpStorm!
+Do you prefer penguins? Check out our [tutorials](https://github.com/Kentico/delivery-sdk-php/wiki/Configuring-PHP-Storm-on-Linux) on developing PHP on Linux with PhpStorm!
 
 ### Wall of Fame
 We would like to express our thanks to the following people who contributed and made the project possible:
