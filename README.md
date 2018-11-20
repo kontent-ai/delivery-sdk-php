@@ -82,6 +82,8 @@ $items = $client->getItems();
 The SDK supports full scale of the API querying and filtering capabilities as described in the [API reference](https://developer.kenticocloud.com/reference#content-filtering).
 
 ```php
+use KenticoCloud\Delivery\QueryParams;
+
 // Retrieves a list of the specified elements from the first 10 content items of
 // the 'brewer' content type, ordered by the 'product_name' element value
 $response = $client->getItems((new QueryParams())
@@ -96,6 +98,8 @@ $response = $client->getItems((new QueryParams())
 The language selection is just a matter of specifying one additional filtering parameter to the query.
 
 ```php
+use KenticoCloud\Delivery\QueryParams;
+
 // Retrieves a list of the specified elements from the first 10 content items of
 // the 'brewer' content type, ordered by the 'product_name' element value
 $response = $client->getItems((new QueryParams())
@@ -111,6 +115,8 @@ $response = $client->getItems((new QueryParams())
 The language selection is just a matter of specifying one additional filtering parameter to the query.
 
 ```php
+use KenticoCloud\Delivery\QueryParams;
+
 // Retrieves a list of the specified taxonomy groups.
 $response = $client->getTaxonomies((new QueryParams())
   ->limit(3);
