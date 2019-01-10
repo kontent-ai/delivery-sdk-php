@@ -112,7 +112,7 @@ $response = $client->getItems((new QueryParams())
 
 ### Working with taxonomies
 
-The language selection is just a matter of specifying one additional filtering parameter to the query.
+To retrieve information about your taxonomies, you can use the `getTaxonomy` and `getTaxonomies` methods. Additionally, you can specify query [parameters](https://developer.kenticocloud.com/v1/reference#list-taxonomy-groups).
 
 ```php
 use KenticoCloud\Delivery\QueryParams;
