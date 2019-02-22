@@ -3,7 +3,6 @@
 [![Packagist](https://img.shields.io/packagist/v/kentico-cloud/delivery-sdk-php.svg)](https://packagist.org/packages/kentico-cloud/delivery-sdk-php)
 [![Test Coverage](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/coverage.svg)](https://codeclimate.com/github/Kentico/delivery-sdk-php/coverage)
 [![Code Climate](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/delivery-sdk-php)
-[![Forums](https://img.shields.io/badge/chat-on%20forums-orange.svg)](https://forums.kenticocloud.com)
 [![Docs](https://img.shields.io/badge/documentation-API--Reference-green.svg)](https://kentico.github.io/phpsdk/index.html)
 
 ## Summary
