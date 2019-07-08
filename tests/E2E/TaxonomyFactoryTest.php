@@ -69,7 +69,7 @@ class TaxnomyFactoryTest extends TestCase
 
     public function testCreateTaxonomies_FullTaxonomyResponse_NoRecordIsMissing()
     {
-        $expectedCount = 4;
+        $expectedCount = 5;
         $client = $this->getClient();
         $params = new QueryParams();
         $taxonomies = $client->getTaxonomies($params);
