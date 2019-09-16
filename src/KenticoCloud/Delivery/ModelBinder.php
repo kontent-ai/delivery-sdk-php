@@ -6,7 +6,7 @@
 namespace KenticoCloud\Delivery;
 
 use KenticoCloud\Delivery\Models\Items\ContentLink;
-use Sunra\PhpSimple\HtmlDomParser;
+use KubAT\PhpSimple\HtmlDomParser;
 
 /**
  * Class ModelBinder.
