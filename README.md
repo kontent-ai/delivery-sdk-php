@@ -1,30 +1,34 @@
-# Kentico Cloud Delivery SDK for PHP
+# Kentico Kontent Delivery SDK for PHP
+
 [![Build Status](https://travis-ci.com/Kentico/delivery-sdk-php.svg?branch=master)](https://travis-ci.com/Kentico/delivery-sdk-php)
-[![Packagist](https://img.shields.io/packagist/v/kentico-cloud/delivery-sdk-php.svg)](https://packagist.org/packages/kentico-cloud/delivery-sdk-php)
-[![Test Coverage](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/coverage.svg)](https://codeclimate.com/github/Kentico/delivery-sdk-php/coverage)
-[![Code Climate](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/delivery-sdk-php)
+[![Packagist](https://img.shields.io/packagist/v/kentico-cloud/delivery-sdk-php.svg)](https://packagist.org/packages/kentico/kontent-delivery-sdk-php)
+[![Test Coverage](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/coverage.svg)](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php/coverage)
+[![Code Climate](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php)
 [![Docs](https://img.shields.io/badge/documentation-API--Reference-green.svg)](https://kentico.github.io/phpsdk/index.html)
 [![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-cloud)
 
 ## Summary
 
-The Kentico Cloud Delivery PHP SDK is a client library used for retrieving content from Kentico Cloud. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico-cloud/delivery-sdk-php). The library currently supports only PHP 7 and above.
+The Kentico Kontent Delivery PHP SDK is a client library used for retrieving content from Kentico Kontent. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico/kontent-delivery-sdk-php). The library currently supports only PHP 7 and above.
 
 ## Sample site
-Check out a sample site running on Laravel utilizing this SDK here: https://github.com/Kentico/kentico-cloud-sample-app-php 
+
+Check out a sample site running on Laravel utilizing this SDK here: [https://github.com/Kentico/kentico-cloud-sample-app-php](https://github.com/Kentico/kentico-cloud-sample-app-php)
 
 ## Installation
 
 The best way to install the client is through a dependency manager called [Composer](https://getcomposer.org/):
 
+```sh
+composer require kentico/kontent-delivery-sdk-php
 ```
-composer require kentico-cloud/delivery-sdk-php
-```
+
 or adjusting your `composer.json` file:
-```
+
+```sh
 {
     "require": {
-        "kentico-cloud/delivery-sdk-php": "^1.0.0"
+        "kentico/kontent-delivery-sdk-php": "^1.0.0"
     }
 }
 ```
@@ -35,14 +39,13 @@ Writing object-oriented applications requires one PHP source file per class defi
 
 Since the SDK uses [Composer](https://getcomposer.org/) dependency manager and specifies autoload information, Composer generates a [vendor/autoload.php](https://getcomposer.org/doc/01-basic-usage.md#autoloading) file. You can simply include this file and start using the namespaces that those libraries offer without any extra work:
 
-```
+```sh
 require __DIR__ . '/vendor/autoload.php';
 ```
   
-
 ## Using the DeliveryClient
 
-The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kentico Cloud projects.
+The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kentico Kontent projects.
 
 To create an instance of the class, you need to provide a [project ID](https://developer.kenticocloud.com/v1/docs/getting-content#section-getting-content-items).
 
@@ -57,10 +60,9 @@ There are some other optional parameters that you can use during the `DeliveryCl
 
 * `$previewApiKey` – sets the Delivery Preview API key. The client will automatically start using the preview endpoint for querying. See [previewing unpublished content](#previewing-unpublished-content).
 * `$securedProductionApiKey` – sets the production Delivery API key (do not combine it with the Delivery Preview API key)
-* `$waitForLoadingNewContent` – makes the client instance wait while fetching updated content, useful when acting upon [webhook calls](https://developer.kenticocloud.com/docs/webhooks#section-requesting-new-content).
+* `$waitForLoadingNewContent` – makes the client instance wait while fetching updated content, useful when acting upon [webhook calls](https://docs.kontent.ai/tutorials/develop-apps/integrate/using-webhooks-for-automatic-updates#section-requesting-new-content).
 * `$debugRequests` – switches the HTTP client to debug mode
-* `$retryAttempts` – number of times the client will retry to connect to the Kentico Cloud API on failures per request
-
+* `$retryAttempts` – number of times the client will retry to connect to the Kentico Kontent API on failures per request
 
 Once you create a `DeliveryClient`, you can start querying your project repository by calling methods on the client instance. See [Basic querying](#basic-querying) for details.
 
@@ -75,7 +77,6 @@ $item = $client->getItem('about_us');
 // Retrieves a list of all content items
 $items = $client->getItems();
 ```
-
 
 ### Filtering retrieved data
 
@@ -127,7 +128,7 @@ $response = $client->getTaxonomy('persona');
 
 ## Previewing unpublished content
 
-To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kentico Cloud project has its own Preview API key. 
+To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kentico Kontent project has its own Preview API key.
 
 ```php
 // Note: Within a single project, we recommend that you work with only
@@ -135,8 +136,7 @@ To retrieve unpublished content, you need to create a `DeliveryClient` with both
 $client = new DeliveryClient('YOUR_PROJECT_ID', 'YOUR_PREVIEW_API_KEY');
 ```
 
-For more details, see [Previewing unpublished content using the Delivery API](https://developer.kenticocloud.com/docs/preview-content-via-api).
-
+For more details, see [Previewing unpublished content using the Delivery API](https://docs.kontent.ai/tutorials/write-and-collaborate/preview-content/previewing-unpublished-content).
 
 ## Response structure
 
@@ -160,6 +160,7 @@ When retrieving a list of content items, you get an instance of the `ContentItem
 * An array of the requested [content items](#single-content-item-response)
 
 ### Properties and their types
+
 * All properties are named in the [camelCase](https://en.wikipedia.org/wiki/Camel_case) style.
 * If a property contains a collection of objects, it's typed as an array which is indexed by:
   * codenames, if the contained entities have a code name
@@ -173,13 +174,13 @@ When retrieving a list of content items, you get an instance of the `ContentItem
 
 It's possible to instruct the SDK to fill and return your own predefined models. To do that you have to implement:
 
-- `TypeMapperInterface` (required) - to provide mapping of Kentico Cloud content types to your models
-- `PropertyMapperInterface` (optional) - to change the default behavior of property mapping (the default property translation works like this: 'content_type' -> 'contentType')
-- `ValueConverterInterface` (optional) - to change the way content element types are mapped to PHP types
-- `ContentLinkUrlResolverInterface` (optional) - to change the way the links in Rich text elements are resolved see [Resolving links to content items](https://github.com/Kentico/delivery-sdk-php/wiki/Resolving-links-to-content-items).
-- `InlineLinkedItemsResolverInterface` (optional) - to change the way content items in Rich text elements are resolved see [Resolving content items and components in Rich text](https://github.com/Kentico/delivery-sdk-php/wiki/Resolving-content-items-and-components-in-Rich-text).
+* `TypeMapperInterface` (required) - to provide mapping of Kentico Kontent content types to your models
+* `PropertyMapperInterface` (optional) - to change the default behavior of property mapping (the default property translation works like this: 'content_type' -> 'contentType')
+* `ValueConverterInterface` (optional) - to change the way content element types are mapped to PHP types
+* `ContentLinkUrlResolverInterface` (optional) - to change the way the links in Rich text elements are resolved see [Resolving links to content items](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Resolving-links-to-content-items).
+* `InlineLinkedItemsResolverInterface` (optional) - to change the way content items in Rich text elements are resolved see [Resolving content items and components in Rich text](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Resolving-content-items-and-components-in-Rich-text).
 
-The default implementation of all the interfaces can be found in a class called [`DefaultMapper`](https://github.com/Kentico/delivery-sdk-php/blob/master/src/KenticoCloud/Delivery/DefaultMapper.php).
+The default implementation of all the interfaces can be found in a class called [`DefaultMapper`](https://github.com/Kentico/kontent-delivery-sdk-php/blob/master/src/KenticoCloud/Delivery/DefaultMapper.php).
 
 Example:
 
@@ -221,26 +222,28 @@ class ArticleModel
 }
 ```
 
-
 ## Feedback & Contributing
 
-Check out the [contributing](https://github.com/Kentico/delivery-sdk-php/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
+Check out the [contributing](https://github.com/Kentico/kontent-delivery-sdk-php/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
 
 1. Clone the repository
 2. Run `composer install` to install dependencies
 3. Run `phpunit` to verify that everything works as expected
 
 ### Developing on Windows
-Have a look at our cool [tutorial](https://github.com/Kentico/delivery-sdk-php/wiki/Developing-PHP-in-Visual-Studio-Code-for-Dummies) on developing PHP on Windows with Visual Studio Code!
+
+Have a look at our cool [tutorial](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Developing-PHP-in-Visual-Studio-Code-for-Dummies) on developing PHP on Windows with Visual Studio Code!
 
 ### Developing on Linux
-Do you prefer penguins? Check out our [tutorials](https://github.com/Kentico/delivery-sdk-php/wiki/Configuring-PHP-Storm-on-Linux) on developing PHP on Linux with PhpStorm!
+
+Do you prefer penguins? Check out our [tutorials](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Configuring-PHP-Storm-on-Linux) on developing PHP on Linux with PhpStorm!
 
 ### Wall of Fame
+
 We would like to express our thanks to the following people who contributed and made the project possible:
 
-- [Stephen Rushing](https://github.com/stephenr85/) - [eSiteful](http://www.esiteful.com/home) - [ORIGINAL WORK](https://github.com/stephenr85/KenticoCloud.Deliver.PHP)
+* [Stephen Rushing](https://github.com/stephenr85/) - [eSiteful](http://www.esiteful.com/home) - [ORIGINAL WORK](https://github.com/stephenr85/KenticoCloud.Deliver.PHP)
 
-Would you like to become a hero too? Pick an [issue](https://github.com/Kentico/delivery-sdk-php/issues) and send us a pull request!
+Would you like to become a hero too? Pick an [issue](https://github.com/Kentico/kontent-delivery-sdk-php/issues) and send us a pull request!
 
-![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/delivery-sdk-php?pixel)
+![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-delivery-sdk-php?pixel)
