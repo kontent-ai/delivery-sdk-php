@@ -7,7 +7,7 @@ namespace Kentico\Kontent\Delivery\Models\Items;
 
 /**
  * Class ContentItemsResponse
- * @package KenticoCloud\Delivery\Models\Items
+ * @package Kentico\Kontent\Delivery\Models\Items
  */
 class ContentItemsResponse
 {

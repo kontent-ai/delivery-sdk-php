@@ -7,7 +7,7 @@ namespace Kentico\Kontent\Delivery\Models\Types;
 
 /**
  * Class ContentTypesResponse
- * @package KenticoCloud\Delivery\Models\Types
+ * @package Kentico\Kontent\Delivery\Models\Types
  */
 class ContentTypesResponse
 {

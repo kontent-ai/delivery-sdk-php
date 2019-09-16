@@ -145,7 +145,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
     /**
      * Returns a URL of the linked content item.
      *
-     * @param KenticoCloud\Delivery\Models\Items\ContentLink $link The link to a content item that needs to be resolved.
+     * @param Kentico\Kontent\Delivery\Models\Items\ContentLink $link The link to a content item that needs to be resolved.
      *
      * @return string
      */

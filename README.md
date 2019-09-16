@@ -1,11 +1,11 @@
 # Kentico Kontent Delivery SDK for PHP
 
-[![Build Status](https://travis-ci.com/Kentico/delivery-sdk-php.svg?branch=master)](https://travis-ci.com/Kentico/delivery-sdk-php)
-[![Packagist](https://img.shields.io/packagist/v/kentico-cloud/delivery-sdk-php.svg)](https://packagist.org/packages/kentico/kontent-delivery-sdk-php)
+[![Build Status](https://travis-ci.com/Kentico/kontent-delivery-sdk-php.svg?branch=master)](https://travis-ci.com/Kentico/delivery-sdk-php)
+[![Packagist](https://img.shields.io/packagist/v/kentico/kontent-delivery-sdk-php.svg)](https://packagist.org/packages/kentico/kontent-delivery-sdk-php)
 [![Test Coverage](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/coverage.svg)](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php/coverage)
-[![Code Climate](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php)
+[![Code Climate](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php)
 [![Docs](https://img.shields.io/badge/documentation-API--Reference-green.svg)](https://kentico.github.io/phpsdk/index.html)
-[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-cloud)
+[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-kontent)
 
 ## Summary
 
@@ -47,7 +47,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kentico Kontent projects.
 
-To create an instance of the class, you need to provide a [project ID](https://developer.kenticocloud.com/v1/docs/getting-content#section-getting-content-items).
+To create an instance of the class, you need to provide a [project ID](https://docs.kontent.ai/tutorials/develop-apps/get-content/getting-content#section-getting-content-items).
 
 ```php
 use Kentico\Kontent\Delivery\DeliveryClient;
@@ -166,7 +166,7 @@ When retrieving a list of content items, you get an instance of the `ContentItem
   * codenames, if the contained entities have a code name
   * numbers, if they don't have code names. We use zero-based indexing.
 * If a property references linked items (property is of the linked item type), the references are replaced with the respective [content items](#single-content-item-response) themselves.
-* If a property is of asset, multiple choice option, or taxonomy group type, it's resolved to respective well-known models from the `KenticoCloud\Delivery\Models\Items` namespace.
+* If a property is of asset, multiple choice option, or taxonomy group type, it's resolved to respective well-known models from the `Kentico\Kontent\Delivery\Models\Items` namespace.
 * All timestamps are typed as `\DateTime`.
 * All numbers are typed as `float`.
 

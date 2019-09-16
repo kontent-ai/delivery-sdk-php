@@ -9,7 +9,7 @@ use \Kentico\Kontent\Delivery\Models\Taxonomies;
 
 /**
  * Class TaxonomyFactory
- * @package KenticoCloud\Delivery
+ * @package Kentico\Kontent\Delivery
  */
 class TaxonomyFactory
 {

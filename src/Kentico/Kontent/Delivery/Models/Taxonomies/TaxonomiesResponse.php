@@ -7,7 +7,7 @@ namespace Kentico\Kontent\Delivery\Models\Taxonomies;
 
 /**
  * Class TaxonomiesResponse
- * @package KenticoCloud\Delivery\Models\Taxonomies
+ * @package Kentico\Kontent\Delivery\Models\Taxonomies
  */
 class TaxonomiesResponse
 {

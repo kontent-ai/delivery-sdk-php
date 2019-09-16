@@ -9,7 +9,7 @@ use Kentico\Kontent\Delivery\Models\Shared\AbstractSystem;
 
 /**
  * Class ContentTypeSystem
- * @package KenticoCloud\Delivery\Models\Types
+ * @package Kentico\Kontent\Delivery\Models\Types
  */
 class ContentTypeSystem extends AbstractSystem
 {
