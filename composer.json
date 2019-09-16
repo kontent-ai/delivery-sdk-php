@@ -9,14 +9,14 @@
         "headless",
         "cms",
         "kentico",
-        "kentico-cloud",
+        "kentico-kontent",
         "headless-cms"
     ],
     "homepage": "https://kenticocloud.com/",
     "authors": [
         {
             "name": "Kentico",
-            "email": "developerscommunity@kentico.com"
+            "email": "devrel@kentico.com"
         },
         {
             "name": "Stephen Rushing",
