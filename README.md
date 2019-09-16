@@ -50,7 +50,7 @@ The `DeliveryClient` class is the main class of the SDK. Using this class, you c
 To create an instance of the class, you need to provide a [project ID](https://developer.kenticocloud.com/v1/docs/getting-content#section-getting-content-items).
 
 ```php
-use KenticoCloud\Delivery\DeliveryClient;
+use Kentico\Kontent\Delivery\DeliveryClient;
 
 // Initializes an instance of the DeliveryClient client
 $client = new DeliveryClient('975bf280-fd91-488c-994c-2f04416e5ee3');
@@ -83,7 +83,7 @@ $items = $client->getItems();
 The SDK supports full scale of the API querying and filtering capabilities as described in the [API reference](https://developer.kenticocloud.com/reference#content-filtering).
 
 ```php
-use KenticoCloud\Delivery\QueryParams;
+use Kentico\Kontent\Delivery\QueryParams;
 
 // Retrieves a list of the specified elements from the first 10 content items of
 // the 'brewer' content type, ordered by the 'product_name' element value
@@ -99,7 +99,7 @@ $response = $client->getItems((new QueryParams())
 The language selection is just a matter of specifying one additional filtering parameter to the query.
 
 ```php
-use KenticoCloud\Delivery\QueryParams;
+use Kentico\Kontent\Delivery\QueryParams;
 
 // Retrieves a list of the specified elements from the first 10 content items of
 // the 'brewer' content type, ordered by the 'product_name' element value
@@ -116,7 +116,7 @@ $response = $client->getItems((new QueryParams())
 To retrieve information about your taxonomies, you can use the `getTaxonomy` and `getTaxonomies` methods. Additionally, you can specify query [parameters](https://developer.kenticocloud.com/v1/reference#list-taxonomy-groups).
 
 ```php
-use KenticoCloud\Delivery\QueryParams;
+use Kentico\Kontent\Delivery\QueryParams;
 
 // Retrieves a list of the specified taxonomy groups.
 $response = $client->getTaxonomies((new QueryParams())
@@ -191,9 +191,9 @@ class TetsMapper extends DefaultMapper
     {
         switch ($typeName) {
             case 'home':
-                return \KenticoCloud\Tests\E2E\HomeModel::class;
+                return \Kentico\Kontent\Tests\E2E\HomeModel::class;
             case 'article':
-                return \KenticoCloud\Tests\E2E\ArticleModel::class;
+                return \Kentico\Kontent\Tests\E2E\ArticleModel::class;
         }
 
         return parent::getTypeClass($typeName);
@@ -206,7 +206,7 @@ public function testMethod()
     $client = new DeliveryClient('975bf280-fd91-488c-994c-2f04416e5ee3');
     $client->typeMapper = new TetsMapper();
     $item = $client->getItem('on_roasts');
-    $this->assertInstanceOf(\KenticoCloud\Tests\E2E\ArticleModel::class, $item); // Passes
+    $this->assertInstanceOf(\Kentico\Kontent\Tests\E2E\ArticleModel::class, $item); // Passes
 }
 
 ```

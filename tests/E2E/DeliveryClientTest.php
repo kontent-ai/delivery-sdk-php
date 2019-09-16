@@ -1,9 +1,9 @@
 <?php
 
-namespace KenticoCloud\Tests\E2E;
+namespace Kentico\Kontent\Tests\E2E;
 
-use KenticoCloud\Delivery\DeliveryClient;
-use KenticoCloud\Delivery\QueryParams;
+use Kentico\Kontent\Delivery\DeliveryClient;
+use Kentico\Kontent\Delivery\QueryParams;
 use PHPUnit\Framework\TestCase;
 
 class DeliveryClientTest extends TestCase
@@ -20,7 +20,7 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
         $this->assertEquals('On Roasts', $item->title);
         $this->assertEquals('on-roasts', $item->urlPattern);
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
+        $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\ContentItemSystem::class, $item->system);
     }
 
     public function testGetArticleWithLinksItem()
@@ -30,8 +30,8 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('117cdfae-52cf-4885-b271-66aef6825612', $item->system->id);
         $this->assertEquals('Coffee processing techniques', $item->title);
         $this->assertEquals('coffee-processing-techniques', $item->urlPattern);
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\ContentItemSystem::class, $item->system);
+        $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\ContentItemSystem::class, $item->system);
+        $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\ContentItemSystem::class, $item->system);
         $this->assertContains('<a data-item-id="80c7074b-3da1-4e1d-882b-c5716ebb4d25" href="/kenya-gakuyuni-aa">Kenya Gakuyuni AA</a>', $item->bodyCopy);
         $this->assertContains('<a data-item-id="0c9a11bb-6fc3-409c-b3cb-f0b797e15489" href="/brazil-natural-barra-grande">Brazil Natural Barra Grande</a>', $item->bodyCopy);
     }
@@ -79,7 +79,7 @@ class DeliveryClientTest extends TestCase
     {
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('the_coffee_story');
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\MultipleChoiceOption::class, $item->videoHost[0]);
+        $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\MultipleChoiceOption::class, $item->videoHost[0]);
         $this->assertEquals('Vimeo', $item->videoHost[0]->name);
     }
 
@@ -87,7 +87,7 @@ class DeliveryClientTest extends TestCase
     {
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('home_page_hero_unit');
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Items\Asset::class, $item->image[0]);
+        $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\Asset::class, $item->image[0]);
         $this->assertEquals('banner-default.jpg', $item->image[0]->name);
     }
 
@@ -157,7 +157,7 @@ class DeliveryClientTest extends TestCase
         $client = new DeliveryClient($this->getProjectId());
         $taxonomy = $client->getTaxonomy($codename);
 
-        $this->assertInstanceOf(\KenticoCloud\Delivery\Models\Taxonomies\Taxonomy::class, $taxonomy);
+        $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Taxonomies\Taxonomy::class, $taxonomy);
     }
 
     public function testGetTaxonomy_CodenameManufacturer_HasFourTerms()

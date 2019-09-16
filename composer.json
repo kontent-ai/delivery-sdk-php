@@ -1,8 +1,8 @@
 {
-    "name": "kentico-cloud/delivery-sdk-php",
+    "name": "kentico/kontent-delivery-sdk-php",
     "type": "library",
     "license": "MIT",
-    "description": "Kentico Cloud Delivery SDK for PHP",
+    "description": "Kentico Kontent Delivery SDK for PHP",
     "keywords": [
         "delivery",
         "content-delivery",
@@ -12,7 +12,7 @@
         "kentico-kontent",
         "headless-cms"
     ],
-    "homepage": "https://kenticocloud.com/",
+    "homepage": "https://kontent.ai/",
     "authors": [
         {
             "name": "Kentico",
@@ -35,7 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "KenticoCloud\\": "src/KenticoCloud"
+            "Kentico\\Kontent\\": "src/Kentico/Kontent"
         }
     }
 }

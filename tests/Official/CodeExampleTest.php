@@ -1,9 +1,9 @@
 <?php
 
-namespace KenticoCloud\Tests\Official;
+namespace Kentico\Kontent\Tests\Official;
 
-use KenticoCloud\Delivery\DeliveryClient;
-use KenticoCloud\Delivery\QueryParams;
+use Kentico\Kontent\Delivery\DeliveryClient;
+use Kentico\Kontent\Delivery\QueryParams;
 use PHPUnit\Framework\TestCase;
 
 class CodeExamplesTests extends TestCase

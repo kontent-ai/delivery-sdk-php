@@ -1,11 +1,11 @@
 <?php
 
-namespace KenticoCloud\Tests\Unit;
+namespace Kentico\Kontent\Tests\Unit;
 
-use KenticoCloud\Delivery\ContentLinkUrlResolverInterface;
-use KenticoCloud\Delivery\InlineLinkedItemsResolverInterface;
-use KenticoCloud\Delivery\ModelBinder;
-use KenticoCloud\Delivery\DefaultMapper;
+use Kentico\Kontent\Delivery\ContentLinkUrlResolverInterface;
+use Kentico\Kontent\Delivery\InlineLinkedItemsResolverInterface;
+use Kentico\Kontent\Delivery\ModelBinder;
+use Kentico\Kontent\Delivery\DefaultMapper;
 use PHPUnit\Framework\TestCase;
 
 class ModelBinderTest extends TestCase
@@ -30,7 +30,7 @@ class ModelBinderTest extends TestCase
         $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingBrokenAndNonbrokenLinks.json');
         $data = json_decode($itemJson);
 
-        $model = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Items\ContentItem::class, $data);
+        $model = $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data);
 
         // Test content links
         $this->assertContains('<a data-item-id="00000000-0000-0000-0000-000000000002" href="/custom/link-1">Link 1</a>', $model->bodyCopy);
@@ -51,7 +51,7 @@ class ModelBinderTest extends TestCase
         $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingInlineLinkedItems.json');
         $data = json_decode($itemJson);
 
-        $model = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
+        $model = $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
 
         $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);
         $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_2"></object>', $model->bodyCopy);
@@ -75,7 +75,7 @@ class ModelBinderTest extends TestCase
         $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingInlineLinkedItems.json');
         $data = json_decode($itemJson);
 
-        $model = $modelBinder->bindModel(\KenticoCloud\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
+        $model = $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
 
         $this->assertContains('<div>Modular item 1</div>', $model->bodyCopy);
         $this->assertContains('<div>Modular item 2</div>', $model->bodyCopy);

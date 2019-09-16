@@ -1,8 +1,8 @@
 <?php
 
-namespace KenticoCloud\Tests\Unit;
+namespace Kentico\Kontent\Tests\Unit;
 
-use KenticoCloud\Delivery\DeliveryClient;
+use Kentico\Kontent\Delivery\DeliveryClient;
 use PHPUnit\Framework\TestCase;
 use Httpful\Request;
 use InvalidArgumentException;

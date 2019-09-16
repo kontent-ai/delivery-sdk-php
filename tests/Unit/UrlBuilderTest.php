@@ -1,10 +1,10 @@
 <?php
 
-namespace KenticoCloud\Tests\Unit;
+namespace Kentico\Kontent\Tests\Unit;
 
-use KenticoCloud\Delivery\UrlBuilder;
+use Kentico\Kontent\Delivery\UrlBuilder;
 use PHPUnit\Framework\TestCase;
-use KenticoCloud\Delivery\QueryParams;
+use Kentico\Kontent\Delivery\QueryParams;
 
 class UrlBuilderTest extends TestCase
 {
