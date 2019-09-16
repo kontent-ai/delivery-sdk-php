@@ -22,8 +22,8 @@ class UrlBuilder
      * @var bool
      */
     public $usePreviewApi = false;
-    const PREVIEW_ENDPOINT = 'https://preview-deliver.kenticocloud.com/';
-    const PRODUCTION_ENDPOINT = 'https://deliver.kenticocloud.com/';
+    const PREVIEW_ENDPOINT = 'https://preview-deliver.kontent.ai/';
+    const PRODUCTION_ENDPOINT = 'https://deliver.kontent.ai/';
 
     const URL_TEMPLATE_ITEM = '/items/%s';
     const URL_TEMPLATE_ITEMS = '/items';
