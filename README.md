@@ -27,7 +27,7 @@ or adjusting your `composer.json` file:
 ```
 {
     "require": {
-        "kentico-cloud/delivery-sdk-php": "^1.0.0"
+        "kentico-cloud/delivery-sdk-php": "^2.0.0"
     }
 }
 ```
