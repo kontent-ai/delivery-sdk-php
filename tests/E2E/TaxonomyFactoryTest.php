@@ -1,11 +1,11 @@
 <?php
-namespace KenticoCloud\Tests\Unit;
+namespace Kentico\Kontent\Tests\Unit;
 
-use KenticoCloud\Delivery;
+use Kentico\Kontent\Delivery;
 use PHPUnit\Framework\TestCase;
-use KenticoCloud\Delivery\DeliveryClient;
-use KenticoCloud\Delivery\Models\Taxonomies;
-use KenticoCloud\Delivery\QueryParams;
+use Kentico\Kontent\Delivery\DeliveryClient;
+use Kentico\Kontent\Delivery\Models\Taxonomies;
+use Kentico\Kontent\Delivery\QueryParams;
 
 class TaxnomyFactoryTest extends TestCase
 {
@@ -22,7 +22,7 @@ class TaxnomyFactoryTest extends TestCase
     public function testCreateTaxonomies_NullResponse_IsEmptyArray()
     {
         $response = null;
-        $factory = new \KenticoCloud\Delivery\TaxonomyFactory();
+        $factory = new \Kentico\Kontent\Delivery\TaxonomyFactory();
         $taxonomies = $factory->createTaxonomies($response);
 
         $this->assertEquals(array(), $taxonomies);
@@ -97,7 +97,7 @@ class TaxnomyFactoryTest extends TestCase
         $codename = "manufacturer";
         $taxonomy = $client->getTaxonomy($codename);
 
-        $this->assertTrue(is_a($taxonomy, \KenticoCloud\Delivery\Models\Taxonomies\Taxonomy::class));
+        $this->assertTrue(is_a($taxonomy, \Kentico\Kontent\Delivery\Models\Taxonomies\Taxonomy::class));
     }
 
     public function testCreateTaxonomy_SingleTaxonomyResponse_NestedTaxonomyStructureIsCreated()

@@ -1,6 +1,6 @@
 <?php
 
-namespace KenticoCloud\Tests\E2E;
+namespace Kentico\Kontent\Tests\E2E;
 
 class ArticleModel
 {
