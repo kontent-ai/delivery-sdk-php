@@ -1,4 +1,7 @@
-# Kentico Cloud Delivery SDK for PHP
+# Kentico Cloud Delivery SDK for PHP - DEPRECATED
+
+**:warning: This package is deprecated due to  [Kentico Cloud rebranding to Kentico Kontent](https://kontent.ai/blog/moving-to-caas-with-kentico-kontent) - please use [kentico/kontent-delivery-sdk-php](https://packagist.org/packages/kentico/kontent-delivery-sdk-php) instead :warning:**
+
 [![Build Status](https://travis-ci.com/Kentico/delivery-sdk-php.svg?branch=master)](https://travis-ci.com/Kentico/delivery-sdk-php)
 [![Packagist](https://img.shields.io/packagist/v/kentico-cloud/delivery-sdk-php.svg)](https://packagist.org/packages/kentico-cloud/delivery-sdk-php)
 [![Test Coverage](https://codeclimate.com/github/Kentico/delivery-sdk-php/badges/coverage.svg)](https://codeclimate.com/github/Kentico/delivery-sdk-php/coverage)
