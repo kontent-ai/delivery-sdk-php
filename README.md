@@ -27,7 +27,7 @@ or adjusting your `composer.json` file:
 ```sh
 {
     "require": {
-        "kentico/kontent-delivery-sdk-php": "^1.0.0"
+        "kentico/kontent-delivery-sdk-php": "^3.0.0"
     }
 }
 ```
