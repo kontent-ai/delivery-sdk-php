@@ -12,7 +12,7 @@ The Kentico Kontent Delivery PHP SDK is a client library used for retrieving con
 
 ## Sample site
 
-Check out a sample site running on Laravel utilizing this SDK here: [https://github.com/Kentico/kentico-cloud-sample-app-php](https://github.com/Kentico/kentico-cloud-sample-app-php)
+Check out a sample site running on Laravel utilizing this SDK here: [https://github.com/Kentico/kontent-sample-app-php](https://github.com/Kentico/kontent-sample-app-php)
 
 ## Installation
 
@@ -179,7 +179,7 @@ It's possible to instruct the SDK to fill and return your own predefined models.
 * `ContentLinkUrlResolverInterface` (optional) - to change the way the links in Rich text elements are resolved see [Resolving links to content items](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Resolving-links-to-content-items).
 * `InlineLinkedItemsResolverInterface` (optional) - to change the way content items in Rich text elements are resolved see [Resolving content items and components in Rich text](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Resolving-content-items-and-components-in-Rich-text).
 
-The default implementation of all the interfaces can be found in a class called [`DefaultMapper`](https://github.com/Kentico/kontent-delivery-sdk-php/blob/master/src/KenticoCloud/Delivery/DefaultMapper.php).
+The default implementation of all the interfaces can be found in a class called [`DefaultMapper`](https://github.com/Kentico/kontent-delivery-sdk-php/blob/master/src/Kentico/Kontent/Delivery/DefaultMapper.php).
 
 Example:
 
