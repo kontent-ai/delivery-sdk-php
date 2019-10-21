@@ -79,7 +79,7 @@ $items = $client->getItems();
 
 ### Filtering retrieved data
 
-The SDK supports full scale of the API querying and filtering capabilities as described in the [API reference](https://developer.kenticocloud.com/reference#content-filtering).
+The SDK supports full scale of the API querying and filtering capabilities as described in the [API reference](https://docs.kontent.ai/reference/delivery-api#tag/Filtering-content).
 
 ```php
 use Kentico\Kontent\Delivery\QueryParams;
@@ -112,7 +112,7 @@ $response = $client->getItems((new QueryParams())
 
 ### Working with taxonomies
 
-To retrieve information about your taxonomies, you can use the `getTaxonomy` and `getTaxonomies` methods. Additionally, you can specify query [parameters](https://developer.kenticocloud.com/v1/reference#list-taxonomy-groups).
+To retrieve information about your taxonomies, you can use the `getTaxonomy` and `getTaxonomies` methods. Additionally, you can specify query [parameters](https://docs.kontent.ai/reference/delivery-api#operation/list-taxonomy-groups).
 
 ```php
 use Kentico\Kontent\Delivery\QueryParams;
@@ -139,7 +139,7 @@ For more details, see [Previewing unpublished content using the Delivery API](ht
 
 ## Response structure
 
-For full description of single and multiple content item JSON response formats, see our [API reference](https://developer.kenticocloud.com/reference#listing-response).
+For full description of single and multiple content item JSON response formats, see our [API reference](https://docs.kontent.ai/reference/delivery-api#operation/list-content-items).
 
 ### Single content item response
 
