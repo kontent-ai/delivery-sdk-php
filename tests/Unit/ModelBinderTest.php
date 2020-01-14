@@ -57,6 +57,23 @@ class ModelBinderTest extends TestCase
         $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_2"></object>', $model->bodyCopy);
     }
 
+    public function test_BindModel_DefaultImplementationEmptyRichTextValue_ResolvedWithNoError()
+    {
+        $defaultMapper = new DefaultMapper();
+
+        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
+        $modelBinder->contentLinkUrlResolver = $defaultMapper;
+        $modelBinder->inlineLinkedItemsResolver = $defaultMapper;
+
+        $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextWithEmptyValue.json');
+        $data = json_decode($itemJson);
+
+        $model = $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
+
+        $this->assertTrue(is_string($model->bodyCopy));
+        $this->assertEmpty($model->bodyCopy);
+    }
+
     public function test_BindModel_MockImplementation_InlineLinkedItemsResolved()
     {
         $defaultMapper = new DefaultMapper();
