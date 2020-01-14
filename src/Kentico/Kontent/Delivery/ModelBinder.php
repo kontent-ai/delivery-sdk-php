@@ -213,6 +213,9 @@ class ModelBinder
      */
     private function getComplexValue($element, $linkedItems, $processedItems)
     {
+        if(empty($element->value)){
+            return $element->value;
+        }
         $result = $this->resolveLinksUrls($element->value, $element->links);
         $result = $this->resolveInlineLinkedItems($result, $linkedItems, $processedItems);
 
