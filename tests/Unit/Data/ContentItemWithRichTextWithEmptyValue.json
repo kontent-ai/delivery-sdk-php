@@ -1,0 +1,24 @@
+{
+  "item": {
+    "system": {
+      "id": "00000000-0000-0000-0000-000000000001",
+      "name": "Fake item 1",
+      "codename": "fake_item_1",
+      "language": "en-US",
+      "type": "fake_type_1",
+      "sitemap_locations": [],
+      "last_modified": "2018-01-01T00:00:00.0000000Z"
+    },
+    "elements": {
+      "body_copy": {
+        "type": "rich_text",
+        "name": "Body Copy",
+        "images": {},
+        "links": {},
+        "modular_content": [],
+        "value": ""
+      }
+    }
+  },
+  "modular_content": {}
+}
