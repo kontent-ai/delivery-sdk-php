@@ -99,4 +99,16 @@ class ModelBinderTest extends TestCase
         $this->assertContains('<object type="application/kenticocloud" data-type="noitem" data-codename="modular_item_1"></object>', $model->bodyCopy);
         $this->assertContains('<object type="text/xml" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);
     }
+
+    public function test_BindModel_MockImplementation_TableInRichTextResolned() {
+        $defaultMapper = new DefaultMapper();
+        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
+
+        $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingComplexTable.json');
+        $data = json_decode($itemJson);
+
+        $model = $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
+        $this->assertEquals($data->item->elements->rich_text->value,  $model->richText);
+    }
+
 }
