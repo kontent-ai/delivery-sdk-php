@@ -230,7 +230,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * Represents a filter that not matches a content item if the specified content element is empty.
+     * Represents a filter that matches a content item if the specified content element is empty.
      * For rich text, use the {@see QueryParams::equals()} operator with value "\<p\>\<br\>\</p\>".
      *
      * @param $element The codename of a content element, for example elements.title.
@@ -240,6 +240,21 @@ class QueryParams implements \ArrayAccess
     public function empty($element)
     {
         array_push($this->data, $element.'[empty]');
+
+        return $this;
+    }
+
+    /**
+     * Represents a filter that matches a content item if the specified content element is not empty.
+     * For rich text, use the {@see QueryParams::notEquals()} operator with value "\<p\>\<br\>\</p\>".
+     *
+     * @param $element The codename of a content element, for example elements.title.
+     *
+     * @return $this
+     */
+    public function notEmpty($element)
+    {
+        array_push($this->data, $element.'[nempty]');
 
         return $this;
     }

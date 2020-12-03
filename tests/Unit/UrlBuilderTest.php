@@ -56,6 +56,7 @@ class UrlBuilderTest extends TestCase
         ->notEquals('system.type', 'article')
 
         ->empty('elements.note')
+        ->notEmpty('elements.slug')
 
         ->greaterThan('elements.price', 6)
         ->greaterThanOrEqual('elements.oldprice', 7)
@@ -74,7 +75,8 @@ class UrlBuilderTest extends TestCase
         $this->assertContains('system.type%5Bneq%5D=article', $url);
 
         $this->assertContains('elements.note%5Bempty%5D', $url);
-        
+        $this->assertContains('elements.slug%5Bnempty%5D', $url);
+
         $this->assertContains('elements.price%5Bgt%5D=6', $url);
         $this->assertContains('elements.oldprice%5Bgte%5D=7', $url);
         $this->assertContains('elements.shoesize%5Brange%5D=7%2C9', $url);
