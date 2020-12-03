@@ -13,6 +13,7 @@ install:
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
+  - export XDEBUG_CC_UNUSED=1               # Display number for xvfb (for headless browser testing)
   - ./cc-test-reporter before-build
 
 after_script:
