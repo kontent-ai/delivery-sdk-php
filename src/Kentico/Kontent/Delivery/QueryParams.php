@@ -215,7 +215,7 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
-     * Represents a filter that not matches a content item if the specified content element or system attribute has the specified value.
+     * Represents a filter that matches a content item if the specified content element or system attribute is not equal to the specified value.
      *
      * @param $element The codename of a content element or system attribute, for example elements.title or system.type.
      * @param $value the filter value
@@ -225,6 +225,21 @@ class QueryParams implements \ArrayAccess
     public function notEquals($element, $value)
     {
         $this->data[$element.'[neq]'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Represents a filter that not matches a content item if the specified content element is empty.
+     * For rich text, use the {@see QueryParams::equals()} operator with value "\<p\>\<br\>\</p\>".
+     *
+     * @param $element The codename of a content element, for example elements.title.
+     *
+     * @return $this
+     */
+    public function empty($element)
+    {
+        array_push($this->data, $element.'[empty]');
 
         return $this;
     }
