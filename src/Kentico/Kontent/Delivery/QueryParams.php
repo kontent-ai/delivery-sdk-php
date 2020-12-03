@@ -215,6 +215,21 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
+     * Represents a filter that not matches a content item if the specified content element or system attribute has the specified value.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.type.
+     * @param $value the filter value
+     *
+     * @return $this
+     */
+    public function notEquals($element, $value)
+    {
+        $this->data[$element.'[neq]'] = $value;
+
+        return $this;
+    }
+
+    /**
      * Represents a filter that matches a content item if the specified content element or system attribute has a value that is greater than the specified value.
      *
      * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
