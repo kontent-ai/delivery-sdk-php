@@ -184,6 +184,21 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
+     * Represents a filter that matches a content item if the specified content element or system attribute has not a value that matches a value in the specified list.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $values the filter values
+     *
+     * @return $this
+     */
+    public function notIn($element, $values)
+    {
+        $this->data[$element.'[nin]'] = implode(',', is_array($values) ? $values : array($values));
+
+        return $this;
+    }
+
+    /**
      * Represents a filter that matches a content item if the specified content element or system attribute has a value that contains the specified value.
      * This filter is applicable to array values only, such as sitemap location or value of Linked Items, Taxonomy and Multiple choice content elements.
      *

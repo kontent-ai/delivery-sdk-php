@@ -62,7 +62,11 @@ class UrlBuilderTest extends TestCase
         ->greaterThanOrEqual('elements.oldprice', 7)
         ->range('elements.shoesize', 7, 9)
         ->lessThan('elements.tax', 21)
-        ->lessThanOrEqual('elements.oldtax', 25);
+        ->lessThanOrEqual('elements.oldtax', 25)
+
+        ->in('elements.margin', array(21,15,19))
+        ->notIn('elements.oldMargin', array(42, 666));
+
         $url = $builder->getItemsUrl($params);
 
         $this->assertContains('skip=2', $url);
@@ -82,5 +86,8 @@ class UrlBuilderTest extends TestCase
         $this->assertContains('elements.shoesize%5Brange%5D=7%2C9', $url);
         $this->assertContains('elements.tax%5Blt%5D=21', $url);
         $this->assertContains('elements.oldtax%5Blte%5D=25', $url);
+
+        $this->assertContains('elements.margin%5Bin%5D=21%2C15%2C19', $url);
+        $this->assertContains('elements.oldMargin%5Bnin%5D=42%2C666', $url);
     }
 }
