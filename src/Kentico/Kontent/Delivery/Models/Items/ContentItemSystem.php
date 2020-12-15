@@ -20,6 +20,13 @@ class ContentItemSystem extends AbstractSystem
     public $type = null;
 
     /**
+     * Gets the codename of the collection, for example "default".
+     *
+     * @var null
+     */
+    public $collection = null;
+
+    /**
      * Gets a list of codenames of sitemap items to which the content item is assigned.
      *
      * @var null
@@ -44,10 +51,11 @@ class ContentItemSystem extends AbstractSystem
      * @param null $sitemapLocations Array of sitemap nodes  which the content item is assigned to
      * @param null $language         Globalization culture of a content item
      */
-    public function __construct($id = null, $name = null, $codename = null, $lastModified = null, $type = null, $sitemapLocations = null, $language = null)
+    public function __construct($id = null, $name = null, $codename = null, $lastModified = null, $type = null, $sitemapLocations = null, $language = null, $collection = null)
     {
         parent::__construct($id, $name, $codename, $lastModified);
         $this->type = $type;
+        $this->collection = $collection;
         $this->sitemapLocations = $sitemapLocations;
         $this->language = $language;
     }

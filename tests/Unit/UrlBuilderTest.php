@@ -52,6 +52,7 @@ class UrlBuilderTest extends TestCase
         ->any('elements.description', 'Hello')
         ->contains('elements.title', 'a')
         ->equals('elements.isfeatured', 'true')
+        ->equals('system.collection', 'default')
         ->greaterThan('elements.price', 6)
         ->greaterThanOrEqual('elements.oldprice', 7)
         ->range('elements.shoesize', 7, 9)
@@ -65,6 +66,7 @@ class UrlBuilderTest extends TestCase
         $this->assertContains('elements.description%5Bany%5D=Hello', $url);
         $this->assertContains('elements.title%5Bcontains%5D=a', $url);
         $this->assertContains('elements.isfeatured=true', $url);
+        $this->assertContains('system.collection=default', $url);
         $this->assertContains('elements.price%5Bgt%5D=6', $url);
         $this->assertContains('elements.oldprice%5Bgte%5D=7', $url);
         $this->assertContains('elements.shoesize%5Brange%5D=7%2C9', $url);

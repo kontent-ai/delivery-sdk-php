@@ -6,6 +6,7 @@
       "codename": "test_tables",
       "language": "en-US",
       "type": "simple_rich_text",
+      "collection": "default",
       "sitemap_locations": [],
       "last_modified": "2020-03-16T17:49:42.7165723Z"
     },

@@ -126,7 +126,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
     {
         switch ($type) {
             case 'system':
-                $result = new ContentItemSystem($value->id, $value->name, $value->codename, $value->last_modified, $value->type, $value->sitemap_locations, $value->language);
+                $result = new ContentItemSystem($value->id, $value->name, $value->codename, $value->last_modified, $value->type, $value->sitemap_locations, $value->language, $value->collection);
                 break;
             case 'date_time':
                 $result = new \DateTime($value);

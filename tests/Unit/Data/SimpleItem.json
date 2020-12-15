@@ -5,6 +5,7 @@
         "codename": "modular_item_1",
         "language": "en-US",
         "type": "fake_type_2",
+        "collection": "default",
         "sitemap_locations": [],
         "last_modified": "2018-01-01T00:00:00.0000000Z"
     },
