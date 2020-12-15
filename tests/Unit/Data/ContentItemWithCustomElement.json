@@ -11,13 +11,10 @@
       "last_modified": "2018-01-01T00:00:00.0000000Z"
     },
     "elements": {
-      "body_copy": {
-        "type": "rich_text",
-        "name": "Body Copy",
-        "images": {},
-        "links": {},
-        "modular_content": [],
-        "value": ""
+      "colorpicker": {
+        "type": "custom",
+        "name": "ColorPicker",
+        "value": "#d7e119"
       }
     }
   },

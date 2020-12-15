@@ -111,4 +111,14 @@ class ModelBinderTest extends TestCase
         $this->assertEquals($data->item->elements->rich_text->value,  $model->richText);
     }
 
+    public function test_BindModel_ModelWithCustomELement_ElementBoundProperly() {
+        $defaultMapper = new DefaultMapper();
+        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
+
+        $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithCustomElement.json');
+        $data = json_decode($itemJson);
+
+        $model = $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
+        $this->assertEquals($data->item->elements->colorpicker->value,  $model->colorpicker);
+    }
 }

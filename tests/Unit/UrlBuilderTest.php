@@ -54,13 +54,11 @@ class UrlBuilderTest extends TestCase
         ->contains('elements.title', 'a')
         ->in('elements.margin', array(21,15,19))
         ->notIn('elements.oldMargin', array(42, 666))
-
         ->equals('elements.isfeatured', 'true')
         ->notEquals('system.type', 'article')
-
         ->empty('elements.note')
         ->notEmpty('elements.slug')
-
+        ->equals('system.collection', 'default')
         ->greaterThan('elements.price', 6)
         ->greaterThanOrEqual('elements.oldprice', 7)
         ->range('elements.shoesize', 7, 9)
@@ -84,6 +82,7 @@ class UrlBuilderTest extends TestCase
         $this->assertContains('elements.note%5Bempty%5D', $url);
         $this->assertContains('elements.slug%5Bnempty%5D', $url);
 
+        $this->assertContains('system.collection=default', $url);
         $this->assertContains('elements.price%5Bgt%5D=6', $url);
         $this->assertContains('elements.oldprice%5Bgte%5D=7', $url);
         $this->assertContains('elements.shoesize%5Brange%5D=7%2C9', $url);

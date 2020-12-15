@@ -143,7 +143,7 @@ For full description of single and multiple content item JSON response formats, 
 
 ### Single content item response
 
-When retrieving a single content item, you get an instance of the `ContentItem` class. This class contains a 'system' property (with metadata about the content item, such as code name, display name, type, or sitemap location) and respective content item's elements projected as [camelCase](https://en.wikipedia.org/wiki/Camel_case) properties.
+When retrieving a single content item, you get an instance of the `ContentItem` class. This class contains a 'system' property (with metadata about the content item, such as code name, display name, type, collection, or sitemap location) and respective content item's elements projected as [camelCase](https://en.wikipedia.org/wiki/Camel_case) properties.
 
 ![Single item](https://i.imgur.com/Og3CaW0.png)
 
