@@ -59,6 +59,8 @@ class ModelBindingTest extends TestCase
         // Assert
         $this->assertEquals('On Roasts', $item->title);
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
+        $this->assertEquals('article', $item->system->type);
+        $this->assertEquals('default', $item->system->collection);
         $this->assertEquals(new \DateTime('2014-11-07T00:00:00Z'), $item->postDate);
         $this->assertCount(2, $item->personas);
         $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\TaxonomyTerm::class, $item->personas[0]);
@@ -92,5 +94,7 @@ class ModelBindingTest extends TestCase
 
         // Assert
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
+        $this->assertEquals('home', $item->system->type);
+        $this->assertEquals('default', $item->system->collection);
     }
 }
