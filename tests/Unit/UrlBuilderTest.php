@@ -48,23 +48,42 @@ class UrlBuilderTest extends TestCase
         $params = (new QueryParams())
         ->skip(2)
         ->orderAsc('title')
+
         ->all('elements.personas', array('barista', 'coffee_blogger'))
         ->any('elements.description', 'Hello')
         ->contains('elements.title', 'a')
+        ->in('elements.margin', array(21,15,19))
+        ->notIn('elements.oldMargin', array(42, 666))
+
         ->equals('elements.isfeatured', 'true')
+        ->notEquals('system.type', 'article')
+
+        ->empty('elements.note')
+        ->notEmpty('elements.slug')
+
         ->greaterThan('elements.price', 6)
         ->greaterThanOrEqual('elements.oldprice', 7)
         ->range('elements.shoesize', 7, 9)
         ->lessThan('elements.tax', 21)
         ->lessThanOrEqual('elements.oldtax', 25);
+
         $url = $builder->getItemsUrl($params);
 
         $this->assertContains('skip=2', $url);
         $this->assertContains('order=title%5Basc%5D', $url);
+
         $this->assertContains('elements.personas%5Ball%5D=barista%2Ccoffee_blogger', $url);
         $this->assertContains('elements.description%5Bany%5D=Hello', $url);
         $this->assertContains('elements.title%5Bcontains%5D=a', $url);
+        $this->assertContains('elements.margin%5Bin%5D=21%2C15%2C19', $url);
+        $this->assertContains('elements.oldMargin%5Bnin%5D=42%2C666', $url);
+
         $this->assertContains('elements.isfeatured=true', $url);
+        $this->assertContains('system.type%5Bneq%5D=article', $url);
+
+        $this->assertContains('elements.note%5Bempty%5D', $url);
+        $this->assertContains('elements.slug%5Bnempty%5D', $url);
+
         $this->assertContains('elements.price%5Bgt%5D=6', $url);
         $this->assertContains('elements.oldprice%5Bgte%5D=7', $url);
         $this->assertContains('elements.shoesize%5Brange%5D=7%2C9', $url);

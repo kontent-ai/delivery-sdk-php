@@ -184,6 +184,21 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
+     * Represents a filter that matches a content item if the specified content element or system attribute has not a value that matches a value in the specified list.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.name.
+     * @param $values the filter values
+     *
+     * @return $this
+     */
+    public function notIn($element, $values)
+    {
+        $this->data[$element.'[nin]'] = implode(',', is_array($values) ? $values : array($values));
+
+        return $this;
+    }
+
+    /**
      * Represents a filter that matches a content item if the specified content element or system attribute has a value that contains the specified value.
      * This filter is applicable to array values only, such as sitemap location or value of Linked Items, Taxonomy and Multiple choice content elements.
      *
@@ -210,6 +225,51 @@ class QueryParams implements \ArrayAccess
     public function equals($element, $value)
     {
         $this->data[$element] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Represents a filter that matches a content item if the specified content element or system attribute is not equal to the specified value.
+     *
+     * @param $element The codename of a content element or system attribute, for example elements.title or system.type.
+     * @param $value the filter value
+     *
+     * @return $this
+     */
+    public function notEquals($element, $value)
+    {
+        $this->data[$element.'[neq]'] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Represents a filter that matches a content item if the specified content element is empty.
+     * For rich text, use the {@see QueryParams::equals()} operator with value "\<p\>\<br\>\</p\>".
+     *
+     * @param $element The codename of a content element, for example elements.title.
+     *
+     * @return $this
+     */
+    public function empty($element)
+    {
+        array_push($this->data, $element.'[empty]');
+
+        return $this;
+    }
+
+    /**
+     * Represents a filter that matches a content item if the specified content element is not empty.
+     * For rich text, use the {@see QueryParams::notEquals()} operator with value "\<p\>\<br\>\</p\>".
+     *
+     * @param $element The codename of a content element, for example elements.title.
+     *
+     * @return $this
+     */
+    public function notEmpty($element)
+    {
+        array_push($this->data, $element.'[nempty]');
 
         return $this;
     }
