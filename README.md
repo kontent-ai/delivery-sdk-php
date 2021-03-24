@@ -1,6 +1,6 @@
 # Kentico Kontent Delivery SDK for PHP
 
-[![Build Status](https://travis-ci.com/Kentico/kontent-delivery-sdk-php.svg?branch=master)](https://travis-ci.com/Kentico/kontent-delivery-sdk-php)
+[![Build & Test & Report](https://github.com/Kentico/kontent-delivery-sdk-php/actions/workflows/integrate.yml/badge.svg)](https://github.com/Kentico/kontent-delivery-sdk-php/actions/workflows/integrate.yml)
 [![Packagist](https://img.shields.io/packagist/v/kentico/kontent-delivery-sdk-php.svg)](https://packagist.org/packages/kentico/kontent-delivery-sdk-php)
 [![Test Coverage](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php/badges/coverage.svg)](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php/coverage)
 [![Code Climate](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php/badges/gpa.svg)](https://codeclimate.com/github/Kentico/kontent-delivery-sdk-php)
