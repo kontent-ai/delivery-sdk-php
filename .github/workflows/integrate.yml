@@ -46,6 +46,3 @@ jobs:
 
     - name: Codecov
       uses: codecov/codecov-action@v1  
-    
-    # - name: Run test suite
-    #   run: composer run-script test
