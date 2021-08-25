@@ -171,6 +171,23 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals(4, $actualTerms, "Four 'manufacturer' terms are expected.");
     }
 
+    public function testGetLanguages_returnAllLanguages()
+    {
+        $client = new DeliveryClient($this->getProjectId());
+        $response = $client->getLanguages();
+        
+        $this->assertEquals(2, count($response->languages));
+        $firstLanguage = $response->languages[0];
+        $secondLanguage = $response->languages[1];
+        $this->assertEquals("00000000-0000-0000-0000-000000000000", $firstLanguage->system->id);
+        $this->assertEquals("English (United States)", $firstLanguage->system->name);
+        $this->assertEquals("en-US", $firstLanguage->system->codename);
+
+        $this->assertEquals("d1f95fde-af02-b3b5-bd9e-f232311ccab8", $secondLanguage->system->id);
+        $this->assertEquals("Spanish (Spain)", $secondLanguage->system->name);
+        $this->assertEquals("es-ES", $secondLanguage->system->codename);
+    }
+
     public function testGetItemPreviewApiEmpty()
     {
         $client = new DeliveryClient($this->getProjectId());
