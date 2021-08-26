@@ -6,6 +6,7 @@
 
 namespace Kentico\Kontent\Delivery;
 
+use Exception;
 use Kentico\Kontent\Delivery\Helpers\TextHelper;
 use Kentico\Kontent\Delivery\Models\Items\ContentItemSystem;
 
@@ -126,7 +127,9 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
     {
         switch ($type) {
             case 'system':
-                $result = new ContentItemSystem($value->id, $value->name, $value->codename, $value->last_modified, $value->type, $value->sitemap_locations, $value->language, $value->collection);
+                // Components does not have workflow step set
+                $workflowStep = isset($value->workflow_step) ? $value->workflow_step : null;
+                $result = new ContentItemSystem($value->id, $value->name, $value->codename, $value->last_modified, $value->type, $value->sitemap_locations, $value->language, $value->collection, $workflowStep);
                 break;
             case 'date_time':
                 $result = new \DateTime($value);

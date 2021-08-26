@@ -41,6 +41,13 @@ class ContentItemSystem extends AbstractSystem
     public $language = null;
 
     /**
+     * Gets the workflow step of the content item.
+     *
+     * @var string
+     */
+    public $workflowStep = null;
+
+    /**
      * ContentItemSystem constructor.
      *
      * @param null $id               Identifier of a content item
@@ -51,12 +58,13 @@ class ContentItemSystem extends AbstractSystem
      * @param null $sitemapLocations Array of sitemap nodes  which the content item is assigned to
      * @param null $language         Globalization culture of a content item
      */
-    public function __construct($id = null, $name = null, $codename = null, $lastModified = null, $type = null, $sitemapLocations = null, $language = null, $collection = null)
+    public function __construct($id = null, $name = null, $codename = null, $lastModified = null, $type = null, $sitemapLocations = null, $language = null, $collection = null, $workflowStep = null)
     {
         parent::__construct($id, $name, $codename, $lastModified);
         $this->type = $type;
         $this->collection = $collection;
         $this->sitemapLocations = $sitemapLocations;
         $this->language = $language;
+        $this->workflowStep = $workflowStep;
     }
 }

@@ -8,7 +8,8 @@
       "type": "fake_type_1",
       "collection": "default",
       "sitemap_locations": [],
-      "last_modified": "2018-01-01T00:00:00.0000000Z"
+      "last_modified": "2018-01-01T00:00:00.0000000Z",
+      "workflow_step": "published"
     },
     "elements": {
       "body_copy": {

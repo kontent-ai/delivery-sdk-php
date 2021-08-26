@@ -1,0 +1,117 @@
+{
+  "item": {
+    "system": {
+      "id": "00000000-0000-0000-0000-000000000002",
+      "name": "Modular item 1",
+      "codename": "modular_item_1",
+      "language": "en-US",
+      "type": "fake_type_2",
+      "collection": "default",
+      "sitemap_locations": [],
+      "last_modified": "2018-01-01T00:00:00.0000000Z",
+      "workflow_step": "published"
+    },
+    "elements": {
+      "modular_item_1_data": {
+        "type": "text",
+        "name": "Data field",
+        "value": "Modular item 1 data."
+      },
+      "bio": {
+        "type": "rich_text",
+        "name": "Bio",
+        "images": {
+          "fcf07d43-46d4-46ef-a58d-c7bf7a4aecb1": {
+            "image_id": "fcf07d43-46d4-46ef-a58d-c7bf7a4aecb1",
+            "description": null,
+            "url": "https://assets-us-01.kc-usercontent.com:443/09fc0115-dd4d-00c7-5bd9-5f73836aee81/0faa87b4-9e1e-41b8-8b38-c107cbb35147/2.jpg",
+            "width": 1600,
+            "height": 1065
+          },
+          "8d1adb2e-ee09-4c94-8758-f23be1e4969a": {
+            "image_id": "8d1adb2e-ee09-4c94-8758-f23be1e4969a",
+            "description": null,
+            "url": "https://assets-us-01.kc-usercontent.com:443/09fc0115-dd4d-00c7-5bd9-5f73836aee81/c6f94bd6-71ab-4499-98dd-d9ec39bc1a1f/1.jpg",
+            "width": 610,
+            "height": 920
+          },
+          "e268e8be-3d5e-4ba8-887c-49b357784d94": {
+            "image_id": "e268e8be-3d5e-4ba8-887c-49b357784d94",
+            "description": null,
+            "url": "https://assets-us-01.kc-usercontent.com:443/09fc0115-dd4d-00c7-5bd9-5f73836aee81/78a90563-27b0-4f7c-9213-dc3b4cf840a0/3.jpg",
+            "width": 1080,
+            "height": 810
+          }
+        },
+        "links": {
+          "59002186-1886-48f3-b8ba-6f053b5cf777": {
+            "codename": "developer_community_site",
+            "type": "website",
+            "url_slug": ""
+          }
+        },
+        "modular_content": [
+          "developer_community_site",
+          "n8bf1055d_7b61_0180_e1c6_3a09d88f0396"
+        ],
+        "value": "<p>I am a &nbsp;tech guy passionate about all of the new technologies and gadgets.<br>\n<br>\nCurrently I am interested in Gatsby.js. I have released the third version of Gatsby source plugin.<br>\n</p>\n<object type=\"application/kenticocloud\" data-type=\"item\" data-rel=\"component\" data-codename=\"n8bf1055d_7b61_0180_e1c6_3a09d88f0396\"></object>\n<p><br></p>\n<p>Interesting in exploring how storytelling and targeted messaging create business-changing content.</p>\n<p>As an Developer Advocate, I am responsible for running <a href=\"https://github.com/Kentico\">Kentico Github organization</a>, implementing inbound marketing strategies like <a data-item-id=\"59002186-1886-48f3-b8ba-6f053b5cf777\" href=\"\">Developer Community site&nbsp;</a> that help increase brand awareness of Kentico as an opensource friendly company and acquire new developers.</p>\n<object type=\"application/kenticocloud\" data-type=\"item\" data-rel=\"link\" data-codename=\"developer_community_site\"></object>\n<p>When I am not working, you’ll find me doing some sports, <a data-asset-id=\"8d1adb2e-ee09-4c94-8758-f23be1e4969a\" href=\"https://assets-us-01.kc-usercontent.com:443/09fc0115-dd4d-00c7-5bd9-5f73836aee81/c6f94bd6-71ab-4499-98dd-d9ec39bc1a1f/1.jpg\">travelling</a>, or in a pub.<br>\n</p>\n<figure data-asset-id=\"fcf07d43-46d4-46ef-a58d-c7bf7a4aecb1\" data-image-id=\"fcf07d43-46d4-46ef-a58d-c7bf7a4aecb1\"><img src=\"https://assets-us-01.kc-usercontent.com:443/09fc0115-dd4d-00c7-5bd9-5f73836aee81/0faa87b4-9e1e-41b8-8b38-c107cbb35147/2.jpg\" data-asset-id=\"fcf07d43-46d4-46ef-a58d-c7bf7a4aecb1\" data-image-id=\"fcf07d43-46d4-46ef-a58d-c7bf7a4aecb1\" alt=\"\"></figure>\n<figure data-asset-id=\"8d1adb2e-ee09-4c94-8758-f23be1e4969a\" data-image-id=\"8d1adb2e-ee09-4c94-8758-f23be1e4969a\"><img src=\"https://assets-us-01.kc-usercontent.com:443/09fc0115-dd4d-00c7-5bd9-5f73836aee81/c6f94bd6-71ab-4499-98dd-d9ec39bc1a1f/1.jpg\" data-asset-id=\"8d1adb2e-ee09-4c94-8758-f23be1e4969a\" data-image-id=\"8d1adb2e-ee09-4c94-8758-f23be1e4969a\" alt=\"\"></figure>\n<figure data-asset-id=\"e268e8be-3d5e-4ba8-887c-49b357784d94\" data-image-id=\"e268e8be-3d5e-4ba8-887c-49b357784d94\"><img src=\"https://assets-us-01.kc-usercontent.com:443/09fc0115-dd4d-00c7-5bd9-5f73836aee81/78a90563-27b0-4f7c-9213-dc3b4cf840a0/3.jpg\" data-asset-id=\"e268e8be-3d5e-4ba8-887c-49b357784d94\" data-image-id=\"e268e8be-3d5e-4ba8-887c-49b357784d94\" alt=\"\"></figure>\n<p><br></p>"
+      }
+    }
+  },
+  "modular_content": {
+    "developer_community_site": {
+      "system": {
+        "id": "59002186-1886-48f3-b8ba-6f053b5cf777",
+        "name": "Developer Community Site",
+        "codename": "developer_community_site",
+        "language": "default",
+        "type": "website",
+        "sitemap_locations": [],
+        "last_modified": "2019-04-01T18:35:02.0138459Z",
+        "collection": "default",
+        "workflow_step": "published"
+      },
+      "elements": {
+        "name": {
+          "type": "text",
+          "name": "Name",
+          "value": "Developer Community site"
+        },
+        "url": {
+          "type": "text",
+          "name": "URL",
+          "value": "https://kentico.github.io/"
+        }
+      }
+    },
+    "n8bf1055d_7b61_0180_e1c6_3a09d88f0396": {
+      "system": {
+        "id": "8bf1055d-7b61-0180-e1c6-3a09d88f0396",
+        "name": "8bf1055d-7b61-0180-e1c6-3a09d88f0396",
+        "codename": "n8bf1055d_7b61_0180_e1c6_3a09d88f0396",
+        "language": "default",
+        "type": "repository",
+        "sitemap_locations": [],
+        "last_modified": "2020-03-19T17:30:00.5131245Z",
+        "collection": "default"
+      },
+      "elements": {
+        "description": {
+          "type": "custom",
+          "name": "Description",
+          "value": "# Gatsby source plugin for Kentico Cloud\n[![Gatsby plugin library](https://img.shields.io/badge/Gatsby%20plugin%20library-%23663399.svg)](https://www.gatsbyjs.org/packages/gatsby-source-kentico-cloud)\n[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-cloud)\n\nThis repo contains a [Gatsby (v2) source plugin](https://www.gatsbyjs.org/docs/recipes/#sourcing-data) that retrieves data from the [Kentico Cloud](https://kenticocloud.com) Delivery API.\n\n## Features\n\nThe plugin creates GraphQL nodes for all Kentico Cloud content types, content items, and its language variants.\n\nThe node names are prefixed with `kenticoCloud`. More specifically, content type nodes are prefixed by `kenticoCloudType` and content items and their language variants are prefixed with `kenticoCloudItem`.\n\nGraphQL nodes of content items contain the ordinary `system` and `elements` properties. However, the properties inside `elements` always have an internal structure that the aforementioned [Delivery SDK](https://github.com/Kentico/kentico-cloud-js/blob/master/packages/delivery/lib/models/item/content-item.class.ts) produces with **modifications** described in following section."
+        },
+        "name": {
+          "type": "text",
+          "name": "Name",
+          "value": "Gatsby source plugin for Kentico Cloud"
+        },
+        "url": {
+          "type": "text",
+          "name": "URL",
+          "value": "https://github.com/Kentico/gatsby-source-kentico-cloud"
+        }
+      }
+    }
+  }
+}
