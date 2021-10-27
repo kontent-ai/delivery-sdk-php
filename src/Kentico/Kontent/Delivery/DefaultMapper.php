@@ -77,12 +77,16 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
 
         switch (count($result)) {
             case 0:
+                // Not found even in elements
+                if(!isset($data[self::ELEMENTS_ATTRIBUTE_NAME])) {
+                    return null;
+                }
                 // Search within elements
                 return $this->getProperty($data[self::ELEMENTS_ATTRIBUTE_NAME], $property);
 
             case 1:
                 // Return the first (and only) item in the array
-                return array_pop($result);            
+                return array_pop($result);
 
             default:
                 throw new Exception('More than one property found! Please adjust the property mapper.');
@@ -100,7 +104,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
     public function getModelProperties($model, $data)
     {
         if (is_a($model, $this->ci)) {
-            // Load all properties from the retireved data (including the system element)
+            // Load all properties from the retrieved data (including the system element)
             $model->system = null;
             $data = get_object_vars($data);
             foreach ($data[self::ELEMENTS_ATTRIBUTE_NAME] as $elementName => $element) {

@@ -1,4 +1,4 @@
-# Kentico Kontent Delivery SDK for PHP
+# Kontent Delivery SDK for PHP
 
 [![Build & Test & Report](https://github.com/Kentico/kontent-delivery-sdk-php/actions/workflows/integrate.yml/badge.svg)](https://github.com/Kentico/kontent-delivery-sdk-php/actions/workflows/integrate.yml)
 [![Packagist](https://img.shields.io/packagist/v/kentico/kontent-delivery-sdk-php.svg)](https://packagist.org/packages/kentico/kontent-delivery-sdk-php)
@@ -7,7 +7,7 @@
 
 ## Summary
 
-The Kentico Kontent Delivery PHP SDK is a client library used for retrieving content from Kentico Kontent. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico/kontent-delivery-sdk-php). The library currently supports only PHP 7 and above.
+The Kontent Delivery PHP SDK is a client library used for retrieving content from Kontent by Kentico. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico/kontent-delivery-sdk-php). The library currently supports only PHP 7 and above.
 
 ## Sample site
 
@@ -43,7 +43,7 @@ require __DIR__ . '/vendor/autoload.php';
   
 ## Using the DeliveryClient
 
-The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kentico Kontent projects.
+The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kontent projects.
 
 To create an instance of the class, you need to provide a [project ID](https://docs.kontent.ai/tutorials/develop-apps/get-content/getting-content#section-getting-content-items).
 
@@ -60,7 +60,7 @@ There are some other optional parameters that you can use during the `DeliveryCl
 * `$securedProductionApiKey` – sets the production Delivery API key (do not combine it with the Delivery Preview API key)
 * `$waitForLoadingNewContent` – makes the client instance wait while fetching updated content, useful when acting upon [webhook calls](https://docs.kontent.ai/tutorials/develop-apps/integrate/using-webhooks-for-automatic-updates#section-requesting-new-content).
 * `$debugRequests` – switches the HTTP client to debug mode
-* `$retryAttempts` – number of times the client will retry to connect to the Kentico Kontent API on failures per request
+* `$retryAttempts` – number of times the client will retry to connect to the Kontent API on failures per request
 
 Once you create a `DeliveryClient`, you can start querying your project repository by calling methods on the client instance. See [Basic querying](#basic-querying) for details.
 
@@ -126,7 +126,7 @@ $response = $client->getTaxonomy('persona');
 
 ## Previewing unpublished content
 
-To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kentico Kontent project has its own Preview API key.
+To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kontent project has its own Preview API key.
 
 ```php
 // Note: Within a single project, we recommend that you work with only
@@ -172,7 +172,7 @@ When retrieving a list of content items, you get an instance of the `ContentItem
 
 It's possible to instruct the SDK to fill and return your own predefined models. To do that you have to implement:
 
-* `TypeMapperInterface` (required) - to provide mapping of Kentico Kontent content types to your models
+* `TypeMapperInterface` (required) - to provide mapping of Kontent content types to your models
 * `PropertyMapperInterface` (optional) - to change the default behavior of property mapping (the default property translation works like this: 'content_type' -> 'contentType')
 * `ValueConverterInterface` (optional) - to change the way content element types are mapped to PHP types
 * `ContentLinkUrlResolverInterface` (optional) - to change the way the links in Rich text elements are resolved see [Resolving links to content items](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Resolving-links-to-content-items).

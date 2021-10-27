@@ -38,4 +38,11 @@ class Pagination
      * @var string
      */
     public $nextPage = null;
+
+    /**
+     * Gets the total number of items.
+     *
+     * @var string
+     */
+    public $totalCount = null;
 }
