@@ -351,6 +351,19 @@ class QueryParams implements \ArrayAccess
     }
 
     /**
+     * Adds the information about the total number of content items matching your query.
+     * The number doesn't include linked items returned as part of the modular_content property. For the total number of items returned within the response, see the X-Request-Charge header.
+     *
+     * @return $this
+     */
+    public function includeTotalCount()
+    {
+        $this->data['includeTotalCount'] = true;
+
+        return $this;
+    }
+
+    /**
      * @codeCoverageIgnore
      * ArrayAccess implementation (http://php.net/manual/en/class.arrayaccess.php)
      *

@@ -17,6 +17,21 @@ class DefaultMapperTest extends TestCase
         $this->assertNull($type);
     }
 
+    public function test_getProperty_forNonExistingProperty_returnNull()
+    {
+        $mapper = new DefaultMapper();
+        $data = json_decode('{
+            "skip": 0,
+            "limit": 2,
+            "count": 2,
+            "next_page": "https://deliver.kontent.ai/975bf280-fd91-488c-994c-2f04416e5ee3/items?system.type%5bin%5d=article&depth=0&language=es-ES&order=system.name%5bdesc%5d&limit=2&skip=2"
+        }');
+        $property = "totalCount";
+
+        $result = $mapper->getProperty(get_object_vars($data), $property);
+        $this->assertNull($result);
+    }
+
     public function test_ResolveLinkUrl_ReturnsUrlSlug()
     {
         $mapper = new DefaultMapper();
