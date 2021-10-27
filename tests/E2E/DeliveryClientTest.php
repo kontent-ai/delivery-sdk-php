@@ -255,7 +255,17 @@ class DeliveryClientTest extends TestCase
     {
         $params = (new QueryParams())->type('article', 'home')->depth(0)->language('es-ES')->orderDesc('system.name')->limit(2);
         $client = new DeliveryClient($this->getProjectId());
-        $items = $client->getItems($params);
-        $this->assertGreaterThan(1, count($items->items));
+        $response = $client->getItems($params);
+        $this->assertGreaterThan(1, count($response->items));
+    }
+
+    public function testIncludeTotalCount()
+    {
+        $limit = 2;
+        $params = (new QueryParams())->type('article', 'home')->depth(0)->limit($limit)->includeTotalCount();
+        $client = new DeliveryClient($this->getProjectId());
+        $response = $client->getItems($params);
+        $this->assertEquals(6, $response->pagination->totalCount);
+        $this->assertEquals($limit, $response->pagination->limit);
     }
 }
