@@ -92,4 +92,29 @@ class UrlBuilderTest extends TestCase
 
         $this->assertContains('includeTotalCount=1', $url);
     }
+
+    public function testGetTaxonomy()
+    {
+        $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
+        $builder = new UrlBuilder($projectId);
+        $url = $builder->getTaxonomyUrl('persona');
+        $this->assertEquals('https://deliver.kontent.ai/975bf280-fd91-488c-994c-2f04416e5ee3/taxonomies/persona', $url);
+    }
+
+    public function testGetTaxonomies()
+    {
+        $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
+        $builder = new UrlBuilder($projectId);
+        $url = $builder->getTaxonomiesUrl();
+        $this->assertEquals('https://deliver.kontent.ai/975bf280-fd91-488c-994c-2f04416e5ee3/taxonomies', $url);
+    }
+
+    public function testGetLanguages()
+    {
+        $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
+        $builder = new UrlBuilder($projectId);
+        $url = $builder->getLanguagesUrl();
+        $this->assertEquals('https://deliver.kontent.ai/975bf280-fd91-488c-994c-2f04416e5ee3/languages', $url);
+    }
+
 }

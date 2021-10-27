@@ -26,6 +26,7 @@ class DeliveryClient
     protected $waitForLoadingNewContent = false;
     protected $contentTypeFactory = null;
     protected $taxonomyFactory = null;
+    protected $languagesFactory = null;
     protected $debugRequests = false;
     protected $retryAttempts = 0;
 
@@ -264,6 +265,35 @@ class DeliveryClient
         return $taxonomy;
     }
 
+    /**
+     * Retrieves Languages.
+     *
+     * @param $params queryParams Specification of parameters for Language retrieval
+     *
+     * @return \Kentico\Kontent\Delivery\Models\Languages\LanguagesResponse::class of retrieved Languages
+     */
+    public function getLanguages($params = null)
+    {
+        $uri = $this->urlBuilder->getLanguagesUrl($params);
+        $response = $this->sendRequest($uri);
+
+        $factory = $this->getLanguageFactory();
+
+        $binder = $this->getModelBinder();
+
+        $properties = get_object_vars($response->body);
+
+        // Taxonomies
+        $languages = $factory->createLanguages($response->body);
+
+        // Pagination
+        $pagination = $binder->bindModel(Pagination::class, $properties[Pagination::PAGINATION_ELEMENT_NAME]);
+
+        $languagesResponse = new Models\Languages\LanguagesResponse($languages, $pagination);
+
+        return $languagesResponse;
+    }
+
     protected function initRequestTemplate()
     {
         if ($this->previewMode && $this->securedMode) {
@@ -346,5 +376,17 @@ class DeliveryClient
         }
 
         return $this->taxonomyFactory;
+    }
+
+    /**
+     * @return LanguageFactory
+     */
+    protected function getLanguageFactory()
+    {
+        if ($this->languagesFactory == null) {
+            $this->languagesFactory = new LanguageFactory();
+        }
+
+        return $this->languagesFactory;
     }
 }
