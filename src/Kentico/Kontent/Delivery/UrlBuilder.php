@@ -32,6 +32,7 @@ class UrlBuilder
     const URL_TEMPLATE_ELEMENT = '/types/%s/elements/%s';
     const URL_TEMPLATE_TAXONOMIES = '/taxonomies';
     const URL_TEMPLATE_TAXONOMY = '/taxonomies/%s';
+    const URL_TEMPLATE_LANGUAGES = '/languages';
 
     /**
      * UrlBuilder constructor.
@@ -113,9 +114,21 @@ class UrlBuilder
      *
      * @return string URL pointing to all taxonomies endpoint
      */
-    public function getTaxonomiesUrl($query)
+    public function getTaxonomiesUrl($query = null)
     {
         return $this->buildUrl(self::URL_TEMPLATE_TAXONOMIES, $query);
+    }
+
+    /**
+     * Returns URL to all languages endpoint.
+     *
+     * @param object queryParams Specification of parameters for Languages request
+     *
+     * @return string URL pointing to all languages endpoint
+     */
+    public function getLanguagesUrl($query = null)
+    {
+        return $this->buildUrl(self::URL_TEMPLATE_LANGUAGES, $query);
     }
 
     /**
