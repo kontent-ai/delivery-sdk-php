@@ -56,7 +56,7 @@ class LanguageFactory
         $system = new Models\Languages\LanguageSystem(
             $languageItem->system->id,
             $languageItem->system->name,
-            $languageItem->system->codename,
+            $languageItem->system->codename
         );
 
         $newLanguage = new Models\Languages\Language();
