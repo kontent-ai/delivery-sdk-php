@@ -118,7 +118,7 @@ class ModelBinderTest extends TestCase
         $defaultMapper = new DefaultMapper();
         $inlineLinkedItemsResolver = $this->createMock(InlineLinkedItemsResolverInterface::class);
         $inlineLinkedItemsResolver
-            ->expects($this->exactly(3))
+            ->expects($this->exactly(2))
             ->method('resolveInlineLinkedItems')
             ->will($this->returnCallback(function ($input, $item) {
                 if($item->system->codename == 'n8bf1055d_7b61_0180_e1c6_3a09d88f0396') {
