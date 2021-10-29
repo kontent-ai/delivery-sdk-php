@@ -62,7 +62,7 @@ class DefaultMapperTest extends TestCase
     {
         $mapper = new DefaultMapper();
         $input = '<object type=\"application/kenticocloud\" data-type=\"item\" data-codename=\"modular_item_1\"></object>';
-        $result = $mapper->resolveInlineLinkedItems($input, null); 
+        $result = $mapper->resolveInlineLinkedItems($input, null, null); 
         
         $this->assertTrue(is_string($result));
         $this->assertEmpty($result);
@@ -74,7 +74,7 @@ class DefaultMapperTest extends TestCase
         $input = '<object type=\"application/kenticocloud\" data-type=\"item\" data-codename=\"modular_item_1\"></object>';
         $itemJson = file_get_contents('./tests/Unit/Data/SimpleItem.json');
         $item = json_decode($itemJson);
-        $result = $mapper->resolveInlineLinkedItems($input, $item); 
+        $result = $mapper->resolveInlineLinkedItems($input, $item, null); 
         
         $this->assertTrue(is_string($result));
         $this->assertEquals($input, $result);

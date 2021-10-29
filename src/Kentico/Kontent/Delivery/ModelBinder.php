@@ -295,7 +295,7 @@ class ModelBinder
             $linkedItemsArray = get_object_vars($linkedItems);
             $linkedItemData = array_merge($linkedItemsArray, $processedItems);
             if (isset($linkedItemData[$itemCodeName])) {
-                $linkedItem->outertext = $this->inlineLinkedItemsResolver->resolveInlineLinkedItems($linkedItem->outertext, $linkedItemData[$itemCodeName]);
+                $linkedItem->outertext = $this->inlineLinkedItemsResolver->resolveInlineLinkedItems($linkedItem->outertext, $linkedItemData[$itemCodeName], $linkedItems);
             }
         }
         return $linkedItem->outertext;
