@@ -18,7 +18,7 @@ class ModelBinderTest extends TestCase
         $contentLinkUrlResolver
             ->method('resolveLinkUrl')
             ->will($this->returnCallback(function ($link) {
-                return '/custom/'.$link->urlSlug;
+                return '/custom/' . $link->urlSlug;
             }));
         $contentLinkUrlResolver
             ->method('resolveBrokenLinkUrl')
@@ -79,11 +79,11 @@ class ModelBinderTest extends TestCase
         $defaultMapper = new DefaultMapper();
         $inlineLinkedItemsResolver = $this->createMock(InlineLinkedItemsResolverInterface::class);
         $inlineLinkedItemsResolver
-        ->expects($this->exactly(3))
-        ->method('resolveInlineLinkedItems')
-        ->will($this->returnCallback(function ($input, $item) {
-            return '<div>'.$item->system->name.'</div>';
-        }));
+            ->expects($this->exactly(3))
+            ->method('resolveInlineLinkedItems')
+            ->will($this->returnCallback(function ($input, $item) {
+                return '<div>' . $item->system->name . '</div>';
+            }));
 
         $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
         $modelBinder->contentLinkUrlResolver = $defaultMapper;
@@ -100,7 +100,8 @@ class ModelBinderTest extends TestCase
         $this->assertContains('<object type="text/xml" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);
     }
 
-    public function test_BindModel_MockImplementation_TableInRichTextResolned() {
+    public function test_BindModel_MockImplementation_TableInRichTextResolved()
+    {
         $defaultMapper = new DefaultMapper();
         $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
 
@@ -111,7 +112,35 @@ class ModelBinderTest extends TestCase
         $this->assertEquals($data->item->elements->rich_text->value,  $model->richText);
     }
 
-    public function test_BindModel_ModelWithCustomELement_ElementBoundProperly() {
+    public function test_BindModel_MockImplementation_WorkflowStepNotSetForComponent()
+    {
+
+        $defaultMapper = new DefaultMapper();
+        $inlineLinkedItemsResolver = $this->createMock(InlineLinkedItemsResolverInterface::class);
+        $inlineLinkedItemsResolver
+            ->expects($this->exactly(2))
+            ->method('resolveInlineLinkedItems')
+            ->will($this->returnCallback(function ($input, $item) {
+                if($item->system->codename == 'n8bf1055d_7b61_0180_e1c6_3a09d88f0396') {
+                    $this->assertFalse(isset($item->system->workflow_step));
+                } else {
+                    $this->assertTrue(isset($item->system->workflow_step));
+                }
+                return $input;
+            }));
+
+        $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
+        $modelBinder->contentLinkUrlResolver = $defaultMapper;
+        $modelBinder->inlineLinkedItemsResolver = $inlineLinkedItemsResolver;
+
+        $itemJson = file_get_contents('./tests/Unit/Data/ContentItemWithRichTextContainingAllEntities.json');
+        $data = json_decode($itemJson);
+
+        $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
+    }
+
+    public function test_BindModel_ModelWithCustomElement_ElementBoundProperly()
+    {
         $defaultMapper = new DefaultMapper();
         $modelBinder = new ModelBinder($defaultMapper, $defaultMapper, $defaultMapper);
 

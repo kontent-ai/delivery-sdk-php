@@ -1,13 +1,12 @@
 <?php
-namespace Kentico\Kontent\Tests\Unit;
+namespace Kentico\Kontent\Tests\E2E;
 
-use Kentico\Kontent\Delivery;
 use PHPUnit\Framework\TestCase;
 use Kentico\Kontent\Delivery\DeliveryClient;
 use Kentico\Kontent\Delivery\Models\Taxonomies;
 use Kentico\Kontent\Delivery\QueryParams;
 
-class TaxnomyFactoryTest extends TestCase
+class TaxonomyFactoryTest extends TestCase
 {
     public function getClient($previewApiKey = null)
     {

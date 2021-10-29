@@ -3,38 +3,9 @@
 namespace Kentico\Kontent\Tests\E2E;
 
 use Kentico\Kontent\Delivery\DeliveryClient;
-use Kentico\Kontent\Delivery\DefaultMapper;
-use Kentico\Kontent\Delivery\ContentLinkUrlResolverInterface;
-
+use Kentico\Kontent\Tests\E2E\Utils\CustomContentLinkUrlResolver;
+use Kentico\Kontent\Tests\E2E\Utils\TestMapper;
 use PHPUnit\Framework\TestCase;
-
-class TestMapper extends DefaultMapper
-{
-    public function getTypeClass($typeName)
-    {
-        switch ($typeName) {
-            case 'home':
-                return \Kentico\Kontent\Tests\E2E\HomeModel::class;
-            case 'article':
-                return \Kentico\Kontent\Tests\E2E\ArticleModel::class;
-        }
-
-        return parent::getTypeClass($typeName);
-    }
-}
-
-class CustomContentLinkUrlResolver implements ContentLinkUrlResolverInterface
-{
-    public function resolveLinkUrl($link)
-    {
-        return "/custom/$link->urlSlug";
-    }
-
-    public function resolveBrokenLinkUrl()
-    {
-        return "/404";
-    }
-}
 
 class ModelBindingTest extends TestCase
 {
@@ -61,6 +32,7 @@ class ModelBindingTest extends TestCase
         $this->assertEquals('f4b3fc05-e988-4dae-9ac1-a94aba566474', $item->system->id);
         $this->assertEquals('article', $item->system->type);
         $this->assertEquals('default', $item->system->collection);
+        $this->assertEquals('published', $item->system->workflowStep);
         $this->assertEquals(new \DateTime('2014-11-07T00:00:00Z'), $item->postDate);
         $this->assertCount(2, $item->personas);
         $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\TaxonomyTerm::class, $item->personas[0]);
