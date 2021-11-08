@@ -81,7 +81,8 @@ class ModelBinderTest extends TestCase
         $inlineLinkedItemsResolver
             ->expects($this->exactly(3))
             ->method('resolveInlineLinkedItems')
-            ->will($this->returnCallback(function ($input, $item) {
+            ->will($this->returnCallback(function ($input, $item, $linkedItems) {
+                $this->assertCount(2, get_object_vars($linkedItems));
                 return '<div>' . $item->system->name . '</div>';
             }));
 
@@ -120,7 +121,8 @@ class ModelBinderTest extends TestCase
         $inlineLinkedItemsResolver
             ->expects($this->exactly(2))
             ->method('resolveInlineLinkedItems')
-            ->will($this->returnCallback(function ($input, $item) {
+            ->will($this->returnCallback(function ($input, $item, $linkedItems) {
+                $this->assertCount(2, get_object_vars($linkedItems));
                 if($item->system->codename == 'n8bf1055d_7b61_0180_e1c6_3a09d88f0396') {
                     $this->assertFalse(isset($item->system->workflow_step));
                 } else {

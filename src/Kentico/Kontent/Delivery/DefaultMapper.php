@@ -176,10 +176,11 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      * 
      * @param string $input input html of inline linked items.
      * @param mixed $item data for inline linked items.
+     * @param mixed|null $linkedItems JSON response containing nested linked items
      * 
      * @return string
      */
-    public function resolveInlineLinkedItems($input, $item)
+    public function resolveInlineLinkedItems($input, $item, $linkedItems)
     {
         if(isset($item) && strpos($input, $item->system->codename) !== false){
             return $input;
