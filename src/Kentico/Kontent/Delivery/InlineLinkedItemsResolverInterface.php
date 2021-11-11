@@ -19,5 +19,5 @@ interface InlineLinkedItemsResolverInterface
      * 
      * @return string
      */
-    public function resolveInlineLinkedItems($input, $item, $linkedItems);
+    public function resolveInlineLinkedItems($input, $item, $linkedItems = null);
 }

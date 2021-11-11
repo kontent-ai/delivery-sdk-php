@@ -180,7 +180,7 @@ class DefaultMapper implements TypeMapperInterface, PropertyMapperInterface, Val
      * 
      * @return string
      */
-    public function resolveInlineLinkedItems($input, $item, $linkedItems)
+    public function resolveInlineLinkedItems($input, $item, $linkedItems = null)
     {
         if(isset($item) && strpos($input, $item->system->codename) !== false){
             return $input;
