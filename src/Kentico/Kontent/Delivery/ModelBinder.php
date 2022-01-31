@@ -96,6 +96,16 @@ class ModelBinder
 
         return $arr;
     }
+    
+    public function getModularItems($contentItems, $linkedItems = null)
+    {
+        $arr = array();
+        foreach ($linkedItems as $item) {
+            $arr[$item->system->codename] = $this->getContentItem($item, $linkedItems);
+        }
+
+        return $arr;
+    }
 
     /**
      * Instantiates model for a given content item and resolves linked items as nested models.
