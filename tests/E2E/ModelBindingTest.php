@@ -52,8 +52,8 @@ class ModelBindingTest extends TestCase
         $this->assertEquals('117cdfae-52cf-4885-b271-66aef6825612', $item->system->id);
         $this->assertEquals('Coffee processing techniques', $item->title);
         $this->assertEquals('coffee-processing-techniques', $item->urlPattern);
-        $this->assertContains('<a data-item-id="80c7074b-3da1-4e1d-882b-c5716ebb4d25" href="/custom/kenya-gakuyuni-aa">Kenya Gakuyuni AA</a>', $item->bodyCopy);
-        $this->assertContains('<a data-item-id="0c9a11bb-6fc3-409c-b3cb-f0b797e15489" href="/custom/brazil-natural-barra-grande">Brazil Natural Barra Grande</a>', $item->bodyCopy);        
+        $this->assertStringContainsString('<a data-item-id="80c7074b-3da1-4e1d-882b-c5716ebb4d25" href="/custom/kenya-gakuyuni-aa">Kenya Gakuyuni AA</a>', $item->bodyCopy);
+        $this->assertStringContainsString('<a data-item-id="0c9a11bb-6fc3-409c-b3cb-f0b797e15489" href="/custom/brazil-natural-barra-grande">Brazil Natural Barra Grande</a>', $item->bodyCopy);
     }
 
     public function testHomeModel()

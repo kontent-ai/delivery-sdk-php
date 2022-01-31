@@ -33,11 +33,11 @@ class ModelBinderTest extends TestCase
         $model = $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data);
 
         // Test content links
-        $this->assertContains('<a data-item-id="00000000-0000-0000-0000-000000000002" href="/custom/link-1">Link 1</a>', $model->bodyCopy);
-        $this->assertContains('<a data-item-id="00000000-0000-0000-0000-000000000003" href="/custom/link-2">Link 2</a>', $model->bodyCopy);
+        $this->assertStringContainsString('<a data-item-id="00000000-0000-0000-0000-000000000002" href="/custom/link-1">Link 1</a>', $model->bodyCopy);
+        $this->assertStringContainsString('<a data-item-id="00000000-0000-0000-0000-000000000003" href="/custom/link-2">Link 2</a>', $model->bodyCopy);
 
         // Test broken links
-        $this->assertContains('<a data-item-id="FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF" href="/404">404</a>', $model->bodyCopy);
+        $this->assertStringContainsString('<a data-item-id="FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF" href="/404">404</a>', $model->bodyCopy);
     }
 
     public function test_BindModel_DefaultImplementation_InlineLinkedItemsNotChanged()
@@ -53,8 +53,8 @@ class ModelBinderTest extends TestCase
 
         $model = $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
 
-        $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);
-        $this->assertContains('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_2"></object>', $model->bodyCopy);
+        $this->assertStringContainsString('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);
+        $this->assertStringContainsString('<object type="application/kenticocloud" data-type="item" data-codename="modular_item_2"></object>', $model->bodyCopy);
     }
 
     public function test_BindModel_DefaultImplementationEmptyRichTextValue_ResolvedWithNoError()
@@ -95,10 +95,10 @@ class ModelBinderTest extends TestCase
 
         $model = $modelBinder->bindModel(\Kentico\Kontent\Delivery\Models\Items\ContentItem::class, $data->item, $data->modular_content);
 
-        $this->assertContains('<div>Modular item 1</div>', $model->bodyCopy);
-        $this->assertContains('<div>Modular item 2</div>', $model->bodyCopy);
-        $this->assertContains('<object type="application/kenticocloud" data-type="noitem" data-codename="modular_item_1"></object>', $model->bodyCopy);
-        $this->assertContains('<object type="text/xml" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);
+        $this->assertStringContainsString('<div>Modular item 1</div>', $model->bodyCopy);
+        $this->assertStringContainsString('<div>Modular item 2</div>', $model->bodyCopy);
+        $this->assertStringContainsString('<object type="application/kenticocloud" data-type="noitem" data-codename="modular_item_1"></object>', $model->bodyCopy);
+        $this->assertStringContainsString('<object type="text/xml" data-type="item" data-codename="modular_item_1"></object>', $model->bodyCopy);
     }
 
     public function test_BindModel_MockImplementation_TableInRichTextResolved()
