@@ -30,7 +30,7 @@
     },
     "require-dev": {
         "phpdocumentor/shim": "^3.3",
-        "phpunit/phpunit": "^8.5.12"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
