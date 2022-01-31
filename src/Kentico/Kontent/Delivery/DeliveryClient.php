@@ -122,6 +122,25 @@ class DeliveryClient
         return $itemsResponse;
     }
 
+    public function getAllModularItems($params = null)
+    {
+        $uri = $this->urlBuilder->getItemsUrl($params);
+        $response = $this->sendRequest($uri);
+
+        $binder = $this->getModelBinder();
+
+        $properties = get_object_vars($response->body);
+
+        // Items
+        $items = $binder->getModularItems($properties['items'], $properties['modular_content']);
+
+        // Pagination
+        $pagination = $binder->bindModel(Pagination::class, $properties[Pagination::PAGINATION_ELEMENT_NAME]);
+
+        $itemsResponse = new Models\Items\ContentItemsResponse($items, $pagination);
+
+        return $itemsResponse;
+    }
     /**
      * Retrieves a content item.
      *
