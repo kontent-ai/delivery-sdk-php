@@ -16,7 +16,7 @@ use Exception;
  */
 class DeliveryClient
 {
-    private $sdkVersion = '4.0.0';
+    private $sdkVersion = '5.0.0';
 
     private $urlBuilder = null;
     private $previewMode = false;
