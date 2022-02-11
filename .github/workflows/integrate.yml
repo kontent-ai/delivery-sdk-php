@@ -2,7 +2,7 @@ name: Build & Test & Report
 
 on:
   push:
-    branches: [ '*' ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
