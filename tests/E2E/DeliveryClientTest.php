@@ -32,8 +32,8 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('coffee-processing-techniques', $item->urlPattern);
         $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\ContentItemSystem::class, $item->system);
         $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\ContentItemSystem::class, $item->system);
-        $this->assertContains('<a data-item-id="80c7074b-3da1-4e1d-882b-c5716ebb4d25" href="/kenya-gakuyuni-aa">Kenya Gakuyuni AA</a>', $item->bodyCopy);
-        $this->assertContains('<a data-item-id="0c9a11bb-6fc3-409c-b3cb-f0b797e15489" href="/brazil-natural-barra-grande">Brazil Natural Barra Grande</a>', $item->bodyCopy);
+        $this->assertStringContainsString('<a data-item-id="80c7074b-3da1-4e1d-882b-c5716ebb4d25" href="/kenya-gakuyuni-aa">Kenya Gakuyuni AA</a>', $item->bodyCopy);
+        $this->assertStringContainsString('<a data-item-id="0c9a11bb-6fc3-409c-b3cb-f0b797e15489" href="/brazil-natural-barra-grande">Brazil Natural Barra Grande</a>', $item->bodyCopy);
     }
 
     public function testGetHomeItem()
@@ -43,7 +43,7 @@ class DeliveryClientTest extends TestCase
         $this->assertEquals('1bd6ba00-4bf2-4a2b-8334-917faa686f66', $item->system->id);
         $this->assertInstanceOf(\DateTime::class, $item->system->getLastModifiedDateTime());
         $this->assertInstanceOf(\DateTime::class, $item->system->lastModified);
-        $this->assertRegExp('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $item->system->getLastModifiedDateTime('Y-m-d'));
+        $this->assertMatchesRegularExpression('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $item->system->getLastModifiedDateTime('Y-m-d'));
     }
 
     public function testGetNonExistentItem()
@@ -71,7 +71,7 @@ class DeliveryClientTest extends TestCase
     {
         $client = new DeliveryClient($this->getProjectId());
         $item = $client->getItem('brazil_natural_barra_grande');
-        $this->assertInternalType('float', $item->price);
+        $this->assertIsFloat($item->price);
         $this->assertEquals(8.5, $item->price);
     }
 

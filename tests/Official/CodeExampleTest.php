@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CodeExamplesTests extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = new DeliveryClient('975bf280-fd91-488c-994c-2f04416e5ee3');
     }
@@ -33,7 +33,7 @@ class CodeExamplesTests extends TestCase
         
         $this->assertNotNull($items);
         $this->assertNotNull($items->items);
-        $this->assertInternalType('array', $items->items);        
+        $this->assertIsArray($items->items);
     }
 
     public function test_OneType()
@@ -49,7 +49,7 @@ class CodeExamplesTests extends TestCase
 
         $this->assertNotNull($types);  
         $this->assertNotNull($types->types);
-        $this->assertInternalType('array', $types->types);  
+        $this->assertIsArray($types->types);
     }
 
     public function test_contentTypeElement()
@@ -66,7 +66,7 @@ class CodeExamplesTests extends TestCase
 
         $this->assertNotNull($taxonomies);  
         $this->assertNotNull($taxonomies->taxonomies);
-        $this->assertInternalType('array', $taxonomies->taxonomies);  
+        $this->assertIsArray($taxonomies->taxonomies);
     }
 
     public function test_getFiveLatestArticles()
@@ -79,7 +79,7 @@ class CodeExamplesTests extends TestCase
         
         $this->assertNotNull($items);
         $this->assertNotNull($items->items);
-        $this->assertInternalType('array', $items->items); 
+        $this->assertIsArray($items->items);
     }
 
     public function test_getArticlesWithTaxonomyTerm()
@@ -89,7 +89,7 @@ class CodeExamplesTests extends TestCase
         
         $this->assertNotNull($items);
         $this->assertNotNull($items->items);
-        $this->assertInternalType('array', $items->items); 
+        $this->assertIsArray($items->items);
     }
 
     public function test_getContentInSpecificLanguageWithFallback()
