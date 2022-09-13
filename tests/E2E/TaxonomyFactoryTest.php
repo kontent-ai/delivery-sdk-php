@@ -1,10 +1,10 @@
 <?php
-namespace Kentico\Kontent\Tests\E2E;
+namespace Kontent\Ai\Tests\E2E;
 
 use PHPUnit\Framework\TestCase;
-use Kentico\Kontent\Delivery\DeliveryClient;
-use Kentico\Kontent\Delivery\Models\Taxonomies;
-use Kentico\Kontent\Delivery\QueryParams;
+use Kontent\Ai\Delivery\DeliveryClient;
+use Kontent\Ai\Delivery\Models\Taxonomies;
+use Kontent\Ai\Delivery\QueryParams;
 
 class TaxonomyFactoryTest extends TestCase
 {
@@ -21,7 +21,7 @@ class TaxonomyFactoryTest extends TestCase
     public function testCreateTaxonomies_NullResponse_IsEmptyArray()
     {
         $response = null;
-        $factory = new \Kentico\Kontent\Delivery\TaxonomyFactory();
+        $factory = new \Kontent\Ai\Delivery\TaxonomyFactory();
         $taxonomies = $factory->createTaxonomies($response);
 
         $this->assertEquals(array(), $taxonomies);
@@ -96,7 +96,7 @@ class TaxonomyFactoryTest extends TestCase
         $codename = "manufacturer";
         $taxonomy = $client->getTaxonomy($codename);
 
-        $this->assertTrue(is_a($taxonomy, \Kentico\Kontent\Delivery\Models\Taxonomies\Taxonomy::class));
+        $this->assertTrue(is_a($taxonomy, \Kontent\Ai\Delivery\Models\Taxonomies\Taxonomy::class));
     }
 
     public function testCreateTaxonomy_SingleTaxonomyResponse_NestedTaxonomyStructureIsCreated()

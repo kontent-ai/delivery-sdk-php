@@ -1,10 +1,10 @@
 <?php
 
-namespace Kentico\Kontent\Tests\Unit;
+namespace Kontent\Ai\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Kentico\Kontent\Delivery\DeliveryClient;
-use Kentico\Kontent\Delivery\QueryParams;
+use Kontent\Ai\Delivery\DeliveryClient;
+use Kontent\Ai\Delivery\QueryParams;
 
 class ContentTypeFactoryTest extends TestCase
 {
@@ -60,7 +60,7 @@ class ContentTypeFactoryTest extends TestCase
     public function testCreateTypes_NullResponse_IsEmptyArray()
     {
         $response = null;
-        $factory = new \Kentico\Kontent\Delivery\ContentTypeFactory();
+        $factory = new \Kontent\Ai\Delivery\ContentTypeFactory();
         $types = $factory->createTypes($response);
 
         $this->assertEquals(array(), $types);
@@ -74,7 +74,7 @@ class ContentTypeFactoryTest extends TestCase
 
         $this->assertEquals('About us', $actual[0]->system->name);
         $this->assertGreaterThan(0, count($actual[0]->elements));
-        $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Types\ContentTypeElement::class, array_pop($actual[0]->elements));
+        $this->assertInstanceOf(\Kontent\Ai\Delivery\Models\Types\ContentTypeElement::class, array_pop($actual[0]->elements));
     }
 
     public function testCreateTypes_FullTypeResponse_ContainsXObjects()

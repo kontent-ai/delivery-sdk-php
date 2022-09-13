@@ -1,8 +1,8 @@
 <?php
 
-namespace Kentico\Kontent\Tests\E2E\Utils;
+namespace Kontent\Ai\Tests\E2E\Utils;
 
-use Kentico\Kontent\Delivery\DefaultMapper;
+use Kontent\Ai\Delivery\DefaultMapper;
 
 class TestMapper extends DefaultMapper
 {
@@ -10,9 +10,9 @@ class TestMapper extends DefaultMapper
     {
         switch ($typeName) {
             case 'home':
-                return \Kentico\Kontent\Tests\E2E\HomeModel::class;
+                return \Kontent\Ai\Tests\E2E\HomeModel::class;
             case 'article':
-                return \Kentico\Kontent\Tests\E2E\ArticleModel::class;
+                return \Kontent\Ai\Tests\E2E\ArticleModel::class;
         }
 
         return parent::getTypeClass($typeName);

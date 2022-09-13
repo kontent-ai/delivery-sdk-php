@@ -1,9 +1,9 @@
 <?php
 
-namespace Kentico\Kontent\Tests\Unit;
+namespace Kontent\Ai\Tests\Unit;
 
-use Kentico\Kontent\Delivery\DefaultMapper;
-use Kentico\Kontent\Delivery\Models\Items\ContentLink;
+use Kontent\Ai\Delivery\DefaultMapper;
+use Kontent\Ai\Delivery\Models\Items\ContentLink;
 use PHPUnit\Framework\TestCase;
 
 class DefaultMapperTest extends TestCase
