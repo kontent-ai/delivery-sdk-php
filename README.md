@@ -7,7 +7,7 @@
 
 ## Summary
 
-The Kontent Delivery PHP SDK is a client library used for retrieving content from Kontent by Kentico. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico/kontent-delivery-sdk-php). The library currently supports only PHP 7 and above.
+The Kontent Delivery PHP SDK is a client library used for retrieving content from Kontent by Kentico. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico/kontent-delivery-sdk-php). The library currently supports only PHP 8 and above.
 
 ## Sample site
 
@@ -45,7 +45,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kontent projects.
 
-To create an instance of the class, you need to provide a [project ID](https://docs.kontent.ai/tutorials/develop-apps/get-content/getting-content#section-getting-content-items).
+To create an instance of the class, you need to provide a [project ID](https://kontent.ai/learn/tutorials/develop-apps/get-content/get-content-items#a-1-find-your-project-id).
 
 ```php
 use Kontent\Ai\Delivery\DeliveryClient;
@@ -58,7 +58,7 @@ There are some other optional parameters that you can use during the `DeliveryCl
 
 * `$previewApiKey` – sets the Delivery Preview API key. The client will automatically start using the preview endpoint for querying. See [previewing unpublished content](#previewing-unpublished-content).
 * `$securedProductionApiKey` – sets the production Delivery API key (do not combine it with the Delivery Preview API key)
-* `$waitForLoadingNewContent` – makes the client instance wait while fetching updated content, useful when acting upon [webhook calls](https://docs.kontent.ai/tutorials/develop-apps/integrate/using-webhooks-for-automatic-updates#section-requesting-new-content).
+* `$waitForLoadingNewContent` – makes the client instance wait while fetching updated content, useful when acting upon [webhook calls](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-get-the-latest-content).
 * `$debugRequests` – switches the HTTP client to debug mode
 * `$retryAttempts` – number of times the client will retry to connect to the Kontent API on failures per request
 
@@ -78,7 +78,7 @@ $items = $client->getItems();
 
 ### Filtering retrieved data
 
-The SDK supports full scale of the API querying and filtering capabilities as described in the [API reference](https://docs.kontent.ai/reference/delivery-api#tag/Filtering-content).
+The SDK supports full scale of the API querying and filtering capabilities as described in the [API reference](https://kontent.ai/learn/reference/delivery-api#tag/Filtering-content).
 
 ```php
 use Kontent\Ai\Delivery\QueryParams;
@@ -111,7 +111,7 @@ $response = $client->getItems((new QueryParams())
 
 ### Working with taxonomies
 
-To retrieve information about your taxonomies, you can use the `getTaxonomy` and `getTaxonomies` methods. Additionally, you can specify query [parameters](https://docs.kontent.ai/reference/delivery-api#operation/list-taxonomy-groups).
+To retrieve information about your taxonomies, you can use the `getTaxonomy` and `getTaxonomies` methods. Additionally, you can specify query [parameters](https://kontent.ai/learn/reference/delivery-api#operation/list-taxonomy-groups).
 
 ```php
 use Kontent\Ai\Delivery\QueryParams;
@@ -134,11 +134,11 @@ To retrieve unpublished content, you need to create a `DeliveryClient` with both
 $client = new DeliveryClient('YOUR_PROJECT_ID', 'YOUR_PREVIEW_API_KEY');
 ```
 
-For more details, see [Previewing unpublished content using the Delivery API](https://docs.kontent.ai/tutorials/write-and-collaborate/preview-content/previewing-unpublished-content).
+For more details, see [Previewing unpublished content using the Delivery API](https://kontent.ai/learn/tutorials/develop-apps/build-strong-foundation/set-up-preview#a-get-the-latest-version-of-everything).
 
 ## Response structure
 
-For full description of single and multiple content item JSON response formats, see our [API reference](https://docs.kontent.ai/reference/delivery-api#operation/list-content-items).
+For full description of single and multiple content item JSON response formats, see our [API reference](https://kontent.ai/learn/reference/delivery-api#operation/list-content-items).
 
 ### Single content item response
 

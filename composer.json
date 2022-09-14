@@ -23,18 +23,22 @@
         }
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^7.0 || ^8.0",
         "nategood/httpful": "^0.2.20",
         "kub-at/php-simple-html-dom-parser": "^1.9"
     },
     "require-dev": {
-        "phpdocumentor/phpdocumentor": "2.*",
-        "codeclimate/php-test-reporter": "dev-master",
-        "phpunit/phpunit": "^6.4"
+        "phpdocumentor/shim": "^3.3",
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
             "Kontent\\Ai\\": "src/Kontent/Ai"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpdocumentor/shim": true
         }
     }
 }
