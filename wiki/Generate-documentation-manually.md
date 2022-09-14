@@ -5,7 +5,8 @@
 ### phpDocumentator
 
 [Install phpDocumentator](https://docs.phpdoc.org/3.0/guide/getting-started/installing.html)
-* Use PHAR download
+
+- Use PHAR download
 
 Linux download:
 
@@ -25,6 +26,7 @@ php phpDocumentor.phar -d $ProjectFileDir$/src/ -t $ProjectFileDir$/phpdocs/docs
 A complete example
 
 Windows
+
 ```cmd
 php C:\php\phpDocumentor.phar -d C:\projects\kontent-delivery-sdk-php\src\ -t C:\projects\kontent-delivery-sdk-php\phpdocs\docs
 ```

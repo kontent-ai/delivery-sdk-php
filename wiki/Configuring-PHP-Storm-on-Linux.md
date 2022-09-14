@@ -2,9 +2,9 @@ This guide describes how to configure and run the PHP SDK in [JetBranis WebStorm
 
 ## Prerequisites</summary>
 
-* PHP
-* [JetBrains WebStorm](https://www.jetbrains.com/webstorm/)
-* [Composer](https://getcomposer.org)
+- PHP
+- [JetBrains WebStorm](https://www.jetbrains.com/webstorm/)
+- [Composer](https://getcomposer.org)
 
 ## Installing and Verifying Prerequisites
 
@@ -63,11 +63,11 @@ After a successful update, please restart the IDE and finish the configuration.
 
 The IDE will ask for Composer initialization:
 
-![Composer Initialization Info](https://github.com/Kentico/kontent-delivery-sdk-php/blob/master/wiki/img/01ComposerInitializationInfo.png)
+![Composer Initialization Info](./img/01ComposerInitializationInfo.png)
 
 Simply click "Initialize" and let the IDE use the suggested values:
 
-![Path to Composer](https://github.com/Kentico/kontent-delivery-sdk-php/blob/master/wiki/img/02PathToComposer.png)
+![Path to Composer](./img/02PathToComposer.png)
 
 ### Setting up the Tests Run configuration
 
@@ -77,7 +77,7 @@ The final step is to create a test configuration. In the Project Tree, right cli
 
 Choose fix and setup "PHP language level" and "CLI Interpreter" this way:
 
-![Interpreter Settings](https://github.com/Kentico/kontent-delivery-sdk-php/blob/master/wiki/img/04PHPStormInterpreterSettings.png)
+![Interpreter Settings](./img/04PHPStormInterpreterSettings.png)
 
 Since now, it's possible to run PHPUnit tests.
 
@@ -91,5 +91,3 @@ sudo dnf install php-xdebug
 # Ubuntu
 sudo apt install php-xdebug
 ```
-
-![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-delivery-sdk-php/wiki/Configuring-PHP-Storm-on-Linux?pixel)

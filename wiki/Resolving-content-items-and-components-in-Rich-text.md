@@ -4,10 +4,14 @@
 
 <!-- TOC -->
 
-1. [Introduction](#introduction)
-1. [Linked items in Rich text](#linked-items-in-rich-text)
-1. [Implementing a resolver](#implementing-a-resolver)
-1. [Retrieving Rich text content](#retrieving-rich-text-content)
+- [Resolving content items and components](#resolving-content-items-and-components)
+  - [Contents](#contents)
+  - [Introduction](#introduction)
+  - [Items and components in Rich text](#items-and-components-in-rich-text)
+  - [Implementing a resolver](#implementing-a-resolver)
+  - [Registering a resolver](#registering-a-resolver)
+    - [Custom default resolver](#custom-default-resolver)
+  - [Retrieving Rich text content](#retrieving-rich-text-content)
 
 <!-- /TOC -->
 
@@ -19,12 +23,16 @@ This page describes how to resolve content items and components inside Rich text
 
 [Rich text elements](https://developer.kenticocloud.com/v1/reference#section-rich-text-element) in Kentico Kontent can contain other content items and components. For example, if you write a blog post, you might want to insert a video or testimonial to a specific place in your article.
 
-*Note*: Items and components are resolved using the same mechanism; your application does not need to differentiate them.  You can learn more about the differences between items and components in our [API Reference](https://developer.kenticocloud.com/v1/reference#linked-content).
+_Note_: Items and components are resolved using the same mechanism; your application does not need to differentiate them. You can learn more about the differences between items and components in our [API Reference](https://developer.kenticocloud.com/v1/reference#linked-content).
 
 Without adjusting your application, any content item or component in a Rich text element will resolve to an empty object reference, which won't be rendered on the page.
 
 ```html
-<object type="application/kenticocloud" data-type="item" data-codename="donate_with_us"></object>
+<object
+  type="application/kenticocloud"
+  data-type="item"
+  data-codename="donate_with_us"
+></object>
 ```
 
 To display the content in the rich text on your website, you need to define exactly how it should be rendered:
@@ -33,7 +41,7 @@ To display the content in the rich text on your website, you need to define exac
 1. [Register](#registering-a-resolver) the resolver within the `DeliveryClient` instance
 1. [Retrieve](#retrieving-rich-text-content) content of a Rich text element
 
-For example, let's say you want to add YouTube videos to your article. In such a case, you would need a content type *YouTube video* with a single Text element for the *Video ID*.
+For example, let's say you want to add YouTube videos to your article. In such a case, you would need a content type _YouTube video_ with a single Text element for the _Video ID_.
 
 ## Implementing a resolver
 
@@ -64,8 +72,8 @@ If the resolver or the content item itself is not available, the object referenc
 
 When are content items available?
 
-* For the live environment, a content item is available when published, and unavailable when deleted or unpublished.
-* For preview environment, a content item is available when it exists in the project inventory, and unavailable when deleted.
+- For the live environment, a content item is available when published, and unavailable when deleted or unpublished.
+- For preview environment, a content item is available when it exists in the project inventory, and unavailable when deleted.
 
 Components are an integral part of their content items and are always present in the response.
 
@@ -76,7 +84,7 @@ Once you implement the resolver, you need to register it in the `DeliveryClient`
 ```php
 // Sets the resolver as an optional dependency of the DeliveryClient
 $client = new DeliveryClient("975bf280-fd91-488c-994c-2f04416e5ee3");
-$client->inlineLinkedItemsResolver= new CustomLinkedItemsResolver();  
+$client->inlineLinkedItemsResolver= new CustomLinkedItemsResolver();
 ```
 
 ### Custom default resolver
@@ -105,7 +113,7 @@ class CustomLinkedItemsResolver implements InlineLinkedItemsResolverInterface
 
 ## Retrieving Rich text content
 
-Now, when you retrieve the content of a Rich text element via a property, items and components based on the *Youtube video* will be resolved correctly.
+Now, when you retrieve the content of a Rich text element via a property, items and components based on the _Youtube video_ will be resolved correctly.
 
 ```php
 // Retrieves the 'Coffee beverages explained' article
