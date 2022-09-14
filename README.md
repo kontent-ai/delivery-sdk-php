@@ -164,7 +164,7 @@ When retrieving a list of content items, you get an instance of the `ContentItem
   * codenames, if the contained entities have a code name
   * numbers, if they don't have code names. We use zero-based indexing.
 * If a property references linked items (property is of the linked item type), the references are replaced with the respective [content items](#single-content-item-response) themselves.
-* If a property is of asset, multiple choice option, or taxonomy group type, it's resolved to respective well-known models from the `Kentico\Kontent\Delivery\Models\Items` namespace.
+* If a property is of asset, multiple choice option, or taxonomy group type, it's resolved to respective well-known models from the `Kontent\Ai\Delivery\Models\Items` namespace.
 * All timestamps are typed as `\DateTime`.
 * All numbers are typed as `float`.
 

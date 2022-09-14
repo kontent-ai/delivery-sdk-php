@@ -7,7 +7,7 @@ namespace Kontent\Ai\Delivery\Models\Languages;
 
 /**
  * Class LanguagesResponse
- * @package Kentico\Kontent\Delivery\Models\Languages
+ * @package Kontent\Ai\Delivery\Models\Languages
  */
 class LanguagesResponse
 {

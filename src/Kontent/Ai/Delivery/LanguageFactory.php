@@ -8,7 +8,7 @@ namespace Kontent\Ai\Delivery;
 
 /**
  * Class LanguageFactory
- * @package Kentico\Kontent\Delivery
+ * @package Kontent\Ai\Delivery
  */
 class LanguageFactory
 {

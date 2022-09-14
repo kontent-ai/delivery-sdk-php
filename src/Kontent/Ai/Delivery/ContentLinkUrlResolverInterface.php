@@ -15,7 +15,7 @@ interface ContentLinkUrlResolverInterface
     /**
      * Returns a URL of the linked content item. Default implementation returns empty string.
      *
-     * @param Kentico\Kontent\Delivery\Models\Items\ContentLink $link The link to a content item that needs to be resolved.
+     * @param Kontent\Ai\Delivery\Models\Items\ContentLink $link The link to a content item that needs to be resolved.
      *
      * @return string
      */
