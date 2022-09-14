@@ -1,24 +1,25 @@
-# Kontent Delivery SDK for PHP
+# Kontent.ai Delivery SDK for PHP
 
-[![Build & Test & Report](https://github.com/Kentico/kontent-delivery-sdk-php/actions/workflows/integrate.yml/badge.svg)](https://github.com/Kentico/kontent-delivery-sdk-php/actions/workflows/integrate.yml)
-[![Packagist](https://img.shields.io/packagist/v/kentico/kontent-delivery-sdk-php.svg)](https://packagist.org/packages/kentico/kontent-delivery-sdk-php)
-[![codecov](https://codecov.io/gh/Kentico/kontent-delivery-sdk-php/branch/master/graph/badge.svg)](https://codecov.io/gh/Kentico/kontent-delivery-sdk-php)
-[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-kontent)
+[![Build & Test & Report](https://github.com/kontent-ai/delivery-sdk-php/actions/workflows/integrate.yml/badge.svg)](https://github.com/kontent-ai/delivery-sdk-php/actions/workflows/integrate.yml)
+[![Packagist](https://img.shields.io/packagist/v/kontent-ai/delivery-sdk-php.svg)](https://packagist.org/packages/kontent-ai/delivery-sdk-php)
+[![codecov](https://codecov.io/gh/kontent-ai/delivery-sdk-php/branch/master/graph/badge.svg)](https://codecov.io/gh/kontent-ai/delivery-sdk-php)
+[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kontent-ai)
+[![Discord](https://img.shields.io/discord/821885171984891914?color=%237289DA&label=Kontent.ai%20Discord&logo=discord)](https://discord.gg/SKCxwPtevJ)
 
 ## Summary
 
-The Kontent Delivery PHP SDK is a client library used for retrieving content from Kontent by Kentico. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kentico/kontent-delivery-sdk-php). The library currently supports only PHP 8 and above.
+The Kontent.ai Delivery PHP SDK is a client library used for retrieving content from Kontent.ai. The best way to use the SDK is to consume it in the form of a [Packagist package](https://packagist.org/packages/kontent-ai/delivery-sdk-php). The library currently supports only PHP 8 and above.
 
 ## Sample site
 
-Check out a sample site running on Laravel utilizing this SDK here: [https://github.com/Kentico/kontent-sample-app-php](https://github.com/Kentico/kontent-sample-app-php)
+Check out a sample site running on Laravel utilizing this SDK here: [https://github.com/kontent-ai/sample-app-php](https://github.com/kontent-ai/sample-app-php)
 
 ## Installation
 
 The best way to install the client is through a dependency manager called [Composer](https://getcomposer.org/):
 
 ```sh
-composer require kentico/kontent-delivery-sdk-php
+composer require kontent-ai/delivery-sdk-php
 ```
 
 or adjusting your `composer.json` file:
@@ -26,7 +27,7 @@ or adjusting your `composer.json` file:
 ```sh
 {
     "require": {
-        "kentico/kontent-delivery-sdk-php": "^4.0.0"
+        "kontent-ai/delivery-sdk-php": "^4.0.0"
     }
 }
 ```
@@ -43,7 +44,7 @@ require __DIR__ . '/vendor/autoload.php';
   
 ## Using the DeliveryClient
 
-The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kontent projects.
+The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kontent.ai projects.
 
 To create an instance of the class, you need to provide a [project ID](https://kontent.ai/learn/tutorials/develop-apps/get-content/get-content-items#a-1-find-your-project-id).
 
@@ -60,7 +61,7 @@ There are some other optional parameters that you can use during the `DeliveryCl
 * `$securedProductionApiKey` – sets the production Delivery API key (do not combine it with the Delivery Preview API key)
 * `$waitForLoadingNewContent` – makes the client instance wait while fetching updated content, useful when acting upon [webhook calls](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-get-the-latest-content).
 * `$debugRequests` – switches the HTTP client to debug mode
-* `$retryAttempts` – number of times the client will retry to connect to the Kontent API on failures per request
+* `$retryAttempts` – number of times the client will retry to connect to the Kontent.ai API on failures per request
 
 Once you create a `DeliveryClient`, you can start querying your project repository by calling methods on the client instance. See [Basic querying](#basic-querying) for details.
 
@@ -126,7 +127,7 @@ $response = $client->getTaxonomy('persona');
 
 ## Previewing unpublished content
 
-To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kontent project has its own Preview API key.
+To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kontent.ai project has its own Preview API key.
 
 ```php
 // Note: Within a single project, we recommend that you work with only
@@ -144,7 +145,7 @@ For full description of single and multiple content item JSON response formats, 
 
 When retrieving a single content item, you get an instance of the `ContentItem` class. This class contains a 'system' property (with metadata about the content item, such as code name, display name, type, collection, or sitemap location) and respective content item's elements projected as [camelCase](https://en.wikipedia.org/wiki/Camel_case) properties.
 
-![Single item](https://i.imgur.com/Og3CaW0.png)
+![Single item](./assets/single-item-response.png)
 
 ### Multiple content items response
 
@@ -172,13 +173,13 @@ When retrieving a list of content items, you get an instance of the `ContentItem
 
 It's possible to instruct the SDK to fill and return your own predefined models. To do that you have to implement:
 
-* `TypeMapperInterface` (required) - to provide mapping of Kontent content types to your models
+* `TypeMapperInterface` (required) - to provide mapping of Kontent.ai content types to your models
 * `PropertyMapperInterface` (optional) - to change the default behavior of property mapping (the default property translation works like this: 'content_type' -> 'contentType')
 * `ValueConverterInterface` (optional) - to change the way content element types are mapped to PHP types
-* `ContentLinkUrlResolverInterface` (optional) - to change the way the links in Rich text elements are resolved see [Resolving links to content items](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Resolving-links-to-content-items).
-* `InlineLinkedItemsResolverInterface` (optional) - to change the way content items in Rich text elements are resolved see [Resolving content items and components in Rich text](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Resolving-content-items-and-components-in-Rich-text).
+* `ContentLinkUrlResolverInterface` (optional) - to change the way the links in Rich text elements are resolved see [Resolving links to content items](./wiki/Resolving-links-to-content-items).
+* `InlineLinkedItemsResolverInterface` (optional) - to change the way content items in Rich text elements are resolved see [Resolving content items and components in Rich text](./wiki/Resolving-content-items-and-components-in-Rich-text).
 
-The default implementation of all the interfaces can be found in a class called [`DefaultMapper`](https://github.com/Kentico/kontent-delivery-sdk-php/blob/master/src/Kentico/Kontent/Delivery/DefaultMapper.php).
+The default implementation of all the interfaces can be found in a class called [`DefaultMapper`](./src/Kontent/Ai/Delivery/DefaultMapper.php).
 
 Example:
 
@@ -222,7 +223,7 @@ class ArticleModel
 
 ## Feedback & Contributing
 
-Check out the [contributing](https://github.com/Kentico/kontent-delivery-sdk-php/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
+Check out the [contributing](./CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
 
 1. Clone the repository
 2. Run `composer install` to install dependencies
@@ -230,11 +231,11 @@ Check out the [contributing](https://github.com/Kentico/kontent-delivery-sdk-php
 
 ### Developing on Windows
 
-Have a look at our cool [tutorial](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Developing-PHP-in-Visual-Studio-Code-for-Dummies) on developing PHP on Windows with Visual Studio Code!
+Have a look at our cool [tutorial](./wiki/Developing-PHP-in-Visual-Studio-Code-for-Dummies) on developing PHP on Windows with Visual Studio Code!
 
 ### Developing on Linux
 
-Do you prefer penguins? Check out our [tutorials](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Configuring-PHP-Storm-on-Linux) on developing PHP on Linux with PhpStorm!
+Do you prefer penguins? Check out our [tutorials](./wiki/Configuring-PHP-Storm-on-Linux) on developing PHP on Linux with PhpStorm!
 
 ### Wall of Fame
 
@@ -242,4 +243,4 @@ We would like to express our thanks to the following people who contributed and 
 
 * [Stephen Rushing](https://github.com/stephenr85/) - [eSiteful](http://www.esiteful.com/home) - [ORIGINAL WORK](https://github.com/stephenr85/KenticoCloud.Deliver.PHP)
 
-Would you like to become a hero too? Pick an [issue](https://github.com/Kentico/kontent-delivery-sdk-php/issues) and send us a pull request!
+Would you like to become a hero too? Pick an [issue](https://github.com/kontent-ai/delivery-sdk-php/issues) and send us a pull request!

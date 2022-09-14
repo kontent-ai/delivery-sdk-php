@@ -1,6 +1,6 @@
 <?php
 /**
- * Executes requests against the Kentico Kontent Delivery API.
+ * Executes requests against the Kontent.ai Delivery API.
  */
 
 namespace Kontent\Ai\Delivery;
@@ -12,7 +12,7 @@ use InvalidArgumentException;
 use Exception;
 
 /**
- * Class DeliveryClient - executes requests against the Kentico Kontent Delivery API.
+ * Class DeliveryClient - executes requests against the Kontent.ai Delivery API.
  */
 class DeliveryClient
 {
@@ -75,12 +75,12 @@ class DeliveryClient
     /**
      * Creates a new instance of DeliveryClient.
      *
-     * @param string $projectId                Kentico Kontent Delivery API Project ID
-     * @param string $previewApiKey            Kentico Kontent Delivery API Preview API key
-     * @param string $securedProductionApiKey  Kentico Kontent Delivery API Secured production API key
+     * @param string $projectId                Kontent.ai Delivery API Project ID
+     * @param string $previewApiKey            Kontent.ai Delivery API Preview API key
+     * @param string $securedProductionApiKey  Kontent.ai Delivery API Secured production API key
      * @param bool   $waitForLoadingNewContent Gets whether you want to wait for updated content. (Useful for webhooks.)
      * @param bool   $debugRequests            Switches the HTTP client to debug mode
-     * @param int    $retryAttempts            Number of times the client will retry to connect to the Kentico Kontent API on failures per request
+     * @param int    $retryAttempts            Number of times the client will retry to connect to the Kontent.ai API on failures per request
      */
     public function __construct(string $projectId, string $previewApiKey = null, string $securedProductionApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null, int $retryAttempts = null)
     {
@@ -317,7 +317,7 @@ class DeliveryClient
             $template->addHeader('X-KC-Wait-For-Loading-New-Content', 'true');
         }
 
-        $template->addHeader('X-KC-SDKID', "packagist.org;kentico/kontent-delivery-sdk-php;{$this->sdkVersion}");
+        $template->addHeader('X-KC-SDKID', "packagist.org;kontent-ai/delivery-sdk-php;{$this->sdkVersion}");
 
         // Set an HTTP request template
         Request::ini($template);
