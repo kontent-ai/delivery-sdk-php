@@ -1,9 +1,9 @@
 <?php
 
-namespace Kentico\Kontent\Tests\Official;
+namespace Kontent\Ai\Tests\Official;
 
-use Kentico\Kontent\Delivery\DeliveryClient;
-use Kentico\Kontent\Delivery\QueryParams;
+use Kontent\Ai\Delivery\DeliveryClient;
+use Kontent\Ai\Delivery\QueryParams;
 use PHPUnit\Framework\TestCase;
 
 class CodeExamplesTests extends TestCase

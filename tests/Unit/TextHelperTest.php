@@ -1,8 +1,8 @@
 <?php
 
-namespace Kentico\Kontent\Tests\Unit;
+namespace Kontent\Ai\Tests\Unit;
 
-use Kentico\Kontent\Delivery\Helpers\TextHelper;
+use Kontent\Ai\Delivery\Helpers\TextHelper;
 use PHPUnit\Framework\TestCase;
 
 class TextHelperTest extends TestCase

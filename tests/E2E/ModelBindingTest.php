@@ -1,10 +1,10 @@
 <?php
 
-namespace Kentico\Kontent\Tests\E2E;
+namespace Kontent\Ai\Tests\E2E;
 
-use Kentico\Kontent\Delivery\DeliveryClient;
-use Kentico\Kontent\Tests\E2E\Utils\CustomContentLinkUrlResolver;
-use Kentico\Kontent\Tests\E2E\Utils\TestMapper;
+use Kontent\Ai\Delivery\DeliveryClient;
+use Kontent\Ai\Tests\E2E\Utils\CustomContentLinkUrlResolver;
+use Kontent\Ai\Tests\E2E\Utils\TestMapper;
 use PHPUnit\Framework\TestCase;
 
 class ModelBindingTest extends TestCase
@@ -35,12 +35,12 @@ class ModelBindingTest extends TestCase
         $this->assertEquals('published', $item->system->workflowStep);
         $this->assertEquals(new \DateTime('2014-11-07T00:00:00Z'), $item->postDate);
         $this->assertCount(2, $item->personas);
-        $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\TaxonomyTerm::class, $item->personas[0]);
+        $this->assertInstanceOf(\Kontent\Ai\Delivery\Models\Items\TaxonomyTerm::class, $item->personas[0]);
         $this->assertCount(2, $item->relatedArticles);
         $this->assertEquals('Coffee processing techniques', $item->relatedArticles['coffee_processing_techniques']->title);
-        $this->assertInstanceOf(\Kentico\Kontent\Tests\E2E\ArticleModel::class, $item);
-        $this->assertInstanceOf(\Kentico\Kontent\Tests\E2E\ArticleModel::class, $item->relatedArticles['coffee_processing_techniques']);
-        $this->assertInstanceOf(\Kentico\Kontent\Delivery\Models\Items\ContentItemSystem::class, $item->system);
+        $this->assertInstanceOf(\Kontent\Ai\Tests\E2E\ArticleModel::class, $item);
+        $this->assertInstanceOf(\Kontent\Ai\Tests\E2E\ArticleModel::class, $item->relatedArticles['coffee_processing_techniques']);
+        $this->assertInstanceOf(\Kontent\Ai\Delivery\Models\Items\ContentItemSystem::class, $item->system);
     }
 
     public function testGetArticleWithLinks_LinksUrlResolved()

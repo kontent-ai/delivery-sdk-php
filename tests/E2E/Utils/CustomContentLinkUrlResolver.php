@@ -1,8 +1,8 @@
 <?php
 
-namespace Kentico\Kontent\Tests\E2E\Utils;
+namespace Kontent\Ai\Tests\E2E\Utils;
 
-use Kentico\Kontent\Delivery\ContentLinkUrlResolverInterface;
+use Kontent\Ai\Delivery\ContentLinkUrlResolverInterface;
 
 class CustomContentLinkUrlResolver implements ContentLinkUrlResolverInterface
 {
