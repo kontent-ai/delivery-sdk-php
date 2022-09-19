@@ -84,7 +84,7 @@ extension=openssl
 
 You're ready to start coding in PHP!
 
-[**Part 2: Continue reading about debugging, unit testing, autoloading, bootstrapping...**](https://github.com/Kentico/kontent-delivery-sdk-php/wiki/Doing-PHP-stuff-on-Windows-with-VS-Code)
+[**Part 2: Continue reading about debugging, unit testing, autoloading, bootstrapping...**](https://github.com/kontent-ai/delivery-sdk-php/blob/master/wiki/Doing-PHP-stuff-on-Windows-with-VS-Code.md)
 
 ## More resources
 

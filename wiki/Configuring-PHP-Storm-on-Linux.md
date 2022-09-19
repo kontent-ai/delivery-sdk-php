@@ -73,7 +73,7 @@ Simply click "Initialize" and let the IDE use the suggested values:
 
 The final step is to create a test configuration. In the Project Tree, right click the tests folder and choose "Run 'tests'" from the menu. An edit dialog will appear:
 
-![Edit Configuration Dialog](https://github.com/Kentico/kontent-kenico-delivery-sdk-php/blob/master/wiki/img/03EditConfigurationDialog.png)
+![Edit Configuration Dialog](./img/03EditConfigurationDialog.png?raw=true)
 
 Choose fix and setup "PHP language level" and "CLI Interpreter" this way:
 

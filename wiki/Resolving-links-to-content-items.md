@@ -15,7 +15,7 @@
 
 ## Content links
 
-[Rich text elements](https://developer.kenticocloud.com/reference#content-type-element-object) in Kontent.ai can contain links to other content items. For example, if you run a blog, these content item links might represent hyperlinks to other blog posts or your contact page.
+[Rich text elements](https://kontent.ai/learn/reference/kontent-apis-overview/#content-type-element-object) in Kontent.ai can contain links to other content items. For example, if you run a blog, these content item links might represent hyperlinks to other blog posts or your contact page.
 
 Without adjusting your project, any link in a Rich text element that points to a content item will contain an empty value.
 
@@ -32,8 +32,8 @@ Without adjusting your project, any link in a Rich text element that points to a
 To make sure such links resolve correctly on your website, you need to complete these steps:
 
 1. Implement a content link URL resolver
-1. Register the resolver within the `DeliveryClient` instance
-1. Retrieve content of a Rich text element
+2. Register the resolver within the `DeliveryClient` instance
+3. Retrieve content of a Rich text element
 
 ## Implementing a resolver
 
@@ -114,5 +114,3 @@ The URL to the content item in the text is now correctly resolved.
   included in the box.
 </p>
 ```
-
-![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-delivery-sdk-php/wiki/Resolving-links-to-content-items?pixel)

@@ -6,7 +6,7 @@
    private $sdkVersion = '6.0.0';
    ```
 
-1. Go to [SDK GitHub page](https://github.com/Kentico/kontent-delivery-sdk-php)
+1. Go to [SDK GitHub page](https://github.com/kontent-ai/delivery-sdk-php)
 1. Select Releases
 1. Click draft a new release
 1. Define a tag value to the one that is defined in $sdkVersion field in [Delivery client](../src/Kontent/Ai/Delivery/DeliveryClient.php).
@@ -17,6 +17,6 @@
 
 ## How does it work
 
-- Administrator account [kentico-bot](https://github.com/kontent-ai-bot) is connected to "kontent-ai" account on [Packagist](https://packagist.org).
+- Administrator account [kontent-ai-bot](https://github.com/kontent-ai-bot) is connected to "kontent-ai" account on [Packagist](https://packagist.org).
   - This allows Packagist to register the webhook for new tag creation using [Packagist application](https://github.com/settings/connections/applications/a059f127e1c09c04aa5a)
   - For every created tag there is a new release made in [Packagist](https://packagist.org/packages/kontent-ai/delivery-sdk-php)
