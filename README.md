@@ -27,7 +27,7 @@ or adjusting your `composer.json` file:
 ```sh
 {
     "require": {
-        "kontent-ai/delivery-sdk-php": "^4.0.0"
+        "kontent-ai/delivery-sdk-php": "^6.0.0"
     }
 }
 ```

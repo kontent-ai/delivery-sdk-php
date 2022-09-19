@@ -21,7 +21,7 @@ This page describes how to resolve content items and components inside Rich text
 
 ## Items and components in Rich text
 
-[Rich text elements](https://developer.kenticocloud.com/v1/reference#section-rich-text-element) in Kentico Kontent can contain other content items and components. For example, if you write a blog post, you might want to insert a video or testimonial to a specific place in your article.
+[Rich text elements](https://developer.kenticocloud.com/v1/reference#section-rich-text-element) in Kontent.ai can contain other content items and components. For example, if you write a blog post, you might want to insert a video or testimonial to a specific place in your article.
 
 _Note_: Items and components are resolved using the same mechanism; your application does not need to differentiate them. You can learn more about the differences between items and components in our [API Reference](https://developer.kenticocloud.com/v1/reference#linked-content).
 

@@ -15,7 +15,7 @@
 
 ## Content links
 
-[Rich text elements](https://developer.kenticocloud.com/reference#content-type-element-object) in Kentico Kontent can contain links to other content items. For example, if you run a blog, these content item links might represent hyperlinks to other blog posts or your contact page.
+[Rich text elements](https://developer.kenticocloud.com/reference#content-type-element-object) in Kontent.ai can contain links to other content items. For example, if you run a blog, these content item links might represent hyperlinks to other blog posts or your contact page.
 
 Without adjusting your project, any link in a Rich text element that points to a content item will contain an empty value.
 

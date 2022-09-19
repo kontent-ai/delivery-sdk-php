@@ -17,13 +17,13 @@
 
 ## Blog
 
-- [Kontent blog](https://kontent.ai/blog)
+- [Kontent.ai blog](https://kontent.ai/blog)
 
 ## Documentation
 
-- [Kontent Docs](https://docs.kontent.ai/)
-- [API Reference](https://docs.kontent.ai/reference)
+- [Learn portal](https://kontent.ai/learn)
+- [API Reference](https://kontent.ai/learn/reference/kontent-apis-overview/)
 
 ## Product roadmap
 
-- [Kontent Roadmap](https://kontent.ai/roadmap)
+- [Kontent.ai Roadmap](https://feedback.kontent.ai/tabs/13-under-consideration)
