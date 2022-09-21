@@ -24,6 +24,7 @@ extension=openssl
 1. Go to `c:\php`
 1. `SHIFT`+`Right click` in the folder -> `Open PowerShell window here`
 1. Run `./php -i` (alternatively, in case you receive `'php' not recognized`, run `./php -r "phpinfo();"` and press Enter)
+    * *In powershell you can use `.\php -i | clip.exe` to sent the output directly to clipboard.*
 1. Copy the output
 1. Paste it here https://xdebug.org/wizard.php and follow the instructions which basically say:
 1. Click download
