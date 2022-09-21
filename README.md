@@ -176,8 +176,8 @@ It's possible to instruct the SDK to fill and return your own predefined models.
 * `TypeMapperInterface` (required) - to provide mapping of Kontent.ai content types to your models
 * `PropertyMapperInterface` (optional) - to change the default behavior of property mapping (the default property translation works like this: 'content_type' -> 'contentType')
 * `ValueConverterInterface` (optional) - to change the way content element types are mapped to PHP types
-* `ContentLinkUrlResolverInterface` (optional) - to change the way the links in Rich text elements are resolved see [Resolving links to content items](./wiki/Resolving-links-to-content-items).
-* `InlineLinkedItemsResolverInterface` (optional) - to change the way content items in Rich text elements are resolved see [Resolving content items and components in Rich text](./wiki/Resolving-content-items-and-components-in-Rich-text).
+* `ContentLinkUrlResolverInterface` (optional) - to change the way the links in Rich text elements are resolved see [Resolving links to content items](./wiki/Resolving-links-to-content-items.md).
+* `InlineLinkedItemsResolverInterface` (optional) - to change the way content items in Rich text elements are resolved see [Resolving content items and components in Rich text](./wiki/Resolving-content-items-and-components-in-Rich-text.md).
 
 The default implementation of all the interfaces can be found in a class called [`DefaultMapper`](./src/Kontent/Ai/Delivery/DefaultMapper.php).
 
@@ -231,11 +231,11 @@ Check out the [contributing](./CONTRIBUTING.md) page to see the best places to f
 
 ### Developing on Windows
 
-Have a look at our cool [tutorial](./wiki/Developing-PHP-in-Visual-Studio-Code-for-Dummies) on developing PHP on Windows with Visual Studio Code!
+Have a look at our cool [tutorial](./wiki/Developing-PHP-in-Visual-Studio-Code-for-Dummies.md) on developing PHP on Windows with Visual Studio Code!
 
 ### Developing on Linux
 
-Do you prefer penguins? Check out our [tutorials](./wiki/Configuring-PHP-Storm-on-Linux) on developing PHP on Linux with PhpStorm!
+Do you prefer penguins? Check out our [tutorials](./wiki/Configuring-PHP-Storm-on-Linux.md) on developing PHP on Linux with PhpStorm!
 
 ### Wall of Fame
 
