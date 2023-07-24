@@ -49,6 +49,8 @@ extension=openssl
 1. Add `c:\php` to your PATH environment variable
 1. Add key: `XDEBUG_CONFIG` with value: `idekey=VSCODE` to your System Variables
 
+> See the differences for multiple XDebug configurations https://stackoverflow.com/a/70351090/3529135.
+
 ## Install Visual Studio Code
 
 1. Download and install VS Code https://code.visualstudio.com/
