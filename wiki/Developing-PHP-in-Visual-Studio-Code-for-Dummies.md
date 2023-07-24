@@ -31,8 +31,8 @@ extension=openssl
 1. Extract it to `C:\php\ext`
 1. Open `c:\php\php.ini` and append the XDebug section to the end of the file (if it's already there, adjust it accordingly):
 
-   ```plain
-   [XDebug]
+   ```ini
+   [XDebug] ; for XDebug v 2.x.x
    zend_extension = php_xdebug-3.1.3-8.0-vs16-nts-x86_64.dll ; Use the name of the DLL you copied to ext folder
    xdebug.default_enable = 1
    xdebug.scream = 1
@@ -43,7 +43,25 @@ extension=openssl
    xdebug.remote_enable = 1
    xdebug.remote_autostart  = 1
    xdebug.remote_host=127.0.0.1
-   xdebug.remote_port = 9000
+   xdebug.remote_port = 9003
+   ```
+
+   ```ini
+   [XDebug]; for XDebug v3.x.x https://stackoverflow.com/questions/43783482/visual-studio-code-php-debugging-not-working/70351090#70351090
+   xdebug.mode = coverage ; or debug
+   xdebug.start_with_request = yes
+   zend_extension = "C:\php\ext\php_xdebug-3.2.2-8.2-vs16-x86_64.dll" ; Use the name of the DLL you copied to ext folder
+   xdebug.stopOnEntry = true
+   xdebug.profiler_enable = off
+   xdebug.profiler_enable_trigger = Off
+   xdebug.profiler_output_name = cachegrind.out.%t.%p
+   xdebug.output_dir ="c:\php\tmp"
+   xdebug.show_local_vars=0
+   xdebug.remote_handler = "dbgp"
+   xdebug.client_host = "127.0.0.1"
+   xdebug.log = "C:\php\tmp\xdebug.txt"
+   xdebug.client_port = 9003
+   xdebug.remote_cookie_expire_time = 36000
    ```
 
 1. Add `c:\php` to your PATH environment variable
