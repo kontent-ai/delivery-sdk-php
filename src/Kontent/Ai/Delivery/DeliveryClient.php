@@ -222,7 +222,7 @@ class DeliveryClient
      *
      * @param $params queryParams Specification of parameters for Taxonomy retrieval
      *
-     * @return array of retrieved Taxonomies
+     * @return object with array of retrieved Taxonomies
      */
     public function getTaxonomies($params)
     {

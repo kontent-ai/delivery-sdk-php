@@ -28,6 +28,7 @@ class DeliveryClientTest extends TestCase
         $previewKey = 'previewKey';
         $client = new DeliveryClient($this->getProjectId(), 'previewKey');
         $authorizationHeaderValue = Request::d('headers')['Authorization'];
+        $x = Request::d(null);
 
         $this->assertEquals('Bearer '.$previewKey, $authorizationHeaderValue);
     }

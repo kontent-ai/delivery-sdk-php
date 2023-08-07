@@ -22,7 +22,7 @@ class ContentTypeFactoryTest extends TestCase
     {
         $client = $this->getClient();
         $actual = $client->getElement('coffee', 'processing');
-
+        
         $this->assertEquals('Processing', $actual->name);
     }
 
