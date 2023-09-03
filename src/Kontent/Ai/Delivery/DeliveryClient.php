@@ -75,18 +75,18 @@ class DeliveryClient
     /**
      * Creates a new instance of DeliveryClient.
      *
-     * @param string $projectId                Kontent.ai Delivery API Project ID
+     * @param string $environmentId                Kontent.ai Delivery API Environment ID
      * @param string $previewApiKey            Kontent.ai Delivery API Preview API key
      * @param string $securedProductionApiKey  Kontent.ai Delivery API Secured production API key
      * @param bool   $waitForLoadingNewContent Gets whether you want to wait for updated content. (Useful for webhooks.)
      * @param bool   $debugRequests            Switches the HTTP client to debug mode
      * @param int    $retryAttempts            Number of times the client will retry to connect to the Kontent.ai API on failures per request
      */
-    public function __construct(string $projectId, string $previewApiKey = null, string $securedProductionApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null, int $retryAttempts = null)
+    public function __construct(string $environmentId, string $previewApiKey = null, string $securedProductionApiKey = null, bool $waitForLoadingNewContent = null, bool $debugRequests = null, int $retryAttempts = null)
     {
         $this->previewApiKey = $previewApiKey;
         $this->previewMode = !is_null($previewApiKey);
-        $this->urlBuilder = new UrlBuilder($projectId, $this->previewMode);
+        $this->urlBuilder = new UrlBuilder($environmentId, $this->previewMode);
         $this->securedProductionApiKey = $securedProductionApiKey;
         $this->securedMode = !is_null($securedProductionApiKey);
         $this->waitForLoadingNewContent = $waitForLoadingNewContent ?? $this->waitForLoadingNewContent;

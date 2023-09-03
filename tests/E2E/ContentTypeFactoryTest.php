@@ -10,11 +10,11 @@ class ContentTypeFactoryTest extends TestCase
 {
     public function getClient($previewApiKey = null)
     {
-        $projectId = '975bf280-fd91-488c-994c-2f04416e5ee3';
+        $environmentId = '975bf280-fd91-488c-994c-2f04416e5ee3';
         if (is_null($previewApiKey)) {
-            return new DeliveryClient($projectId);
+            return new DeliveryClient($environmentId);
         } else {
-            return new DeliveryClient($projectId, $previewApiKey);
+            return new DeliveryClient($environmentId, $previewApiKey);
         }
     }
 
