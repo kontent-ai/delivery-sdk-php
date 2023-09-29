@@ -46,7 +46,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 The `DeliveryClient` class is the main class of the SDK. Using this class, you can retrieve content from your Kontent.ai projects.
 
-To create an instance of the class, you need to provide a [project ID](https://kontent.ai/learn/tutorials/develop-apps/get-content/get-content-items#a-1-find-your-project-id).
+To create an instance of the class, you need to provide a [environment ID](https://kontent.ai/learn/tutorials/develop-apps/get-content/get-content-items#a-1-find-your-project-id).
 
 ```php
 use Kontent\Ai\Delivery\DeliveryClient;
@@ -127,12 +127,12 @@ $response = $client->getTaxonomy('persona');
 
 ## Previewing unpublished content
 
-To retrieve unpublished content, you need to create a `DeliveryClient` with both Project ID and Preview API key. Each Kontent.ai project has its own Preview API key.
+To retrieve unpublished content, you need to create a `DeliveryClient` with both Environment ID and Preview API key. Each Kontent.ai project has its own Preview API key.
 
 ```php
 // Note: Within a single project, we recommend that you work with only
 // either the production or preview Delivery API, not both.
-$client = new DeliveryClient('YOUR_PROJECT_ID', 'YOUR_PREVIEW_API_KEY');
+$client = new DeliveryClient('YOUR_ENVIRONMENT_ID', 'YOUR_PREVIEW_API_KEY');
 ```
 
 For more details, see [Previewing unpublished content using the Delivery API](https://kontent.ai/learn/tutorials/develop-apps/build-strong-foundation/set-up-preview#a-get-the-latest-version-of-everything).
