@@ -24,7 +24,7 @@
     ],
     "require": {
         "php": "^7.0 || ^8.0",
-        "nategood/httpful": "^0.2.20",
+        "nategood/httpful": "^0.2.20 || ^0.3 || ^1.0",
         "kub-at/php-simple-html-dom-parser": "^1.9"
     },
     "require-dev": {

@@ -370,6 +370,7 @@ class QueryParams implements \ArrayAccess
      * @param mixed $offset
      * @param mixed $value
      */
+	#[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -387,7 +388,7 @@ class QueryParams implements \ArrayAccess
      *
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
@@ -398,6 +399,7 @@ class QueryParams implements \ArrayAccess
      *
      * @param mixed $offset
      */
+	#[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->data[$offset]);
@@ -411,6 +413,7 @@ class QueryParams implements \ArrayAccess
      *
      * @return mixed|null
      */
+	#[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->data[$offset]) ? $this->data[$offset] : null;
