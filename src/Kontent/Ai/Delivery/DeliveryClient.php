@@ -7,6 +7,7 @@ namespace Kontent\Ai\Delivery;
 
 use Httpful\Request;
 use Httpful\Http;
+use Httpful\Response;
 use Kontent\Ai\Delivery\Models\Shared\Pagination;
 use InvalidArgumentException;
 use Exception;
@@ -72,7 +73,22 @@ class DeliveryClient
      */
     public $modelBinder = null;
 
-    /**
+	/**
+	 * Last request made
+	 *
+	 * @var Request|null
+	 */
+	public $lastRequest;
+
+	/**
+	 * Response from last request made
+	 *
+	 * @var Response
+	 */
+	public $lastResponse;
+
+
+	/**
      * Creates a new instance of DeliveryClient.
      *
      * @param string $projectId                Kontent.ai Delivery API Project ID

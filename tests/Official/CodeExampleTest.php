@@ -8,7 +8,11 @@ use PHPUnit\Framework\TestCase;
 
 class CodeExamplesTests extends TestCase
 {
-    protected function setUp(): void
+	/** @var DeliveryClient */
+	private $client;
+
+
+	protected function setUp(): void
     {
         $this->client = new DeliveryClient('975bf280-fd91-488c-994c-2f04416e5ee3');
     }
