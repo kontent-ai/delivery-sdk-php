@@ -83,7 +83,7 @@ class DeliveryClient
 	/**
 	 * Response from last request made
 	 *
-	 * @var Response
+	 * @var Response|null
 	 */
 	public $lastResponse;
 
