@@ -1,3 +1,8 @@
+> [!WARNING]
+> **This SDK has been archived and is no longer maintained.**
+> 
+> No further updates, bug fixes, security patches, or support will be provided. The SDK is available as-is for legacy projects, but its use in new implementations is not recommended.
+
 # Kontent.ai Delivery SDK for PHP
 
 [![Build & Test & Report](https://github.com/kontent-ai/delivery-sdk-php/actions/workflows/integrate.yml/badge.svg)](https://github.com/kontent-ai/delivery-sdk-php/actions/workflows/integrate.yml)
