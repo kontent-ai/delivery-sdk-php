@@ -11,11 +11,11 @@ namespace Kontent\Ai\Delivery;
 class UrlBuilder
 {
     /**
-     * Gets or sets the Project identifier.
+     * Gets or sets the Environment identifier.
      *
      * @var string
      */
-    public $projectID = null;
+    public $environmentID = null;
     /**
      * Gets or sets whether the Preview API should be used. If TRUE, <see cref="PreviewApiKey"/> needs to be set as well.
      *
@@ -37,12 +37,12 @@ class UrlBuilder
     /**
      * UrlBuilder constructor.
      *
-     * @param $projectID
+     * @param $environmentID
      * @param false $usePreviewApi
      */
-    public function __construct(string $projectID, bool $usePreviewApi = null)
+    public function __construct(string $environmentID, bool $usePreviewApi = null)
     {
-        $this->projectID = $projectID;
+        $this->environmentID = $environmentID;
         $this->usePreviewApi = $usePreviewApi ?? $this->usePreviewApi;
     }
 
@@ -156,7 +156,7 @@ class UrlBuilder
     {
         $segments = array(
             trim($this->usePreviewApi ? self::PREVIEW_ENDPOINT : self::PRODUCTION_ENDPOINT, '/'),
-            trim($this->projectID, '/'),
+            trim($this->environmentID, '/'),
             trim($endpoint, '/'),
         );
         $url = implode('/', $segments);
